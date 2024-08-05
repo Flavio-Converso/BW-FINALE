@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Team_5.Context;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//CONNECTION
+var conn = builder.Configuration.GetConnectionString("SqlServer");
+builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(conn));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
