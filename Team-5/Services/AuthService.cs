@@ -1,0 +1,6 @@
+﻿namespace Team_5.Services
+{
+    public class AuthService
+    {
+    }
+}
