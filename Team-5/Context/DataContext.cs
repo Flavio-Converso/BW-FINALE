@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Team_5.Models;
+using Team_5.Models.Auth;
+using Team_5.Models.Clinic;
 
 namespace Team_5.Context
 {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Team_5.Models
+namespace Team_5.Models.Auth
 {
     [Index(nameof(Username), IsUnique = true)]
     [Index(nameof(Email), IsUnique = true)]

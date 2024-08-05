@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Team_5.Models.Auth;
 
-namespace Team_5.Models
+namespace Team_5.Models.Clinic
 {
     [Index(nameof(CF), IsUnique = true)]
     public class Owners
