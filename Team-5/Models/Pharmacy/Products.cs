@@ -6,7 +6,7 @@ namespace Team_5.Models.Pharmacy
 {
     public class Products
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdProduct { get; set; }
         [Required]
         [StringLength(50)]
@@ -16,7 +16,7 @@ namespace Team_5.Models.Pharmacy
         public required string Type { get; set; }
         [Required]
         [StringLength(50)]
-        public required string Use {  get; set; }
+        public required string Use { get; set; }
         [Required]
         public required int Quantity { get; set; }
         [Required]

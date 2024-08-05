@@ -5,7 +5,7 @@ namespace Team_5.Models.Pharmacy
 {
     public class Companies
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdCompany { get; set; }
         [Required]
         [StringLength(50)]

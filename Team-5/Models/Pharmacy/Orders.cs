@@ -9,7 +9,7 @@ namespace Team_5.Models.Pharmacy
 
     public class Orders
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdOrder { get; set; }
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Order quantity must be at least 1.")]
@@ -20,7 +20,7 @@ namespace Team_5.Models.Pharmacy
         [StringLength(50)]
         public string? PrescriptionNumber { get; set; }
         [Required]
-        public required int IdProduct {  get; set; }
+        public required int IdProduct { get; set; }
         [ForeignKey(nameof(IdProduct))]
         public required Products Product { get; set; }
         [Required]

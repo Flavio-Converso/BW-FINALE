@@ -5,7 +5,7 @@ namespace Team_5.Models.Pharmacy
 {
     public class Lockers
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdLocker { get; set; }
 
         public List<Drawers> Drawers { get; set; } = [];

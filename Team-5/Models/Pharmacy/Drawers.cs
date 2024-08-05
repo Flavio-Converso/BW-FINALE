@@ -5,7 +5,7 @@ namespace Team_5.Models.Pharmacy
 {
     public class Drawers
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdDrawer { get; set; }
 
         [Required]
