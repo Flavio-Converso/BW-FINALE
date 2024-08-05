@@ -4,22 +4,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Team_5.Models
 {
-   
+    [Index(nameof(CF), IsUnique = true)]
     public class Owners
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdOwner { get; set; }
+
         [Required]
         [StringLength(50)]
         public required string Name { get; set; }
+
         [Required]
         [StringLength(50)]
         public required string Surname { get; set; }
-        
-        public int PhoneNumber { get; set; }
+
+        [StringLength(15)]
+        public string? PhoneNumber { get; set; }
+
         [Required]
         [StringLength(16)]
-        public required string CF {  get; set; }
+        public required string CF { get; set; }
+        //RIFERIMENTI EF
 
         [Required]
         public required Users User { get; set; }

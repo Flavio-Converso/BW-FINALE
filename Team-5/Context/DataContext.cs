@@ -3,9 +3,9 @@ using Team_5.Models;
 
 namespace Team_5.Context
 {
-    public class DataContext: DbContext
+    public class DataContext : DbContext
     {
-        public virtual DbSet<Animals>Animals { get; set; }
+        public virtual DbSet<Animals> Animals { get; set; }
         public virtual DbSet<Breeds> Breeds { get; set; }
         public virtual DbSet<Examinations> Examinations { get; set; }
         public virtual DbSet<Hospitalizations> Hospitalizations { get; set; }

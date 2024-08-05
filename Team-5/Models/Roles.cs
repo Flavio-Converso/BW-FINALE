@@ -8,13 +8,14 @@ namespace Team_5.Models
 
     public class Roles
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdRole { get; set; }
         [Required]
         [StringLength(50)]
         public required string Name { get; set; }
+        //RIFERIMENTI EF
 
         [Required]
-        public List<Users>Users { get; set; } = [];
+        public List<Users> Users { get; set; } = [];
     }
 }
