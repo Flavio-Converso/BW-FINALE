@@ -8,18 +8,20 @@ namespace Team_5.Controllers
     [Authorize]
     public class AnimalsController : Controller
     {
-        private readonly IAnimalsService _animalsService;
+        private readonly IAnimalsService _animalsSvc;
+        private readonly IBreedsService _breedSvc;
 
-        public AnimalsController(IAnimalsService animalsService)
+        public AnimalsController(IAnimalsService animalsService, IBreedsService breedsService)
         {
-            _animalsService = animalsService;
+            _animalsSvc = animalsService;
+            _breedSvc = breedsService;
         }
 
         [HttpGet]
 
         public async Task<IActionResult> CreateAnimal()
         {
-            var viewModel = await _animalsService.GetCreateAnimalViewModelAsync();
+            var viewModel = await _animalsSvc.GetCreateAnimalViewModelAsync();
             return View(viewModel);
         }
 
@@ -32,7 +34,7 @@ namespace Team_5.Controllers
             {
                 try
                 {
-                    var animal = await _animalsService.CreateAnimalAsync(viewModel);
+                    var animal = await _animalsSvc.CreateAnimalAsync(viewModel);
                     return RedirectToAction("AnimalList");
                 }
                 catch (ArgumentException ex)
@@ -41,13 +43,13 @@ namespace Team_5.Controllers
                 }
             }
 
-            viewModel.Breeds = await _animalsService.GetAllBreedsAsync();
+            viewModel.Breeds = await _breedSvc.GetAllBreedsAsync();
             return View(viewModel);
         }
 
         public async Task<IActionResult> AnimalList()
         {
-            var animals = await _animalsService.GetAllAnimalsAsync();
+            var animals = await _animalsSvc.GetAllAnimalsAsync();
             return View(animals);
         }
 
@@ -59,7 +61,7 @@ namespace Team_5.Controllers
         [HttpGet("Animals/GetAnimalDataByMicrochip")]
         public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
         {
-            var animals = await _animalsService.GetAnimalByMicrochipAsync(microchipId);
+            var animals = await _animalsSvc.GetAnimalByMicrochipAsync(microchipId);
             return Ok(animals);
         }
     }

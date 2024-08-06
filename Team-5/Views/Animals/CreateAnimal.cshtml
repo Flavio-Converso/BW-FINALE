@@ -16,7 +16,7 @@
 
     <div class="form-group">
         <label asp-for="RegistrationDate" class="control-label"></label>
-        <input asp-for="RegistrationDate" class="form-control" type="date" />
+        <input asp-for="RegistrationDate" class="form-control" type="date" disabled />
         <span asp-validation-for="RegistrationDate" class="text-danger"></span>
     </div>
 
@@ -53,7 +53,7 @@
     <div class="form-group">
         <label asp-for="SelectedBreedId" class="control-label"></label>
         <select asp-for="SelectedBreedId" asp-items="@(new SelectList(Model.Breeds, "IdBreed", "Name"))" class="form-control">
-            <option value="">Select a breed</option>
+            <option value="" disabled selected>Select a breed</option>
         </select>
         <span asp-validation-for="SelectedBreedId" class="text-danger"></span>
     </div>
