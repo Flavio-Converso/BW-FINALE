@@ -45,8 +45,8 @@ builder.Services.AddAuthorization(options =>
 
 //SERVICES
 builder.Services
-    .AddScoped<IAuthService, AuthService>();
-//other services
+    .AddScoped<IAuthService, AuthService>()
+    .AddScoped<IMasterService, MasterService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
