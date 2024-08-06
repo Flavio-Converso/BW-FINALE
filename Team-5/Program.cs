@@ -48,6 +48,7 @@ builder.Services
     .AddScoped<IAuthService, AuthService>()
     .AddScoped<IAnimalsService, AnimalsService>()
     .AddScoped<IBreedsService, BreedsService>();
+    .AddScoped<IExaminationService, ExaminationService>();
 //other services
 
 // Add services to the container.
