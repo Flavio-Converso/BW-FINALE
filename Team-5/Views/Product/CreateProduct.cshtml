@@ -1,58 +1,68 @@
-﻿@model Team_5.Models.Pharmacy.Products
+﻿@using Team_5.Models.Pharmacy
+@model Team_5.Models.Pharmacy.Products
 
 @{
     ViewData["Title"] = "CreateProduct";
+    var companies = ViewBag.Companies as List<Companies>;
 }
 
-<h1>CreateProduct</h1>
+<h1>Aggiungi Prodotto</h1>
 
-<h4>Products</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateProduct">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
+                <label asp-for="ProductName" class="control-label">Inserisci nome prodotto:</label>
                 <input asp-for="ProductName" class="form-control" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+                <label asp-for="Type" class="control-label mt-2">Inserisci tipo prodotto:</label>
+                <select asp-for="Type" class="form-control">
+                    <option value="" disabled selected>Seleziona un opzione</option>
+                    <option value="Prodotto">Prodotto</option>
+                    <option value="Farmaco">Farmaco</option>
+                </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Use" class="control-label"></label>
+                <label asp-for="Use" class="control-label mt-2">Inserisci uso prodotto:</label>
                 <input asp-for="Use" class="form-control" />
                 <span asp-validation-for="Use" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
+                <label asp-for="Quantity" class="control-label mt-2">Inserisci quantità:</label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div class="form-group form-check mt-2">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Availability" /> @Html.DisplayNameFor(model => model.Availability)
+                    <input class="form-check-input" asp-for="Availability" />
+                    Disponibile
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="Company.IdCompany" class="control-label"></label>
-                <input asp-for="Company.IdCompany" class="form-control" />
+                <label asp-for="Company.IdCompany" class="control-label mt-2">Inserisci compagnia farmaceutica:</label>
+                <select asp-for="Company.IdCompany" class="form-control">
+                    <option value="" disabled selected>Seleziona un opzione</option>
+                    @foreach (var c in companies)
+                    {
+                        <option value="@c.IdCompany">@c.CompanyName</option>
+                    }
+                </select>
                 <span asp-validation-for="Company.IdCompany" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary mt-2" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

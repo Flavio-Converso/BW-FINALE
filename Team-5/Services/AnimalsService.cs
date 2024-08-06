@@ -10,20 +10,21 @@ namespace Team_5.Services
     {
         private readonly DataContext _ctx;
         private readonly IBreedsService _breedSvc;
+        private readonly IOwnerService _ownerSvc;
 
-        public AnimalsService(DataContext dataContext, IBreedsService breedsService)
+        public AnimalsService(DataContext dataContext, IBreedsService breedsService, IOwnerService ownerService)
         {
             _ctx = dataContext;
             _breedSvc = breedsService;
+            _ownerSvc = ownerService;
         }
 
         public async Task<Animals> CreateAnimalAsync(CreateAnimalViewModel viewModel)
         {
+            var owner = await _ctx.Owners.FindAsync(viewModel.SelectedOwnerId);
+
             var breed = await _ctx.Breeds.FindAsync(viewModel.SelectedBreedId);
-            if (breed == null)
-            {
-                throw new ArgumentException("Invalid breed ID.");
-            }
+
 
             var existingAnimal = await _ctx.Animals
                 .FirstOrDefaultAsync(a => a.NumMicrochip == viewModel.NumMicrochip);
@@ -50,7 +51,7 @@ namespace Team_5.Services
                 NumMicrochip = viewModel.NumMicrochip,
                 Image = imageBytes,
                 Color = viewModel.Color,
-                OwnerId = viewModel.OwnerId,
+                Owner = owner,
                 Breed = breed
             };
 
@@ -67,6 +68,7 @@ namespace Team_5.Services
                 Name = "",
                 RegistrationDate = DateTime.Now,
                 Color = "",
+                Owners = await _ownerSvc.GetAllOwnersAsync(),
                 Breeds = await _breedSvc.GetAllBreedsAsync()
             };
 
@@ -75,6 +77,7 @@ namespace Team_5.Services
 
         public async Task<List<Animals>> GetAllAnimalsAsync()
         {
+
             return await _ctx.Animals.Include(a => a.Breed).ToListAsync();
         }
 
