@@ -5,7 +5,14 @@ namespace Team_5.Services.Interfaces
 {
     public interface IAnimalsService
     {
-        public Task<List<Breeds>> GetAllBreedsAsync();
-        public Task<Animals> CreateAnimals(CreateAnimalViewModel viewModel);
+        Task<List<Breeds>> GetAllBreedsAsync();
+
+        Task<Animals> CreateAnimalAsync(CreateAnimalViewModel viewModel);
+
+        Task<CreateAnimalViewModel> GetCreateAnimalViewModelAsync();
+
+        Task<List<Animals>> GetAllAnimalsAsync();
+
+        Task<List<Animals>> GetAnimalByMicrochipAsync(string microchipId);
     }
 }

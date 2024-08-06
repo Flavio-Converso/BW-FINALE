@@ -1,73 +1,66 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Team_5.Context;
-using Team_5.Models.Clinic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
-public class AnimalsController : Controller
+namespace Team_5.Controllers
 {
-    private readonly IAnimalsService _animalsService;
-    private readonly IBreedsService _breedsService;
-    private readonly DataContext _dataContext;
-
-    public AnimalsController(IAnimalsService animalsService, IBreedsService breedsService, DataContext dataContext)
+    [Authorize]
+    public class AnimalsController : Controller
     {
-        _animalsService = animalsService;
-        _breedsService = breedsService;
-        _dataContext = dataContext;
-    }
+        private readonly IAnimalsService _animalsService;
 
-    // GET: /Animals/Create
-    public async Task<IActionResult> CreateAnimal()
-    {
-        var viewModel = new CreateAnimalViewModel
+        public AnimalsController(IAnimalsService animalsService)
         {
-            Name = "Fido",
-            RegistrationDate = DateTime.Now,
-            Color = "Brown",
-            Breeds = await _animalsService.GetAllBreedsAsync()
-        };
-
-        return View(viewModel); // Returns a view with a form for creating an animal
-    }
-
-    // POST: /Animals/Create
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> CreateAnimal(CreateAnimalViewModel viewModel)
-    {
-        if (ModelState.IsValid)
-        {
-            try
-            {
-                var animal = await _animalsService.CreateAnimals(viewModel);
-                // Redirect to a success page or display a success message
-                return RedirectToAction("Index", "Home"); // or another appropriate action
-            }
-            catch (ArgumentException ex)
-            {
-                // Handle error, e.g., invalid breed ID
-                ModelState.AddModelError("", ex.Message);
-            }
+            _animalsService = animalsService;
         }
 
-        // If we got this far, something failed. Redisplay the form with the existing data.
-        viewModel.Breeds = await _animalsService.GetAllBreedsAsync();
-        return View(viewModel);
-    }
-    
-    public IActionResult GetAnimalByMicrochip()
-    {
-        return View();
-    }
+        [HttpGet]
 
-    [HttpGet]
-    public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
-    {
-        var a = await _dataContext.Animals.Where(a => a.NumMicrochip == microchipId).ToListAsync();
-        return Ok(a);
+        public async Task<IActionResult> CreateAnimal()
+        {
+            var viewModel = await _animalsService.GetCreateAnimalViewModelAsync();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> CreateAnimal(CreateAnimalViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var animal = await _animalsService.CreateAnimalAsync(viewModel);
+                    return RedirectToAction("AnimalList");
+                }
+                catch (ArgumentException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+
+            viewModel.Breeds = await _animalsService.GetAllBreedsAsync();
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> AnimalList()
+        {
+            var animals = await _animalsService.GetAllAnimalsAsync();
+            return View(animals);
+        }
+
+        public IActionResult GetAnimalByMicrochip()
+        {
+            return View();
+        }
+
+        [HttpGet("Animals/GetAnimalDataByMicrochip")]
+        public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
+        {
+            var animals = await _animalsService.GetAnimalByMicrochipAsync(microchipId);
+            return Ok(animals);
+        }
     }
-
-
 }
