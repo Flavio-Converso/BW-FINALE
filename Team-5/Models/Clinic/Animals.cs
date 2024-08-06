@@ -16,7 +16,7 @@ namespace Team_5.Models.Clinic
         public required DateTime RegistrationDate { get; set; }
 
         [Required]
-        public required DateTime BirthDate { get; set; }
+        public DateTime BirthDate { get; set; } = DateTime.MinValue;
 
         [StringLength(16)]
         public string? NumMicrochip { get; set; }
@@ -33,13 +33,11 @@ namespace Team_5.Models.Clinic
         [ForeignKey(nameof(OwnerId))]
         public Owners? Owner { get; set; }
 
-        public List<Hospitalizations>? Hospitalization { get; set; } = [];
+        public List<Hospitalizations>? Hospitalization { get; set; } = new();
 
-        public List<Examinations>? Examination { get; set; } = [];
+        public List<Examinations>? Examination { get; set; } = new();
 
         [Required]
         public required Breeds Breed { get; set; }
-
-
     }
 }
