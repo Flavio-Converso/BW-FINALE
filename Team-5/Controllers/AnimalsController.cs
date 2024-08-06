@@ -43,7 +43,7 @@ public class AnimalsController : Controller
                 ModelState.AddModelError("", $"Errore durante la creazione dell'animale: {ex.Message}");
             }
         }
-        // Se il modello non è valido o c'è stato un errore, ritorna la vista con il modello corrente
+     
         var breeds = _breedsService.GetAllBreeds();
         var model = new CreateAnimalViewModel
         {
