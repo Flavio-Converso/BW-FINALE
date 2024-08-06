@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Team_5.Context;
 using Team_5.Models.Pharmacy;
 using Team_5.Services.Interfaces;
@@ -16,10 +17,13 @@ namespace Team_5.Controllers
         }
 
 
-        public IActionResult CreateProduct()
+        public async Task<IActionResult> CreateProduct()
         {
+            var companies = await _dataContext.Companies.ToListAsync();
+            ViewBag.Companies = companies;
             return View();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct(Products products)
