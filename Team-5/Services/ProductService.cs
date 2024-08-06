@@ -22,7 +22,7 @@ namespace Team_5.Services
                 Type = products.Type,
                 Use = products.Use,
                 Quantity = products.Quantity,
-                Availability = false,
+                Availability = products.Availability,
                 Company = company
             };
 
