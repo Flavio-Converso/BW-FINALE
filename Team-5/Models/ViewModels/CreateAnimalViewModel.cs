@@ -18,7 +18,7 @@ namespace Team_5.Models.ViewModels
         [StringLength(16)]
         public string? NumMicrochip { get; set; }
 
-        public byte[]? Image { get; set; }
+        public IFormFile? Image { get; set; }
 
         [Required]
         [StringLength(20)]

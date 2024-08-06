@@ -9,18 +9,12 @@ namespace Team_5.Services
     {
         private readonly DataContext _dataContext;
         public ProductService(DataContext dataContext) { _dataContext = dataContext; }
+
         public async Task<Products> CreateProducts(Products products)
         {
-            if (products.Company == null || products.Company.IdCompany == 0)
-            {
-                throw new ArgumentException("Invalid company information.");
-            }
 
             var company = await _dataContext.Companies.FirstOrDefaultAsync(c => c.IdCompany == products.Company.IdCompany);
-            if (company == null)
-            {
-                throw new InvalidOperationException("Company not found.");
-            }
+
 
             var product = new Products
             {
@@ -28,7 +22,7 @@ namespace Team_5.Services
                 Type = products.Type,
                 Use = products.Use,
                 Quantity = products.Quantity,
-                Availability = false,
+                Availability = products.Availability,
                 Company = company
             };
 
