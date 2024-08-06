@@ -36,9 +36,9 @@ namespace Team_5.Services
             return await _dataContext.Companies.ToListAsync();
         }
 
-        public Task<List<Products>> GetAllProducts()
+        public async Task<List<Products>> GetAllProducts()
         {
-            throw new NotImplementedException();
+            return await _dataContext.Products.ToListAsync();
         }
     }
 }
