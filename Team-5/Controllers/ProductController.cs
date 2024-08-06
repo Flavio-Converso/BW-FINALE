@@ -9,37 +9,23 @@ namespace Team_5.Controllers
     {
         private readonly IProductService _productService;
         private readonly DataContext _dataContext;
-        public ProductController (IProductService productService,DataContext dataContext)
+        public ProductController(IProductService productService, DataContext dataContext)
         {
             _productService = productService;
             _dataContext = dataContext;
         }
 
-        [HttpGet("CreateProduct")]
+
         public IActionResult CreateProduct()
         {
             return View();
         }
-        [HttpPost("CreateProduct")]
+
+        [HttpPost]
         public async Task<IActionResult> CreateProduct(Products products)
         {
-            if (!ModelState.IsValid)
-            {
-                // Gestisci errori di validazione
-                return View(products);
-            }
-
-            try
-            {
-                var product = await _productService.CreateProducts(products);
-                return RedirectToAction("Index", "Home");
-            }
-            catch (Exception ex)
-            {
-                // Gestisci l'eccezione (puoi loggare l'errore e mostrare un messaggio all'utente)
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View(products);
-            }
+            await _productService.CreateProducts(products);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
