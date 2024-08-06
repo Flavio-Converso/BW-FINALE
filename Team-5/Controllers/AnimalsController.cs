@@ -5,31 +5,51 @@ using Team_5.Services.Interfaces;
 public class AnimalsController : Controller
 {
     private readonly IAnimalsService _animalsService;
+    private readonly IBreedsService _breedsService;
 
-    public AnimalsController(IAnimalsService animalsService)
+    public AnimalsController(IAnimalsService animalsService, IBreedsService breedsService)
     {
         _animalsService = animalsService;
+        _breedsService = breedsService;
     }
-
 
     [HttpGet]
-    public IActionResult CreateAnimal ()
+    public IActionResult CreateAnimal()
     {
-        return View();
+        var breeds = _breedsService.GetAllBreeds();
+
+        var model = new CreateAnimalViewModel
+        {
+            Animal = new Animals(),
+            Breeds = breeds
+        };
+
+        return View(model);
     }
 
-
     [HttpPost]
-    public IActionResult CreateAnimal (Animals animal)
+    [ValidateAntiForgeryToken]
+    public IActionResult CreateAnimal(Animals animal)
     {
-        try
+        if (ModelState.IsValid)
         {
-            var createdAnimal = _animalsService.CreateAnimal(animal);
-            return Ok(createdAnimal);
+            try
+            {
+                var createdAnimal = _animalsService.CreateAnimal(animal);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Errore durante la creazione dell'animale: {ex.Message}");
+            }
         }
-        catch (Exception ex)
+        // Se il modello non è valido o c'è stato un errore, ritorna la vista con il modello corrente
+        var breeds = _breedsService.GetAllBreeds();
+        var model = new CreateAnimalViewModel
         {
-            return BadRequest(ex.Message);
-        }
+            Animal = animal,
+            Breeds = breeds
+        };
+        return View(model);
     }
 }

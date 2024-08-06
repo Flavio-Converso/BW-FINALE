@@ -45,7 +45,9 @@ builder.Services.AddAuthorization(options =>
 
 //SERVICES
 builder.Services
-    .AddScoped<IAuthService, AuthService>();
+    .AddScoped<IAuthService, AuthService>()
+    .AddScoped<IAnimalsService, AnimalsService>()
+    .AddScoped<IBreedsService, BreedsService>();
 //other services
 
 // Add services to the container.
