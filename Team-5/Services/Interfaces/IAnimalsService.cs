@@ -1,4 +1,5 @@
 ﻿using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 
 namespace Team_5.Services.Interfaces
 {

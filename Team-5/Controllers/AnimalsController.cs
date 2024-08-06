@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 public class AnimalsController : Controller
