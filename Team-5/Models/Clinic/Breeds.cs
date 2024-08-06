@@ -12,7 +12,7 @@ namespace Team_5.Models.Clinic
 
         [Required]
         [StringLength(50)]
-        public required string Name { get; set; }
+        public string Name { get; set; }
 
     }
 }

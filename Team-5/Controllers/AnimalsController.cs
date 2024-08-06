@@ -20,7 +20,15 @@ public class AnimalsController : Controller
 
         var model = new CreateAnimalViewModel
         {
-            Animal = new Animals(),
+            Animal = new Animals
+            {
+                // Assicurati che tutti i membri obbligatori siano inizializzati, se possibile
+                RegistrationDate = DateTime.Now,
+                BirthDate = DateTime.Now,
+                Color = "", // Può essere una stringa vuota per l'inizio
+                Name = "",
+                Breed = breeds.FirstOrDefault() ?? new Breeds()
+            },
             Breeds = breeds
         };
 
@@ -35,6 +43,18 @@ public class AnimalsController : Controller
         {
             try
             {
+                
+                if (animal.Breed != null && animal.Breed.IdBreed == 0)
+                {
+                    ModelState.AddModelError("Animal.Breed", "Razza non valida.");
+                    return View(new CreateAnimalViewModel
+                    {
+                        Animal = animal,
+                        Breeds = _breedsService.GetAllBreeds()
+                    });
+                }
+
+                
                 var createdAnimal = _animalsService.CreateAnimal(animal);
                 return RedirectToAction("Index");
             }
@@ -43,7 +63,8 @@ public class AnimalsController : Controller
                 ModelState.AddModelError("", $"Errore durante la creazione dell'animale: {ex.Message}");
             }
         }
-     
+
+        
         var breeds = _breedsService.GetAllBreeds();
         var model = new CreateAnimalViewModel
         {
@@ -52,4 +73,5 @@ public class AnimalsController : Controller
         };
         return View(model);
     }
+
 }
