@@ -1,0 +1,46 @@
+﻿@model List<Team_5.Models.Clinic.Animals>
+
+@{
+    ViewData["Title"] = "Animal List";
+}
+
+<h2>Animal List</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Registration Date</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">Breed</th>
+            <th scope="col">Color</th>
+            <th scope="col">Microchip Number</th>
+            <th scope="col">Owner ID</th>
+            <th scope="col">Image</th>       
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>@animal.Name</td>
+                <td>@animal.RegistrationDate.ToString("yyyy-MM-dd")</td>
+                <td>@animal.BirthDate.ToString("yyyy-MM-dd")</td>
+                <td>@animal.Breed?.Name</td>
+                <td>@animal.Color</td>
+                <td>@animal.NumMicrochip</td>
+                <td>@animal.OwnerId</td>
+                <td>
+                    @if (animal.Image != null && animal.Image.Length > 0)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(animal.Image)" alt="Animal Image" style="width: 100px; height: auto;" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </td>              
+            </tr>
+        }
+    </tbody>
+</table>
