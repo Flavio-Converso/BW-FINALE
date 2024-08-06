@@ -1,77 +1,73 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Team_5.Context;
 using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 public class AnimalsController : Controller
 {
     private readonly IAnimalsService _animalsService;
     private readonly IBreedsService _breedsService;
+    private readonly DataContext _dataContext;
 
-    public AnimalsController(IAnimalsService animalsService, IBreedsService breedsService)
+    public AnimalsController(IAnimalsService animalsService, IBreedsService breedsService, DataContext dataContext)
     {
         _animalsService = animalsService;
         _breedsService = breedsService;
+        _dataContext = dataContext;
     }
 
-    [HttpGet]
-    public IActionResult CreateAnimal()
+    // GET: /Animals/Create
+    public async Task<IActionResult> CreateAnimal()
     {
-        var breeds = _breedsService.GetAllBreeds();
-
-        var model = new CreateAnimalViewModel
+        var viewModel = new CreateAnimalViewModel
         {
-            Animal = new Animals
-            {
-                // Assicurati che tutti i membri obbligatori siano inizializzati, se possibile
-                RegistrationDate = DateTime.Now,
-                BirthDate = DateTime.Now,
-                Color = "", // Può essere una stringa vuota per l'inizio
-                Name = "",
-                Breed = breeds.FirstOrDefault() ?? new Breeds()
-            },
-            Breeds = breeds
+            Name = "Fido",
+            RegistrationDate = DateTime.Now,
+            Color = "Brown",
+            Breeds = await _animalsService.GetAllBreedsAsync()
         };
 
-        return View(model);
+        return View(viewModel); // Returns a view with a form for creating an animal
     }
 
+    // POST: /Animals/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult CreateAnimal(Animals animal)
+    public async Task<IActionResult> CreateAnimal(CreateAnimalViewModel viewModel)
     {
         if (ModelState.IsValid)
         {
             try
             {
-                
-                if (animal.Breed != null && animal.Breed.IdBreed == 0)
-                {
-                    ModelState.AddModelError("Animal.Breed", "Razza non valida.");
-                    return View(new CreateAnimalViewModel
-                    {
-                        Animal = animal,
-                        Breeds = _breedsService.GetAllBreeds()
-                    });
-                }
-
-                
-                var createdAnimal = _animalsService.CreateAnimal(animal);
-                return RedirectToAction("Index");
+                var animal = await _animalsService.CreateAnimals(viewModel);
+                // Redirect to a success page or display a success message
+                return RedirectToAction("Index", "Home"); // or another appropriate action
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
-                ModelState.AddModelError("", $"Errore durante la creazione dell'animale: {ex.Message}");
+                // Handle error, e.g., invalid breed ID
+                ModelState.AddModelError("", ex.Message);
             }
         }
 
-        
-        var breeds = _breedsService.GetAllBreeds();
-        var model = new CreateAnimalViewModel
-        {
-            Animal = animal,
-            Breeds = breeds
-        };
-        return View(model);
+        // If we got this far, something failed. Redisplay the form with the existing data.
+        viewModel.Breeds = await _animalsService.GetAllBreedsAsync();
+        return View(viewModel);
     }
+    
+    public IActionResult GetAnimalByMicrochip()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
+    {
+        var a = await _dataContext.Animals.Where(a => a.NumMicrochip == microchipId).ToListAsync();
+        return Ok(a);
+    }
+
 
 }
