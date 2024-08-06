@@ -49,6 +49,7 @@ builder.Services
     .AddScoped<IMasterService, MasterService>()
     .AddScoped<IAnimalsService, AnimalsService>()
     .AddScoped<IBreedsService, BreedsService>()
+    .AddScoped<IProductService, ProductService>()
     .AddScoped<IExaminationService, ExaminationService>();
 //other services
 
@@ -71,9 +72,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",

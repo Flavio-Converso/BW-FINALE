@@ -30,7 +30,5 @@ namespace Team_5.Models.Clinic
         [Required]
         public required Users User { get; set; }
 
-
-
     }
 }
