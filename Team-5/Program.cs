@@ -1,11 +1,52 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Team_5.Context;
+using Team_5.Services;
+using Team_5.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//CONNECTION
+
+//CONNECTION - DATACONTEXT
 var conn = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddDbContext<DataContext>(opt => opt.UseSqlServer(conn));
+
+
+//AUTH
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Register";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = true;
+        options.Cookie.SameSite = SameSiteMode.Strict;
+    });
+
+
+// POLICIES
+builder.Services.AddAuthorization(options =>
+{
+    // Master Policy
+    options.AddPolicy("MasterPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "master"); // [Authorize(Policy = "MasterPolicy")]
+    });
+
+    // Admin Policy
+    options.AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "admin"); // [Authorize(Policy = "AdminPolicy")]
+    });
+
+});
+
+
+//SERVICES
+builder.Services
+    .AddScoped<IAuthService, AuthService>();
+//other services
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
