@@ -49,6 +49,7 @@ builder.Services
     .AddScoped<IMasterService, MasterService>()
     .AddScoped<IAnimalsService, AnimalsService>()
     .AddScoped<IBreedsService, BreedsService>()
+    .AddScoped<IProductService, ProductService>()
     .AddScoped<IExaminationService, ExaminationService>();
 //other services
 
