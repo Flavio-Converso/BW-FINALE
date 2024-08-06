@@ -18,6 +18,12 @@ namespace Team_5.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateExaminationAsync(Examinations ex)
+        {
+            await _examinationService.CreateExaminationAsync(ex);
+            return RedirectToAction("Index", "Home");
+        }
         // Azione per visualizzare l'elenco delle visite per ciascun animale
         public async Task<IActionResult> ExaminationsList()
         {
@@ -25,11 +31,5 @@ namespace Team_5.Controllers
             return View(esami);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateExaminationAsync(Examinations ex)
-        {
-            await _examinationService.CreateExaminationAsync(ex);
-            return RedirectToAction("Index", "Home");
-        }
     }
 }
