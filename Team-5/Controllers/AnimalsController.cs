@@ -1,14 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Team_5.Context;
 using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 public class AnimalsController : Controller
 {
     private readonly IAnimalsService _animalsService;
+    private readonly IBreedsService _breedsService;
+    private readonly DataContext _dataContext;
 
-    public AnimalsController(IAnimalsService animalsService)
+    public AnimalsController(IAnimalsService animalsService, IBreedsService breedsService, DataContext dataContext)
     {
         _animalsService = animalsService;
+        _breedsService = breedsService;
+        _dataContext = dataContext;
     }
 
     // GET: /Animals/Create
@@ -49,5 +56,18 @@ public class AnimalsController : Controller
         viewModel.Breeds = await _animalsService.GetAllBreedsAsync();
         return View(viewModel);
     }
+    
+    public IActionResult GetAnimalByMicrochip()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
+    {
+        var a = await _dataContext.Animals.Where(a => a.NumMicrochip == microchipId).ToListAsync();
+        return Ok(a);
+    }
+
 
 }
