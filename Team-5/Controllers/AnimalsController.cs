@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Team_5.Context;
 using Team_5.Models.Clinic;
 using Team_5.Services.Interfaces;
 
@@ -6,11 +8,13 @@ public class AnimalsController : Controller
 {
     private readonly IAnimalsService _animalsService;
     private readonly IBreedsService _breedsService;
+    private readonly DataContext _dataContext;
 
-    public AnimalsController(IAnimalsService animalsService, IBreedsService breedsService)
+    public AnimalsController(IAnimalsService animalsService, IBreedsService breedsService, DataContext dataContext)
     {
         _animalsService = animalsService;
         _breedsService = breedsService;
+        _dataContext = dataContext;
     }
 
     [HttpGet]
@@ -43,7 +47,7 @@ public class AnimalsController : Controller
         {
             try
             {
-                
+
                 if (animal.Breed != null && animal.Breed.IdBreed == 0)
                 {
                     ModelState.AddModelError("Animal.Breed", "Razza non valida.");
@@ -54,7 +58,7 @@ public class AnimalsController : Controller
                     });
                 }
 
-                
+
                 var createdAnimal = _animalsService.CreateAnimal(animal);
                 return RedirectToAction("Index");
             }
@@ -64,7 +68,7 @@ public class AnimalsController : Controller
             }
         }
 
-        
+
         var breeds = _breedsService.GetAllBreeds();
         var model = new CreateAnimalViewModel
         {
@@ -74,4 +78,15 @@ public class AnimalsController : Controller
         return View(model);
     }
 
+    public IActionResult GetAnimalByMicrochip()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
+    {
+        var a = await _dataContext.Animals.Where(a => a.NumMicrochip == microchipId).ToListAsync();
+        return Ok(a);
+    }
 }
