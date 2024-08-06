@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Team_5.Models.Clinic.Examinations>
+
+@{
+    ViewData["Title"] = "Lista delle Visite";
+}
+
+<h2>Lista delle Visite</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Data della Visita</th>
+            <th>Nome della Visita</th>
+            <th>Trattamento</th>
+            <th>Animale</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var esame in Model)
+        {
+            <tr>
+                <td>@esame.ExaminationDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                <td>@esame.ExaminationName</td>
+                <td>@esame.Treatment</td>
+                <td>@esame.Animal.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
