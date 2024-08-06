@@ -12,14 +12,17 @@ namespace Team_5.Models.Auth
         public int IdUser { get; set; }
 
         [Required]
-        [StringLength(50)]
+
+        [StringLength(50, MinimumLength = 3)]
         public required string Username { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
         [StringLength(255)]
         public required string Password { get; set; }
 
         [Required]
+        [EmailAddress]
         [StringLength(50)]
         public required string Email { get; set; }
 
