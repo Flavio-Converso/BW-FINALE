@@ -1,4 +1,7 @@
 ﻿using Team_5.Context;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Team_5.Context;
 using Team_5.Models.Clinic;
 using Team_5.Services.Interfaces;
 
@@ -24,6 +27,14 @@ namespace Team_5.Services
             await _dataContext.Examinations.AddAsync(examination);
             await _dataContext.SaveChangesAsync();
             return examination;
+
+
+        public async Task<List<Examinations>> GetAllExaminationsAsync()
+        {
+            return await _dataContext.Examinations
+                .Include(e => e.Animal)
+                .OrderByDescending(e => e.ExaminationDate)
+                .ToListAsync();
         }
     }
 }
