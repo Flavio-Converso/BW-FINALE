@@ -37,13 +37,15 @@ public class AnimalsController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult CreateAnimal(Animals animal)
+    public IActionResult CreateAnimal(CreateAnimalViewModel model)
     {
+        var animal = model.Animal;
+
         if (ModelState.IsValid)
         {
             try
             {
-                
+                // Assicurati che la razza sia valida
                 if (animal.Breed != null && animal.Breed.IdBreed == 0)
                 {
                     ModelState.AddModelError("Animal.Breed", "Razza non valida.");
@@ -54,7 +56,7 @@ public class AnimalsController : Controller
                     });
                 }
 
-                
+                // Chiamata al servizio per creare l'animale
                 var createdAnimal = _animalsService.CreateAnimal(animal);
                 return RedirectToAction("Index");
             }
@@ -64,14 +66,14 @@ public class AnimalsController : Controller
             }
         }
 
-        
+        // Ritorna la vista con eventuali errori di validazione
         var breeds = _breedsService.GetAllBreeds();
-        var model = new CreateAnimalViewModel
+        var viewModel = new CreateAnimalViewModel
         {
             Animal = animal,
             Breeds = breeds
         };
-        return View(model);
+        return View(viewModel);
     }
 
 }
