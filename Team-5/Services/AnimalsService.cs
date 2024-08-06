@@ -8,22 +8,24 @@ namespace Team_5.Services
 {
     public class AnimalsService : IAnimalsService
     {
-        private readonly DataContext _dataContext;
+        private readonly DataContext _ctx;
+        private readonly IBreedsService _breedSvc;
 
-        public AnimalsService(DataContext dataContext)
+        public AnimalsService(DataContext dataContext, IBreedsService breedsService)
         {
-            _dataContext = dataContext;
+            _ctx = dataContext;
+            _breedSvc = breedsService;
         }
 
         public async Task<Animals> CreateAnimalAsync(CreateAnimalViewModel viewModel)
         {
-            var breed = await _dataContext.Breeds.FindAsync(viewModel.SelectedBreedId);
+            var breed = await _ctx.Breeds.FindAsync(viewModel.SelectedBreedId);
             if (breed == null)
             {
                 throw new ArgumentException("Invalid breed ID.");
             }
 
-            var existingAnimal = await _dataContext.Animals
+            var existingAnimal = await _ctx.Animals
                 .FirstOrDefaultAsync(a => a.NumMicrochip == viewModel.NumMicrochip);
             if (existingAnimal != null)
             {
@@ -43,7 +45,7 @@ namespace Team_5.Services
             var animal = new Animals
             {
                 Name = viewModel.Name,
-                RegistrationDate = viewModel.RegistrationDate,
+                RegistrationDate = DateTime.Now,
                 BirthDate = viewModel.BirthDate,
                 NumMicrochip = viewModel.NumMicrochip,
                 Image = imageBytes,
@@ -52,15 +54,10 @@ namespace Team_5.Services
                 Breed = breed
             };
 
-            _dataContext.Animals.Add(animal);
-            await _dataContext.SaveChangesAsync();
+            _ctx.Animals.Add(animal);
+            await _ctx.SaveChangesAsync();
 
             return animal;
-        }
-
-        public async Task<List<Breeds>> GetAllBreedsAsync()
-        {
-            return await _dataContext.Breeds.ToListAsync();
         }
 
         public async Task<CreateAnimalViewModel> GetCreateAnimalViewModelAsync()
@@ -70,7 +67,7 @@ namespace Team_5.Services
                 Name = "",
                 RegistrationDate = DateTime.Now,
                 Color = "",
-                Breeds = await GetAllBreedsAsync()
+                Breeds = await _breedSvc.GetAllBreedsAsync()
             };
 
             return viewModel;
@@ -78,12 +75,12 @@ namespace Team_5.Services
 
         public async Task<List<Animals>> GetAllAnimalsAsync()
         {
-            return await _dataContext.Animals.Include(a => a.Breed).ToListAsync();
+            return await _ctx.Animals.Include(a => a.Breed).ToListAsync();
         }
 
         public async Task<List<Animals>> GetAnimalByMicrochipAsync(string microchipId)
         {
-            return await _dataContext.Animals.Where(a => a.NumMicrochip == microchipId).ToListAsync();
+            return await _ctx.Animals.Where(a => a.NumMicrochip == microchipId).ToListAsync();
         }
     }
 }
