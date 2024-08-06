@@ -15,13 +15,20 @@ namespace Team_5.Services
         }
         public async Task<Examinations> CreateExaminationAsync(Examinations ex)
         {
+            var animal = await _dataContext.Animals.FindAsync(ex.AnimalId);
+            if (animal == null)
+            {
+                throw new Exception("Animal not found");
+            }
+
             var examination = new Examinations
             {
-                Animal = ex.Animal,
+                Animal = animal,
                 ExaminationDate = ex.ExaminationDate,
                 ExaminationName = ex.ExaminationName,
                 Treatment = ex.Treatment
             };
+
             await _dataContext.Examinations.AddAsync(examination);
             await _dataContext.SaveChangesAsync();
             return examination;
