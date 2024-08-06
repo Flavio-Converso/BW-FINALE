@@ -46,6 +46,7 @@ builder.Services.AddAuthorization(options =>
 //SERVICES
 builder.Services
     .AddScoped<IAuthService, AuthService>()
+    .AddScoped<IMasterService, MasterService>()
     .AddScoped<IAnimalsService, AnimalsService>()
     .AddScoped<IBreedsService, BreedsService>()
     .AddScoped<IExaminationService, ExaminationService>();
