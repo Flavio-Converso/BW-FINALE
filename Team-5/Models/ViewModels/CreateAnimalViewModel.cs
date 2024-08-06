@@ -29,7 +29,10 @@ namespace Team_5.Models.ViewModels
         [Required]
         public int SelectedBreedId { get; set; }
 
-        // Optionally, include a list of breeds if needed for the view
+        [Required]
+        public int SelectedOwnerId { get; set; }
+
         public List<Breeds>? Breeds { get; set; } = [];
+        public List<Owners>? Owners { get; set; } = [];
     }
 }
