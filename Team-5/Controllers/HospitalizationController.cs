@@ -14,7 +14,7 @@ namespace Team_5.Controllers
         private readonly DataContext _dataContext;
         private readonly IBreedsService _breedsService;
         private readonly IAnimalsService _animalsService;
-       
+
 
         public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService)
         {
@@ -32,14 +32,14 @@ namespace Team_5.Controllers
             return View(isHospitalized);
         }
 
-        
+
         [HttpGet]
         public IActionResult CreateHospitalization()
         {
             return View();
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> CreateHospitalization(Hospitalizations hospitalization)
         {
@@ -50,7 +50,7 @@ namespace Team_5.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 ViewBag.ErrorMessage = ex.Message;
                 return View(hospitalization);
             }
@@ -60,61 +60,48 @@ namespace Team_5.Controllers
         // crea animale e ricovero assieme
 
 
-         [HttpGet]
+
         public async Task<IActionResult> CreateAnimalAndHospitalization()
         {
-            var viewModel = new AnimalHospitalizationViewModel
-            {
-                Animal = new Animals
-                {
-                    Name = "",
-                    Color = "",
-                    RegistrationDate = DateTime.Now,
-                    Breed = new Breeds() // Assicurati di inizializzare il breed
-                },
-                Hospitalization = new Hospitalizations
-                {
-                    IsHospitalized = false,
-                    HospDate = DateTime.Now
-                },
-                Breeds = await _breedsService.GetAllBreedsAsync()
-            };
 
-            return View(viewModel);
+            ViewBag.Breeds = await _dataContext.Breeds.ToListAsync();
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAnimalAndHospitalization(AnimalHospitalizationViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            var breed = await _dataContext.Breeds.FindAsync(viewModel.IdBreed);
+            var animal = new Animals
             {
-                    // Se è necessario, gestisci i file immagine
-                    if (Request.Form.Files.Count > 0)
-                    {
-                        var file = Request.Form.Files[0];
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await file.CopyToAsync(memoryStream);
-                            viewModel.Animal.Image = memoryStream.ToArray();
-                        }
-                    }
+                Name = viewModel.Animal.Name,
+                Color = viewModel.Animal.Color,
+                RegistrationDate = viewModel.Animal.RegistrationDate,
+                Breed = breed,
+                BirthDate = DateTime.Now,
+                NumMicrochip = viewModel.Animal.NumMicrochip,
+            };
 
-                    // Imposta il breed selezionato
-                    viewModel.Animal.Breed = await _breedsService.GetBreedByIdAsync(viewModel.Animal.Breed.IdBreed);
 
-                    var (createdAnimal, createdHospitalization) = await _hospitalizationService.CreateAnimalAndHospitalizationAsync(
-                        viewModel.Animal, viewModel.Hospitalization);
+            await _dataContext.Animals.AddAsync(animal);
+            await _dataContext.SaveChangesAsync();
 
-                    return RedirectToAction("Index", "Home");
-                
-            }
+            var hospitalization = new Hospitalizations
+            {
+                IsHospitalized = viewModel.Hospitalization.IsHospitalized,
+                HospDate = viewModel.Hospitalization.HospDate,
+                AnimalId = animal.IdAnimal // Assumendo che Hospitalizations abbia una proprietà AnimalId come chiave esterna
+            };
 
-            viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
-            return View(viewModel);
+            await _dataContext.Hospitalizations.AddAsync(hospitalization);
+            await _dataContext.SaveChangesAsync();
+
+
+            return RedirectToAction("Index", "Home");
         }
     }
-    }
+}
 
 
 

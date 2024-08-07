@@ -1,7 +1,9 @@
-﻿@model Team_5.Models.ViewModels.AnimalHospitalizationViewModel
+﻿@using Team_5.Models.Clinic
+@model Team_5.Models.ViewModels.AnimalHospitalizationViewModel
 
 @{
     ViewData["Title"] = "Crea Animale e Ricovero";
+    var breeds = ViewBag.Breeds as List<Breeds>;
 }
 
 <h1>Crea Animale e Ricovero</h1>
@@ -28,14 +30,15 @@
     </div>
 
     <div class="form-group">
-        <label for="SelectedBreedId">Razza</label>
-        <select id="SelectedBreedId" name="Animal.Breed.IdBreed" class="form-control">
+        <label asp-for="IdBreed">Razza</label>
+        <select asp-for="IdBreed" class="form-control">
             <option value="">Seleziona Razza</option>
-            @foreach (var breed in Model.Breeds)
+            @foreach (var breed in breeds)
             {
                 <option value="@breed.IdBreed">@breed.Name</option>
             }
         </select>
+        <span asp-validation-for="IdBreed" class="text-danger"></span>
     </div>
 
     <div class="form-group">
