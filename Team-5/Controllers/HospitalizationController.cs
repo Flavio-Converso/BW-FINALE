@@ -45,7 +45,7 @@ namespace Team_5.Controllers
         {
             try
             {
-                var createdHospitalization = await _recoveryService.CreateHospitalizationsAsync(hospitalization);
+                var createdHospitalization = await _hospitalizationService.CreateHospitalizationsAsync(hospitalization);
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -89,8 +89,6 @@ namespace Team_5.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
                     // Se è necessario, gestisci i file immagine
                     if (Request.Form.Files.Count > 0)
                     {
@@ -105,19 +103,11 @@ namespace Team_5.Controllers
                     // Imposta il breed selezionato
                     viewModel.Animal.Breed = await _breedsService.GetBreedByIdAsync(viewModel.Animal.Breed.IdBreed);
 
-                    var (createdAnimal, createdHospitalization) = await _recoveryService.CreateAnimalAndHospitalizationAsync(
+                    var (createdAnimal, createdHospitalization) = await _hospitalizationService.CreateAnimalAndHospitalizationAsync(
                         viewModel.Animal, viewModel.Hospitalization);
 
                     return RedirectToAction("Index", "Home");
-                }
-                catch (ArgumentException ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError("", "Si è verificato un errore durante la creazione dell'animale e del ricovero.");
-                }
+                
             }
 
             viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
