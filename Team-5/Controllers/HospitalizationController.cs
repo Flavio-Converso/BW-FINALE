@@ -45,7 +45,7 @@ namespace Team_5.Controllers
         {
             try
             {
-                var createdHospitalization = await _recoveryService.CreateHospitalizationsAsync(hospitalization);
+                var createdHospitalization = await _hospitalizationService.CreateHospitalizationsAsync(hospitalization);
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -125,7 +125,7 @@ namespace Team_5.Controllers
                 }
                 viewModel.Animal.Breed = breed;
 
-                var (createdAnimal, createdHospitalization) = await _recoveryService.CreateAnimalAndHospitalizationAsync(
+                var (createdAnimal, createdHospitalization) = await _hospitalizationService.CreateAnimalAndHospitalizationAsync(
                     viewModel.Animal, viewModel.Hospitalization);
 
                 return RedirectToAction("Index", "Home");
