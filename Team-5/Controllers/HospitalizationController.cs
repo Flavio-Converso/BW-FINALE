@@ -14,14 +14,16 @@ namespace Team_5.Controllers
         private readonly DataContext _dataContext;
         private readonly IBreedsService _breedsService;
         private readonly IAnimalsService _animalsService;
-       
+        private readonly ILogger<HospitalizationController> _logger;
 
-        public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService)
+
+        public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService, ILogger<HospitalizationController> logger)
         {
             _hospitalizationService = hospitalizationService;
             _dataContext = dataContext;
             _breedsService = breedsService;
             _animalsService = animalsService;
+            _logger = logger;
         }
 
 
@@ -63,6 +65,7 @@ namespace Team_5.Controllers
          [HttpGet]
         public async Task<IActionResult> CreateAnimalAndHospitalization()
         {
+            var breeds = await _dataContext.Breeds.ToListAsync();
             var viewModel = new AnimalHospitalizationViewModel
             {
                 Animal = new Animals
@@ -70,7 +73,7 @@ namespace Team_5.Controllers
                     Name = "",
                     Color = "",
                     RegistrationDate = DateTime.Now,
-                    Breed = new Breeds() // Assicurati di inizializzare il breed
+                    Breed = new Breeds()
                 },
                 Hospitalization = new Hospitalizations
                 {
@@ -89,6 +92,8 @@ namespace Team_5.Controllers
         {
             if (ModelState.IsValid)
             {
+                try
+                {
                     // Se è necessario, gestisci i file immagine
                     if (Request.Form.Files.Count > 0)
                     {
@@ -103,18 +108,29 @@ namespace Team_5.Controllers
                     // Imposta il breed selezionato
                     viewModel.Animal.Breed = await _breedsService.GetBreedByIdAsync(viewModel.Animal.Breed.IdBreed);
 
-                    var (createdAnimal, createdHospitalization) = await _hospitalizationService.CreateAnimalAndHospitalizationAsync(
-                        viewModel.Animal, viewModel.Hospitalization);
+                    // Utilizza il servizio per creare l'animale e il ricovero
+                    var createdViewModel = await _hospitalizationService.CreateAnimalAndHospitalizationAsync(viewModel);
 
                     return RedirectToAction("Index", "Home");
-                
+                }
+                catch (ArgumentException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Si è verificato un errore durante la creazione dell'animale e del ricovero: " + ex.Message);
+                    _logger.LogError(ex, "Errore durante la creazione dell'animale e del ricovero");
+                }
             }
 
+            // Ricarica le razze nel view model in caso di errore di validazione
             viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
             return View(viewModel);
         }
     }
-    }
+}
+    
 
 
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 
 namespace Team_5.Services.Interfaces
 {
@@ -7,6 +8,6 @@ namespace Team_5.Services.Interfaces
     {
         public Task<Hospitalizations> CreateHospitalizationsAsync(Hospitalizations hosp);
         public Task<List<Hospitalizations>> GetActiveHospitalizationsAsync();
-        public Task<(Animals animal, Hospitalizations hospitalization)> CreateAnimalAndHospitalizationAsync(Animals animal, Hospitalizations hospitalization);
+        public Task<AnimalHospitalizationViewModel> CreateAnimalAndHospitalizationAsync(AnimalHospitalizationViewModel viewModel);
     }
 }

@@ -58,6 +58,7 @@ builder.Services
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddLogging();
 
 
 var app = builder.Build();

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Team_5.Context;
 using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Services
@@ -9,9 +10,11 @@ namespace Team_5.Services
     public class HospitalizationService : IHospitalizationService
     {
         private readonly DataContext _dataContext;
-        public HospitalizationService(DataContext dataContext)
+        private readonly ILogger<HospitalizationService> _logger;
+        public HospitalizationService(DataContext dataContext, ILogger<HospitalizationService> logger)
         {
             _dataContext = dataContext;
+            _logger = logger;
         }
 
 
@@ -38,23 +41,27 @@ namespace Team_5.Services
 
 
         // ricovero e registrazione animale
-        public async Task<(Animals, Hospitalizations)> CreateAnimalAndHospitalizationAsync(Animals animal, Hospitalizations hospitalization)
+        public async Task<AnimalHospitalizationViewModel> CreateAnimalAndHospitalizationAsync(AnimalHospitalizationViewModel viewModel)
         {
-            // Aggiungi l'animale al contesto
-            _dataContext.Animals.Add(animal);
-            await _dataContext.SaveChangesAsync();
+            using var transaction = await _dataContext.Database.BeginTransactionAsync();
 
-            // Associa l'animale appena creato al ricovero
-            hospitalization.AnimalId = animal.IdAnimal;
-            hospitalization.Animal = animal;
+                // Aggiungi l'animale al contesto
+                _dataContext.Animals.Add(viewModel.Animal);
+                await _dataContext.SaveChangesAsync();
 
-            // Aggiungi il ricovero al contesto
-            _dataContext.Hospitalizations.Add(hospitalization);
-            await _dataContext.SaveChangesAsync();
+                // Associa l'animale appena creato al ricovero
+                viewModel.Hospitalization.AnimalId = viewModel.Animal.IdAnimal;
+                viewModel.Hospitalization.Animal = viewModel.Animal;
 
-            return (animal, hospitalization);
+                // Aggiungi il ricovero al contesto
+                _dataContext.Hospitalizations.Add(viewModel.Hospitalization);
+                await _dataContext.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+
+                return viewModel;
+
         }
-
         public async Task<List<Hospitalizations>> GetHospitalizationsWithAnimalsAsync()
         {
             return await _dataContext.Hospitalizations

@@ -28,19 +28,21 @@
     </div>
 
     <div class="form-group">
-        <label for="SelectedBreedId">Razza</label>
-        <select id="SelectedBreedId" name="Animal.Breed.IdBreed" class="form-control">
+        <label asp-for="Animal.Breed.IdBreed" class="control-label">Razza</label>
+        <select asp-for="Animal.Breed.IdBreed" class="form-control">
             <option value="">Seleziona Razza</option>
             @foreach (var breed in Model.Breeds)
             {
                 <option value="@breed.IdBreed">@breed.Name</option>
             }
         </select>
+        <span asp-validation-for="Animal.Breed.IdBreed" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="Image">Immagine</label>
-        <input type="file" id="Image" name="Image" class="form-control" />
+        <label asp-for="Animal.Image" class="control-label">Immagine</label>
+        <input type="file" asp-for="Animal.Image" class="form-control" />
+        <span asp-validation-for="Animal.Image" class="text-danger"></span>
     </div>
 
     @* Hospitalization Details *@
