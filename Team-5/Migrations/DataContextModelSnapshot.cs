@@ -308,6 +308,9 @@ namespace Team_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLocker"));
 
+                    b.Property<int>("NumLocker")
+                        .HasColumnType("int");
+
                     b.HasKey("IdLocker");
 
                     b.ToTable("Lockers");
@@ -364,6 +367,9 @@ namespace Team_5.Migrations
                     b.Property<int>("CompanyIdCompany")
                         .HasColumnType("int");
 
+                    b.Property<int>("DrawersIdDrawer")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -385,6 +391,8 @@ namespace Team_5.Migrations
                     b.HasKey("IdProduct");
 
                     b.HasIndex("CompanyIdCompany");
+
+                    b.HasIndex("DrawersIdDrawer");
 
                     b.ToTable("Products");
                 });
@@ -492,7 +500,15 @@ namespace Team_5.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Team_5.Models.Pharmacy.Drawers", "Drawers")
+                        .WithMany()
+                        .HasForeignKey("DrawersIdDrawer")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
+
+                    b.Navigation("Drawers");
                 });
 
             modelBuilder.Entity("Team_5.Models.Clinic.Animals", b =>

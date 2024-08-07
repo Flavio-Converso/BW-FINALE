@@ -14,7 +14,7 @@ namespace Team_5.Services
         {
 
             var company = await _dataContext.Companies.FirstOrDefaultAsync(c => c.IdCompany == products.Company.IdCompany);
-
+            var drawer = await _dataContext.Drawers.FirstOrDefaultAsync(d => d.IdDrawer == products.Drawers.IdDrawer);
 
             var product = new Products
             {
@@ -23,7 +23,8 @@ namespace Team_5.Services
                 Use = products.Use,
                 Quantity = products.Quantity,
                 Availability = products.Availability,
-                Company = company
+                Company = company,
+                Drawers = drawer,
             };
 
             _dataContext.Products.Add(product);
@@ -38,7 +39,7 @@ namespace Team_5.Services
 
         public async Task<List<Products>> GetAllProducts()
         {
-            return await _dataContext.Products.ToListAsync();
+            return await _dataContext.Products.Include(p => p.Company).ToListAsync();
         }
     }
 }

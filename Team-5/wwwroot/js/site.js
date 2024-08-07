@@ -68,3 +68,35 @@ $('#pastVisits').on('change', () => {
     triggerPastVisits();
 });
 
+let lockersPath = "/Product/FindLockers";
+
+function FindLockers(idProduct) {
+    $.ajax({
+        url: `${lockersPath}?id=${idProduct}`,
+        method: 'GET',
+        success: (data) => {
+            console.log("Success", data);
+            let div = $('#printLocker');
+            div.empty();
+            if (data) {
+                let productLocker = `
+                    <ul>
+                        <li>ID cassetto: ${data.drawers.idDrawer}</li>
+                        <li>ID armadietto: ${data.drawers.lockerId}</li>
+                    </ul>
+                `;
+                div.append(productLocker);
+            } else {
+                div.append($(`<h1 class="mb-4">Nessun prodotto trovato con l'id: ${idProduct}</h1>`));
+            }
+        },
+        error: (err) => {
+            console.error("Error", err);
+        }
+    });
+}
+
+$(document).on('click', '#row', function () {
+    let idProduct = $(this).find('#idProduct').text().trim();
+    FindLockers(idProduct);
+});

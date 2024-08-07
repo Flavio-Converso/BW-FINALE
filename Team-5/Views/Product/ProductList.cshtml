@@ -6,6 +6,9 @@
 
 <h2>Product List</h2>
 
+<div id="printLocker">
+
+</div>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -35,9 +38,9 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdProduct)
+            <tr id="row">
+                <td id="idProduct" value="@item.IdProduct">
+                    @item.IdProduct
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductName)
