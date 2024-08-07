@@ -3,7 +3,7 @@ using Team_5.Models.Clinic;
 
 namespace Team_5.Services.Interfaces
 {
-    public interface IRecoveryService
+    public interface IHospitalizationService
     {
         public Task<Hospitalizations> CreateHospitalizationsAsync(Hospitalizations hosp);
         public Task<List<Hospitalizations>> GetActiveHospitalizationsAsync();

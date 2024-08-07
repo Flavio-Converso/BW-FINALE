@@ -42,3 +42,41 @@ $('#microchip').on('keydown', debounce(countByMicroChip, 300));
 $('#chipButton').on('click', () => {
     countByMicroChip();
 });
+
+let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
+
+function triggerPastVisits() {
+    let IdAnimal = $('#pastVisits').val();  
+    $.ajax({
+        url: `${pastVisitsPath}?IdAnimal=${IdAnimal}`,  
+        method: 'GET',
+        success: (data) => {
+            console.log("Success", data);
+            let examDiv = $('#examinationsList');
+            examDiv.empty();
+            if (data.length > 0) {
+                examDiv.prepend(`<h1 class="mb-4">Lista esami pregressi</h1>`)
+                data.forEach(exam => {
+                    let examDetails =
+                        `                      
+                        <ul>
+                        <li> ${exam.idExamination} </li>
+                        <li> ${exam.examinationDate} </li>
+                        <li> ${exam.examinationName} </li>
+                        <li> ${exam.treatment} </li>
+                        </ul>
+                    `;                 
+                    examDiv.append(examDetails);
+                });
+            } else {
+                examDiv.append($(`<h1 class="mb-4">Nessun esame trovato l'id: ${IdAnimal}</h1>`));
+            }
+       
+        }
+    });
+}
+
+$('#pastVisits').on('change', () => {
+    triggerPastVisits();
+});
+

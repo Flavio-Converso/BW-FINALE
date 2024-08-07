@@ -8,25 +8,27 @@ using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
 {
-    public class RecoveryController : Controller
+    public class HospitalizationController : Controller
     {
-        private readonly IRecoveryService _recoveryService;
+        private readonly IHospitalizationService _hospitalizationService;
+        private readonly DataContext _dataContext;
         private readonly IBreedsService _breedsService;
         private readonly IAnimalsService _animalsService;
        
 
-        public RecoveryController(IRecoveryService recoveryService, IBreedsService breedsService, IAnimalsService animalsService)
+        public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService)
         {
-            _animalsService = animalsService;
-            _recoveryService = recoveryService;
+            _hospitalizationService = hospitalizationService;
+            _dataContext = dataContext;
             _breedsService = breedsService;
-            
+            _animalsService = animalsService;
         }
+
 
         [HttpGet]
         public async Task<ActionResult<List<Examinations>>> ActiveHospitalizations()
         {
-            var isHospitalized = await _recoveryService.GetActiveHospitalizationsAsync();
+            var isHospitalized = await _hospitalizationService.GetActiveHospitalizationsAsync();
             return View(isHospitalized);
         }
 

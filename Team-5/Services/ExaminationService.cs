@@ -42,5 +42,14 @@ namespace Team_5.Services
                 .OrderByDescending(e => e.ExaminationDate)
                 .ToListAsync();
         }
+
+        public async Task<List<Examinations>> GetAllExaminationsByIdAnimalAsync(int IdAnimal)
+        {
+            return await _dataContext.Examinations
+                .Where(e => e.AnimalId == IdAnimal)
+                .Include(e => e.Animal)
+                .OrderByDescending(e => e.ExaminationDate)
+                .ToListAsync();
+        }
     }
 }

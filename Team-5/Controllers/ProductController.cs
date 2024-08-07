@@ -31,6 +31,8 @@ namespace Team_5.Controllers
             await _productService.CreateProducts(products);
             return RedirectToAction("ProductList", "Product");
         }
+
+
         [HttpGet]
         public async Task<IActionResult> ProductList()
         {

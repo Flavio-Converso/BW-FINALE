@@ -6,10 +6,10 @@ using Team_5.Services.Interfaces;
 
 namespace Team_5.Services
 {
-    public class RecoveryService : IRecoveryService
+    public class HospitalizationService : IHospitalizationService
     {
         private readonly DataContext _dataContext;
-        public RecoveryService(DataContext dataContext)
+        public HospitalizationService(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
