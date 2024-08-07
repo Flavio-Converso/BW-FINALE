@@ -100,3 +100,24 @@ $(document).on('click', '#row', function () {
     let idProduct = $(this).find('#idProduct').text().trim();
     FindLockers(idProduct);
 });
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("alimentoSelez").addEventListener("change", function () {
+        var selectedValue = this.value;
+        var drawerSelect = document.getElementById("selectDrawer");
+        var drawerSelect2 = document.getElementById("selectDrawer2");
+
+        if (selectedValue === "Alimento") {
+            drawerSelect.disabled = true;
+            drawerSelect.selectedIndex = 0;
+            drawerSelect.hidden = true;
+            drawerSelect2.hidden = true;
+        } else {
+            drawerSelect.disabled = false;
+            drawerSelect.hidden = false;
+            drawerSelect2.hidden = false;
+        }
+    });
+});

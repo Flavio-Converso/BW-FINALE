@@ -12,9 +12,15 @@ namespace Team_5.Services
 
         public async Task<Products> CreateProducts(Products products)
         {
-
             var company = await _dataContext.Companies.FirstOrDefaultAsync(c => c.IdCompany == products.Company.IdCompany);
-            var drawer = await _dataContext.Drawers.FirstOrDefaultAsync(d => d.IdDrawer == products.Drawers.IdDrawer);
+
+            Drawers drawer = null;
+
+            // Check if IdDrawer is greater than 0
+            if (products.Drawers != null && products.Drawers.IdDrawer > 0)
+            {
+                drawer = await _dataContext.Drawers.FirstOrDefaultAsync(d => d.IdDrawer == products.Drawers.IdDrawer);
+            }
 
             var product = new Products
             {
@@ -31,6 +37,7 @@ namespace Team_5.Services
             await _dataContext.SaveChangesAsync();
             return product;
         }
+
 
         public async Task<List<Companies>> GetAllCompanies()
         {
