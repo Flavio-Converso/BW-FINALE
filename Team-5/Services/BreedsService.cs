@@ -18,5 +18,17 @@ namespace Team_5.Services
         {
             return await _ctx.Breeds.ToListAsync();
         }
+
+        public async Task<Breeds> GetBreedByIdAsync(int id)
+        {
+            var breed = await _ctx.Breeds.FindAsync(id);
+
+            if (breed == null)
+            {
+                throw new ArgumentException($"Breed con ID {id} non trovato.");
+            }
+
+            return breed;
+        }
     }
 }
