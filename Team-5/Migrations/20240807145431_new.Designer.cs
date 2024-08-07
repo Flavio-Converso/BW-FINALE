@@ -12,8 +12,8 @@ using Team_5.Context;
 namespace Team_5.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240807130847_add-migration nw")]
-    partial class addmigrationnw
+    [Migration("20240807145431_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -310,6 +310,9 @@ namespace Team_5.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdLocker"));
+
+                    b.Property<int>("NumLocker")
+                        .HasColumnType("int");
 
                     b.HasKey("IdLocker");
 

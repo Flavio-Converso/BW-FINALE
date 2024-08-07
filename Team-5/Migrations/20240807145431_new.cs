@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Team_5.Migrations
 {
     /// <inheritdoc />
-    public partial class addmigrationnw : Migration
+    public partial class @new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,7 +44,8 @@ namespace Team_5.Migrations
                 columns: table => new
                 {
                     IdLocker = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NumLocker = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
