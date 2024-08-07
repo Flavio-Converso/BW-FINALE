@@ -85,5 +85,13 @@ namespace Team_5.Services
         {
             return await _ctx.Animals.Where(a => a.NumMicrochip == microchipId).ToListAsync();
         }
+
+        public async Task<List<Animals>> GetAnimalsWithoutOwnerAsync()
+        {
+            return await _ctx.Animals
+                             .Where(a => a.OwnerId == null)
+                             .Include(a => a.Breed)
+                             .ToListAsync();
+        }
     }
 }

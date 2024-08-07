@@ -12,5 +12,7 @@ namespace Team_5.Services.Interfaces
         Task<List<Animals>> GetAllAnimalsAsync();
 
         Task<List<Animals>> GetAnimalByMicrochipAsync(string microchipId);
+
+        Task<List<Animals>> GetAnimalsWithoutOwnerAsync();
     }
 }
