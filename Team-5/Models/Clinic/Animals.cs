@@ -40,6 +40,6 @@ namespace Team_5.Models.Clinic
         public List<Examinations>? Examination { get; set; } = new();
 
         [Required]
-        public required Breeds Breed { get; set; }
+        public Breeds Breed { get; set; }
     }
 }

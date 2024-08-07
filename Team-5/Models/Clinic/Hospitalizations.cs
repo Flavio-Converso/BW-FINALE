@@ -17,7 +17,7 @@ namespace Team_5.Models.Clinic
         public int AnimalId { get; set; }
 
         [ForeignKey(nameof(AnimalId))]
-        public required Animals Animal { get; set; }
+        public Animals Animal { get; set; }
 
     }
 }
