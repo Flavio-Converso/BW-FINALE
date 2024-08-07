@@ -5,20 +5,20 @@ using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
 {
-    public class RecoveryController : Controller
+    public class HospitalizationController : Controller
     {
-        private readonly IRecoveryService _recoveryService;
+        private readonly IHospitalizationService _hospitalizationService;
         private readonly DataContext _dataContext;
-        public RecoveryController (IRecoveryService recoveryService,DataContext dataContext)
+        public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext)
         {
-            _recoveryService = recoveryService;
+            _hospitalizationService = hospitalizationService;
             _dataContext = dataContext;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Examinations>>> ActiveHospitalizations()
         {
-            var isHospitalized = await _recoveryService.GetActiveHospitalizationsAsync();
+            var isHospitalized = await _hospitalizationService.GetActiveHospitalizationsAsync();
             return View(isHospitalized);
         }
     }

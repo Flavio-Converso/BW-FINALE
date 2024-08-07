@@ -2,7 +2,7 @@
 
 namespace Team_5.Services.Interfaces
 {
-    public interface IRecoveryService
+    public interface IHospitalizationService
     {
         public Task<List<Hospitalizations>> GetActiveHospitalizationsAsync();
     }
