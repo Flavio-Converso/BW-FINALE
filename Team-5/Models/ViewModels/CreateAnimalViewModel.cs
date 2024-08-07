@@ -29,8 +29,8 @@ namespace Team_5.Models.ViewModels
         [Required]
         public int SelectedBreedId { get; set; }
 
-        [Required]
-        public int SelectedOwnerId { get; set; }
+       
+        public int? SelectedOwnerId { get; set; }
 
         public List<Breeds>? Breeds { get; set; } = [];
         public List<Owners>? Owners { get; set; } = [];
