@@ -15,7 +15,7 @@ namespace Team_5.Services
         }
 
         [HttpGet]
-        public async Task<List<Hospitalizations>> GetExaminationsAsync()
+        public async Task<List<Hospitalizations>> GetActiveHospitalizationsAsync()
         {
             return await _dataContext.Hospitalizations
                 .Include(a => a.Animal)
