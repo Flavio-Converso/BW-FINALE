@@ -8,5 +8,7 @@ namespace Team_5.Models.ViewModels
         public Hospitalizations Hospitalization { get; set; }
 
         public int? IdBreed { get; set; }
+        public IFormFile? Image { get; set; }
+
     }
 }

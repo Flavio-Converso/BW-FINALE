@@ -58,6 +58,15 @@ namespace Team_5.Services
         public async Task<AnimalHospitalizationViewModel> CreateAnimalHospitalizationViewModel(AnimalHospitalizationViewModel viewModel)
         {
             var breed = await _dataContext.Breeds.FindAsync(viewModel.IdBreed);
+            byte[] imageBytes = null;
+            if (viewModel.Image != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await viewModel.Image.CopyToAsync(memoryStream);
+                    imageBytes = memoryStream.ToArray();
+                }
+            }
             var animal = new Animals
             {
                 Name = viewModel.Animal.Name,
@@ -66,6 +75,7 @@ namespace Team_5.Services
                 Breed = breed,
                 BirthDate = viewModel.Animal.BirthDate,
                 NumMicrochip = viewModel.Animal.NumMicrochip,
+                Image = imageBytes,
             };
 
 
