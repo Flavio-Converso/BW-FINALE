@@ -31,5 +31,7 @@ namespace Team_5.Controllers
             await _productService.CreateProducts(products);
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

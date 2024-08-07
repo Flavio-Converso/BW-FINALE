@@ -22,11 +22,11 @@ namespace Team_5.Models.Pharmacy
         [Required]
         public required int IdProduct { get; set; }
         [ForeignKey(nameof(IdProduct))]
-        public required Products Product { get; set; }
+        public Products Product { get; set; }
         [Required]
         public required int IdOwner { get; set; }
         [ForeignKey(nameof(IdOwner))]
-        public required Owners Owner { get; set; }
+        public Owners Owner { get; set; }
 
     }
 }
