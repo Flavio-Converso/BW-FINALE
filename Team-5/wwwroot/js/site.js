@@ -181,8 +181,8 @@ function ProductsFromDate() {
                 data.forEach(order => {
                     
                     list += `
-                        <h1 class="text-danger">Nome Farmaco: ${order.productName}</h1>
-                        <h1 class="text-danger">Uso: ${order.use}</h1>`; 
+                        <h1 class="text-danger">Nome Farmaco: ${order.product.productName}</h1>
+                        <h1 class="text-danger">Uso: ${order.product.use}</h1>`; 
                 });
                 div.append(list);
             } else {

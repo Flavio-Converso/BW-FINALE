@@ -59,11 +59,6 @@ namespace Team_5.Controllers
             var list = await _dataContext.Orders
                 .Include(o => o.Product)
                 .Where(o => o.OrderDate.Date == date.Date && o.Product.Type == "Farmaco")
-                  .Select(o => new
-                  {
-                      o.Product.ProductName,
-                      o.Product.Use
-                  })
                 .ToListAsync();
 
             return Ok(list);
