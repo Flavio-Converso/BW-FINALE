@@ -1,5 +1,5 @@
-﻿let chipPath = "/Animals/GetAnimalDataByMicrochip";
-
+﻿//search animal by microchip number
+let chipPath = "/Animals/GetAnimalDataByMicrochip";
 function countByMicroChip() {
     let microchip = $('#microchip').val();
     $.ajax({
@@ -15,14 +15,12 @@ function countByMicroChip() {
                     animalDetails += `<p>Data Registrazione: <span class="text-danger">${animal.registrationDate}</span></p>`;
                     animalDetails += `<p>Data Di Nascita: <span class="text-danger">${animal.birthDate}</span></p>`;
                     animalDetails += `<p>Colore: <span class="text-danger">${animal.color}</span></p>`;
-
-
-                    // Aggiungi qui altri campi che desideri visualizzare
+                    
                     div.append(animalDetails);
                 });
             } else {
                 div.append($(`<h1 class="mb-4">Nessun animale trovato per numero di microchip: ${microchip}</h1>`));
-            }
+          }
         }
     });
 }
@@ -31,6 +29,9 @@ $('#chipButton').on('click', () => {
     countByMicroChip();
 });
 
+
+//
+//show past examinations before creating a new one for selected animal
 let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
 
 function triggerPastVisits() {
@@ -59,7 +60,6 @@ function triggerPastVisits() {
             } else {
                 examDiv.append($(`<h1 class="mb-4">Nessun esame trovato l'id: ${IdAnimal}</h1>`));
             }
-       
         }
     });
 }
@@ -68,6 +68,8 @@ $('#pastVisits').on('change', () => {
     triggerPastVisits();
 });
 
+//
+//in productslist search drawer & locker for selected product
 let lockersPath = "/Product/FindLockers";
 
 function FindLockers(idProduct) {
@@ -101,8 +103,8 @@ $(document).on('click', '#row', function () {
     FindLockers(idProduct);
 });
 
-
-
+//
+//disable drawer selection if "alimento" is selected
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("alimentoSelez").addEventListener("change", function () {
         var selectedValue = this.value;
