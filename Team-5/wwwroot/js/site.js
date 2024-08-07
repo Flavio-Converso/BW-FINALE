@@ -163,3 +163,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+let datePath = '/Product/GetProductsFromDate';
+
+function ProductsFromDate() {
+    let date = $('#dateInput').val();
+
+    $.ajax({
+        url: `${datePath}?date=${date}`,
+        method: 'GET',
+        success: (data) => {
+            console.log("Data received:", data);
+            let div = $('#date');
+            div.empty(); 
+
+            if (data && data.length > 0) {
+                let list = `<h1 class="mb-4">Farmaci venduti il giorno ${date}:</h1>`;
+                data.forEach(order => {
+                    
+                    list += `
+                        <h1 class="text-danger">Nome Farmaco: ${order.productName}</h1>
+                        <h1 class="text-danger">Uso: ${order.use}</h1>`; 
+                });
+                div.append(list);
+            } else {
+                div.append(`<h1 class="mb-4">Nessun farmaco trovato per il giorno ${date}</h1>`);
+            }
+        },
+        error: (err) => {
+            console.error("Errore durante il recupero dei dati:", err);
+            $('#date').empty().append('<h1 class="mb-4">Errore nel recupero dei dati. Per favore, riprova più tardi.</h1>');
+        }
+    });
+}
+
+$('#dateBtn').on('click', () => {
+    ProductsFromDate();
+})
