@@ -16,9 +16,9 @@ namespace Team_5.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Examinations>>> ActiveExaminations()
+        public async Task<ActionResult<List<Examinations>>> ActiveHospitalizations()
         {
-            var isHospitalized = await _recoveryService.GetExaminationsAsync();
+            var isHospitalized = await _recoveryService.GetActiveHospitalizationsAsync();
             return View(isHospitalized);
         }
     }
