@@ -72,32 +72,7 @@ namespace Team_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAnimalAndHospitalization(AnimalHospitalizationViewModel viewModel)
         {
-            var breed = await _dataContext.Breeds.FindAsync(viewModel.IdBreed);
-            var animal = new Animals
-            {
-                Name = viewModel.Animal.Name,
-                Color = viewModel.Animal.Color,
-                RegistrationDate = viewModel.Animal.RegistrationDate,
-                Breed = breed,
-                BirthDate = DateTime.Now,
-                NumMicrochip = viewModel.Animal.NumMicrochip,
-            };
-
-
-            await _dataContext.Animals.AddAsync(animal);
-            await _dataContext.SaveChangesAsync();
-
-            var hospitalization = new Hospitalizations
-            {
-                IsHospitalized = viewModel.Hospitalization.IsHospitalized,
-                HospDate = viewModel.Hospitalization.HospDate,
-                AnimalId = animal.IdAnimal // Assumendo che Hospitalizations abbia una proprietà AnimalId come chiave esterna
-            };
-
-            await _dataContext.Hospitalizations.AddAsync(hospitalization);
-            await _dataContext.SaveChangesAsync();
-
-
+            await _hospitalizationService.CreateAnimalHospitalizationViewModel(viewModel);
             return RedirectToAction("Index", "Home");
         }
     }
