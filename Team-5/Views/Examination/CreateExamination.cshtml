@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="AnimalId" class="control-label mt-3">Seleziona l'animale per il visita:</label>
-                <select asp-for="AnimalId" class="form-control">
+                <select id="pastVisits" asp-for="AnimalId" class="form-control">
                     <option value="" disabled selected>Seleziona un opzione</option>
                     @foreach(var a in animals)
                     {
@@ -46,7 +46,9 @@
         </form>
     </div>
 </div>
-
+<div id="examinationsList">
+  
+</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
