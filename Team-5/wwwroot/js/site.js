@@ -144,23 +144,26 @@ $(document).ready(function () {
 
 //
 //disable drawer selection if "alimento" is selected
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("alimentoSelez").addEventListener("change", function () {
-        var selectedValue = this.value;
-        var drawerSelect = document.getElementById("selectDrawer");
-        var drawerSelect2 = document.getElementById("selectDrawer2");
+$(document).ready(function () {
+    $("#alimentoSelez").on("change", function () {
+        var selectedValue = $(this).val();  // Corrected this line
+        var drawerSelect = $("#selectDrawer");
+        var drawerSelect2 = $("#selectDrawer2");
 
         if (selectedValue === "Alimento") {
-            drawerSelect.disabled = true;
-            drawerSelect.selectedIndex = 0;
-            drawerSelect.hidden = true;
-            drawerSelect2.hidden = true;
+            drawerSelect.prop('disabled', true);  // Corrected this line
+            drawerSelect[0].selectedIndex = 0;  // Reset selected index
+            drawerSelect.hide();  // Corrected this line
+            drawerSelect2.hide();  // Corrected this line
         } else {
-            drawerSelect.disabled = false;
-            drawerSelect.hidden = false;
-            drawerSelect2.hidden = false;
+            drawerSelect.prop('disabled', false);  // Corrected this line
+            drawerSelect.show();  // Corrected this line
+            drawerSelect2.show();  // Corrected this line
         }
     });
+
+    // Trigger change event on page load to ensure correct initial state
+    $("#alimentoSelez").trigger('change');
 });
 
 let datePath = '/Product/GetProductsFromDate';

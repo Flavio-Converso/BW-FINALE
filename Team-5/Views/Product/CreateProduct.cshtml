@@ -23,7 +23,7 @@
                 <label asp-for="Type" class="control-label mt-2">Inserisci tipo prodotto:</label>
                 <select id="alimentoSelez" asp-for="Type" class="form-control">
                     <option value="" disabled selected>Seleziona un opzione</option>
-                    <option  value="Alimento">Prodotto Alimentare</option>
+                    <option value="Alimento">Prodotto Alimentare</option>
                     <option value="Farmaco">Farmaco</option>
                 </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label id="selectDrawer2" asp-for="Drawers.IdDrawer" class="control-label mt-2">Inserisci Cassetto:</label>
                 <select id="selectDrawer" asp-for="Drawers.IdDrawer" class="form-control">
-                    <option value="" disabled selected>Seleziona un opzione</option>                   
+                    <option value="" disabled selected>Seleziona un opzione</option>
                     @foreach (var d in drawers)
                     {
                         <option value="@d.IdDrawer">@d.IdDrawer (Armadietto: @d.Lockers.NumLocker)</option>
@@ -75,7 +75,6 @@
 
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");      
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
