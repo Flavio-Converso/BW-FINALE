@@ -33,27 +33,34 @@
                            
                         }
                         else
-                        {                                                  
+                        {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Examination" asp-action="ExaminationsList">Lista delle Visite</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Examination" asp-action="CreateExamination">Crea Visita</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Examination" asp-action="CreateExamination">Crea Ricovero </a>
+                                <a class="nav-link text-dark" asp-controller="Examination" asp-action="ExaminationsList">Lista Visite</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="CreateAnimal">Registra animale</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="CreateAnimal">Crea animale</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="AnimalList">Lista animali</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="AnimalsWithoutOwner">Lista Animali no padrone</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="GetAnimalByMicrochip">Animale per Microchip</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="CreateProduct">Inserimento Prodotto</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="CreateProduct">Crea Prodotto</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Master" asp-action="ManageRoles">Manage Roles</a>
+                            </li>
+                           
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="ActiveHospitalizations">Elenco Ospitalizzazioni Attive</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="CreateOrder">Crea Ordine</a>

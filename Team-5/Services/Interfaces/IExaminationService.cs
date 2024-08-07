@@ -5,6 +5,7 @@ namespace Team_5.Services.Interfaces
     public interface IExaminationService
     {
         public Task<Examinations> CreateExaminationAsync(Examinations ex);
-        Task<List<Examinations>> GetAllExaminationsAsync();
+        public Task<List<Examinations>> GetAllExaminationsAsync();
+        public Task<List<Examinations>> GetAllExaminationsByIdAnimalAsync(int IdAnimal);
     }
 }

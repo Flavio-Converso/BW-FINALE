@@ -1,0 +1,27 @@
+﻿@model List<Team_5.Models.Clinic.Hospitalizations>
+
+@{
+    ViewData["Title"] = "Active Hospitalizations";
+}
+
+<h2>Active Hospitalizations</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Animal Name</th>
+            <th>Owner Name</th>
+            <th>Start Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hospitalization in Model)
+        {
+            <tr>
+                <td>@hospitalization.Animal?.Name</td>
+                <td>@hospitalization.Animal?.Owner?.Name @hospitalization.Animal?.Owner?.Surname</td>
+                <td>@hospitalization.HospDate.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>

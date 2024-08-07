@@ -1,0 +1,32 @@
+﻿@model List<Team_5.Models.Clinic.Animals>
+
+@{
+    ViewData["Title"] = "Animali senza Proprietario";
+}
+
+<h1>Animali senza Proprietario</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data di Registrazione</th>
+            <th>Data di Nascita</th>
+            <th>Colore</th>
+            <th>Razza</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>@animal.Name</td>
+                <td>@animal.RegistrationDate.ToShortDateString()</td>
+                <td>@animal.BirthDate.ToShortDateString()</td>
+                <td>@animal.Color</td>
+                <td>@animal.Breed.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

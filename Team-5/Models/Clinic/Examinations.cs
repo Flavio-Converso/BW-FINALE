@@ -22,6 +22,7 @@ namespace Team_5.Models.Clinic
         //RIFERIMENTI EF
         public int AnimalId { get; set; }
 
+
         [ForeignKey(nameof(AnimalId))]
         public required Animals Animal { get; set; }
     }

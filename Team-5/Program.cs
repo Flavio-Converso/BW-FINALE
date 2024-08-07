@@ -52,6 +52,7 @@ builder.Services
     .AddScoped<IExaminationService, ExaminationService>()
     .AddScoped<IOwnerService, OwnerService>()
     .AddScoped<IOrdersService, OrdersService>()
+    .AddScoped<IHospitalizationService, HospitalizationService>()
     .AddScoped<IProductService, ProductService>();
 //other services
 
