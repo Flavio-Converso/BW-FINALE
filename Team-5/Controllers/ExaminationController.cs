@@ -46,5 +46,11 @@ namespace Team_5.Controllers
             return View(esami);
         }
 
+        [HttpGet("Examination/ExaminationsListByIdAnimal")]
+        public async Task<IActionResult> ExaminationsListByIdAnimal([FromQuery] int IdAnimal)
+        {
+            var esamiByAnimalId = await _examinationService.GetAllExaminationsByIdAnimalAsync(IdAnimal);
+            return Ok(esamiByAnimalId);
+        }
     }
 }

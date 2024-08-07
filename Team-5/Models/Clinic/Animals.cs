@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Team_5.Models.Clinic
 {
@@ -35,6 +36,7 @@ namespace Team_5.Models.Clinic
 
         public List<Hospitalizations>? Hospitalization { get; set; } = new();
 
+        [JsonIgnore]
         public List<Examinations>? Examination { get; set; } = new();
 
         [Required]
