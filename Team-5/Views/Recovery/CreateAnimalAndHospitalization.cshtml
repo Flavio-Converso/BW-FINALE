@@ -1,0 +1,68 @@
+﻿@model Team_5.Models.ViewModels.AnimalHospitalizationViewModel
+
+@{
+    ViewData["Title"] = "Crea Animale e Ricovero";
+}
+
+<h1>Crea Animale e Ricovero</h1>
+
+<form asp-action="CreateAnimalAndHospitalization" method="post" enctype="multipart/form-data">
+    @* Animal Details *@
+    <h3>Dettagli Animale</h3>
+    <div class="form-group">
+        <label asp-for="Animal.Name" class="control-label">Nome</label>
+        <input asp-for="Animal.Name" class="form-control" />
+        <span asp-validation-for="Animal.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Animal.NumMicrochip" class="control-label">Numero Microchip</label>
+        <input asp-for="Animal.NumMicrochip" class="form-control" />
+        <span asp-validation-for="Animal.NumMicrochip" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Animal.Color" class="control-label">Colore</label>
+        <input asp-for="Animal.Color" class="form-control" />
+        <span asp-validation-for="Animal.Color" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="SelectedBreedId">Razza</label>
+        <select id="SelectedBreedId" name="Animal.Breed.IdBreed" class="form-control">
+            <option value="">Seleziona Razza</option>
+            @foreach (var breed in Model.Breeds)
+            {
+                <option value="@breed.IdBreed">@breed.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Image">Immagine</label>
+        <input type="file" id="Image" name="Image" class="form-control" />
+    </div>
+
+    @* Hospitalization Details *@
+    <h3>Dettagli Ricovero</h3>
+
+    <div class="form-group">
+        <label asp-for="Hospitalization.IsHospitalized" class="control-label">È Ricoverato</label>
+        <input asp-for="Hospitalization.IsHospitalized" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="Hospitalization.IsHospitalized" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Hospitalization.HospDate" class="control-label">Data Ricovero</label>
+        <input asp-for="Hospitalization.HospDate" type="date" class="form-control" />
+        <span asp-validation-for="Hospitalization.HospDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Invia</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

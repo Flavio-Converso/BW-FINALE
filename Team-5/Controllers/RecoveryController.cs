@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Team_5.Context;
 using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
@@ -8,11 +11,16 @@ namespace Team_5.Controllers
     public class RecoveryController : Controller
     {
         private readonly IRecoveryService _recoveryService;
-        private readonly DataContext _dataContext;
-        public RecoveryController (IRecoveryService recoveryService,DataContext dataContext)
+        private readonly IBreedsService _breedsService;
+        private readonly IAnimalsService _animalsService;
+       
+
+        public RecoveryController(DataContext ctx, IRecoveryService recoveryService, IBreedsService breedsService, IAnimalsService animalsService)
         {
+            _animalsService = animalsService;
             _recoveryService = recoveryService;
-            _dataContext = dataContext;
+            _breedsService = breedsService;
+            
         }
 
         [HttpGet]
@@ -21,5 +29,100 @@ namespace Team_5.Controllers
             var isHospitalized = await _recoveryService.GetActiveHospitalizationsAsync();
             return View(isHospitalized);
         }
+
+        
+        [HttpGet]
+        public IActionResult CreateHospitalization()
+        {
+            return View();
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateHospitalization(Hospitalizations hospitalization)
+        {
+            try
+            {
+                var createdHospitalization = await _recoveryService.CreateHospitalizationsAsync(hospitalization);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                
+                ViewBag.ErrorMessage = ex.Message;
+                return View(hospitalization);
+            }
+        }
+
+
+        // crea animale e ricovero assieme
+
+
+         [HttpGet]
+        public async Task<IActionResult> CreateAnimalAndHospitalization()
+        {
+            var viewModel = new AnimalHospitalizationViewModel
+            {
+                Animal = new Animals
+                {
+                    Name = "",
+                    Color = "",
+                    RegistrationDate = DateTime.Now,
+                    Breed = new Breeds() // Assicurati di inizializzare il breed
+                },
+                Hospitalization = new Hospitalizations
+                {
+                    IsHospitalized = false,
+                    HospDate = DateTime.Now
+                },
+                Breeds = await _breedsService.GetAllBreedsAsync()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAnimalAndHospitalization(AnimalHospitalizationViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Se è necessario, gestisci i file immagine
+                    if (Request.Form.Files.Count > 0)
+                    {
+                        var file = Request.Form.Files[0];
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await file.CopyToAsync(memoryStream);
+                            viewModel.Animal.Image = memoryStream.ToArray();
+                        }
+                    }
+
+                    // Imposta il breed selezionato
+                    viewModel.Animal.Breed = await _breedsService.GetBreedByIdAsync(viewModel.Animal.Breed.IdBreed);
+
+                    var (createdAnimal, createdHospitalization) = await _recoveryService.CreateAnimalAndHospitalizationAsync(
+                        viewModel.Animal, viewModel.Hospitalization);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (ArgumentException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", "Si è verificato un errore durante la creazione dell'animale e del ricovero.");
+                }
+            }
+
+            viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
+            return View(viewModel);
+        }
     }
-}
+    }
+
+
+
