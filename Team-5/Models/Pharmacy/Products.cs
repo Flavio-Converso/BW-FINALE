@@ -25,7 +25,7 @@ namespace Team_5.Models.Pharmacy
         [Required]
         public required Companies Company { get; set; }
 
-        public Drawers Drawers { get; set; }
+        public Drawers? Drawers { get; set; }
         public List<Orders> Order { get; set; } = [];
 
     }

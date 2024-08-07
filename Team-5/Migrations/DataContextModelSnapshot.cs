@@ -367,7 +367,7 @@ namespace Team_5.Migrations
                     b.Property<int>("CompanyIdCompany")
                         .HasColumnType("int");
 
-                    b.Property<int>("DrawersIdDrawer")
+                    b.Property<int?>("DrawersIdDrawer")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
@@ -502,9 +502,7 @@ namespace Team_5.Migrations
 
                     b.HasOne("Team_5.Models.Pharmacy.Drawers", "Drawers")
                         .WithMany()
-                        .HasForeignKey("DrawersIdDrawer")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DrawersIdDrawer");
 
                     b.Navigation("Company");
 

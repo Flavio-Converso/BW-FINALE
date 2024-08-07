@@ -158,7 +158,7 @@ namespace Team_5.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Availability = table.Column<bool>(type: "bit", nullable: false),
                     CompanyIdCompany = table.Column<int>(type: "int", nullable: false),
-                    DrawersIdDrawer = table.Column<int>(type: "int", nullable: false)
+                    DrawersIdDrawer = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -173,8 +173,7 @@ namespace Team_5.Migrations
                         name: "FK_Products_Drawers_DrawersIdDrawer",
                         column: x => x.DrawersIdDrawer,
                         principalTable: "Drawers",
-                        principalColumn: "IdDrawer",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "IdDrawer");
                 });
 
             migrationBuilder.CreateTable(
