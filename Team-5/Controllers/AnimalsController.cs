@@ -64,5 +64,11 @@ namespace Team_5.Controllers
             var animals = await _animalsSvc.GetAnimalByMicrochipAsync(microchipId);
             return Ok(animals);
         }
+
+        public async Task<IActionResult> AnimalsWithoutOwner()
+        {
+            var animals = await _animalsSvc.GetAnimalsWithoutOwnerAsync();
+            return View(animals);
+        }
     }
 }

@@ -398,3 +398,6 @@ FodyWeavers.xsd
 *.sln.iml
 /Team-5/appsettings.json
 /Team-5/appsettings.Development.json
+
+Team-5/appsettings.json
+Team-5/appsettings.Development.json
