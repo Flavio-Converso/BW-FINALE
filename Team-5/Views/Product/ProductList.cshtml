@@ -5,10 +5,17 @@
 }
 
 <h2>Product List</h2>
-
-<div id="printLocker">
-
+<div class="form-group">
+    <label for="filter">Filtra per tipo:</label>
+    <select id="filter" class="form-control">
+        <option value="All">Tutti</option>
+        <option value="Alimento">Alimento</option>
+        <option value="Farmaco">Farmaco</option>
+    </select>
 </div>
+
+<div id="printLocker"></div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -38,7 +45,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr id="row">
+            <tr class="prow" data-type="@item.Type">
                 <td id="idProduct" value="@item.IdProduct">
                     @item.IdProduct
                 </td>

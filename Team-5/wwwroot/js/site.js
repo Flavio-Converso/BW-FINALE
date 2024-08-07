@@ -1,5 +1,5 @@
-﻿let chipPath = "/Animals/GetAnimalDataByMicrochip";
-
+﻿//search animal by microchip number
+let chipPath = "/Animals/GetAnimalDataByMicrochip";
 function countByMicroChip() {
     let microchip = $('#microchip').val();
     $.ajax({
@@ -22,7 +22,7 @@ function countByMicroChip() {
                 });
             } else {
                 div.append($(`<h1 class="mb-4">Nessun animale trovato per numero di microchip: ${microchip}</h1>`));
-            }
+          }
         }
     });
 }
@@ -43,6 +43,9 @@ $('#chipButton').on('click', () => {
     countByMicroChip();
 });
 
+
+//
+//show past examinations before creating a new one for selected animal
 let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
 
 function triggerPastVisits() {
@@ -71,7 +74,6 @@ function triggerPastVisits() {
             } else {
                 examDiv.append($(`<h1 class="mb-4">Nessun esame trovato l'id: ${IdAnimal}</h1>`));
             }
-       
         }
     });
 }
@@ -80,6 +82,8 @@ $('#pastVisits').on('change', () => {
     triggerPastVisits();
 });
 
+//
+//in productslist search drawer & locker for selected product
 let lockersPath = "/Product/FindLockers";
 
 function FindLockers(idProduct) {
@@ -108,7 +112,54 @@ function FindLockers(idProduct) {
     });
 }
 
-$(document).on('click', '#row', function () {
+$(document).on('click', '.prow', function () {
     let idProduct = $(this).find('#idProduct').text().trim();
     FindLockers(idProduct);
 });
+
+//
+//filter
+$(document).ready(function () {
+    $('#filter').on('change', function () {
+        var selectedType = $(this).val();
+
+        if (selectedType === 'All') {
+            $('.prow').show();
+            $('#printLocker').empty();
+        } else {
+            $('.prow').each(function () {
+                var productType = $(this).data('type');
+
+                if (productType === selectedType) {
+                    $(this).show();
+                    $('#printLocker').empty();
+                } else {
+                    $(this).hide();
+
+                }
+            });
+        }
+    });
+});
+
+//
+//disable drawer selection if "alimento" is selected
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("alimentoSelez").addEventListener("change", function () {
+        var selectedValue = this.value;
+        var drawerSelect = document.getElementById("selectDrawer");
+        var drawerSelect2 = document.getElementById("selectDrawer2");
+
+        if (selectedValue === "Alimento") {
+            drawerSelect.disabled = true;
+            drawerSelect.selectedIndex = 0;
+            drawerSelect.hidden = true;
+            drawerSelect2.hidden = true;
+        } else {
+            drawerSelect.disabled = false;
+            drawerSelect.hidden = false;
+            drawerSelect2.hidden = false;
+        }
+    });
+});
+
