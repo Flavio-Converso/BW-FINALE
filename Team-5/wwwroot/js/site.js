@@ -98,7 +98,7 @@ function FindLockers(idProduct) {
     });
 }
 
-$(document).on('click', '#row', function () {
+$(document).on('click', '.prow', function () {
     let idProduct = $(this).find('#idProduct').text().trim();
     FindLockers(idProduct);
 });
@@ -120,6 +120,31 @@ document.addEventListener("DOMContentLoaded", function () {
             drawerSelect.disabled = false;
             drawerSelect.hidden = false;
             drawerSelect2.hidden = false;
+        }
+    });
+});
+
+
+//filter
+$(document).ready(function () {
+    $('#filter').on('change', function () {
+        var selectedType = $(this).val();
+        
+        if (selectedType === 'All') {
+            $('.prow').show();
+            $('#printLocker').empty();
+        } else {
+            $('.prow').each(function () {
+                var productType = $(this).data('type');
+
+                if (productType === selectedType) {
+                    $(this).show();
+                    $('#printLocker').empty();
+                } else {
+                    $(this).hide();
+                    
+                }
+            });
         }
     });
 });
