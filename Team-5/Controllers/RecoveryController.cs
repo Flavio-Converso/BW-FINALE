@@ -15,7 +15,7 @@ namespace Team_5.Controllers
         private readonly IAnimalsService _animalsService;
        
 
-        public RecoveryController(DataContext ctx, IRecoveryService recoveryService, IBreedsService breedsService, IAnimalsService animalsService)
+        public RecoveryController(IRecoveryService recoveryService, IBreedsService breedsService, IAnimalsService animalsService)
         {
             _animalsService = animalsService;
             _recoveryService = recoveryService;
@@ -58,7 +58,7 @@ namespace Team_5.Controllers
         // crea animale e ricovero assieme
 
 
-         [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> CreateAnimalAndHospitalization()
         {
             var viewModel = new AnimalHospitalizationViewModel
@@ -68,14 +68,14 @@ namespace Team_5.Controllers
                     Name = "",
                     Color = "",
                     RegistrationDate = DateTime.Now,
-                    Breed = new Breeds() // Assicurati di inizializzare il breed
+                    Breed = new Breeds() // Assicurati che ci sia una razza selezionata
                 },
                 Hospitalization = new Hospitalizations
                 {
                     IsHospitalized = false,
                     HospDate = DateTime.Now
                 },
-                Breeds = await _breedsService.GetAllBreedsAsync()
+                Breeds = await _breedsService.GetAllBreedsAsync() // Carica tutte le razze
             };
 
             return View(viewModel);
@@ -85,44 +85,65 @@ namespace Team_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAnimalAndHospitalization(AnimalHospitalizationViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
+                // Stampa gli errori nel ModelState per il debug
+                foreach (var modelState in ModelState)
                 {
-                    // Se è necessario, gestisci i file immagine
-                    if (Request.Form.Files.Count > 0)
+                    foreach (var error in modelState.Value.Errors)
                     {
-                        var file = Request.Form.Files[0];
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await file.CopyToAsync(memoryStream);
-                            viewModel.Animal.Image = memoryStream.ToArray();
-                        }
+                        Console.WriteLine($"Key: {modelState.Key}, Error: {error.ErrorMessage}");
                     }
-
-                    // Imposta il breed selezionato
-                    viewModel.Animal.Breed = await _breedsService.GetBreedByIdAsync(viewModel.Animal.Breed.IdBreed);
-
-                    var (createdAnimal, createdHospitalization) = await _recoveryService.CreateAnimalAndHospitalizationAsync(
-                        viewModel.Animal, viewModel.Hospitalization);
-
-                    return RedirectToAction("Index", "Home");
                 }
-                catch (ArgumentException ex)
+
+                viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
+                return View(viewModel);
+            }
+
+            try
+            {
+                // Se è necessario, gestisci i file immagine
+                if (Request.Form.Files.Count > 0)
                 {
-                    ModelState.AddModelError("", ex.Message);
+                    var file = Request.Form.Files[0];
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(memoryStream);
+                        viewModel.Animal.Image = memoryStream.ToArray();
+                    }
                 }
-                catch (Exception)
+
+                // Imposta il breed selezionato
+                var breed = await _breedsService.GetBreedByIdAsync(viewModel.Animal.Breed.IdBreed);
+                if (breed == null)
                 {
-                    ModelState.AddModelError("", "Si è verificato un errore durante la creazione dell'animale e del ricovero.");
+                    ModelState.AddModelError("Animal.Breed.IdBreed", "Breed not found.");
+                    viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
+                    return View(viewModel);
                 }
+                viewModel.Animal.Breed = breed;
+
+                var (createdAnimal, createdHospitalization) = await _recoveryService.CreateAnimalAndHospitalizationAsync(
+                    viewModel.Animal, viewModel.Hospitalization);
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Si è verificato un errore durante la creazione dell'animale e del ricovero.");
             }
 
             viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
             return View(viewModel);
         }
+
+
     }
-    }
+}
 
 
 
