@@ -6,7 +6,7 @@
     var animals = ViewBag.Animals as List<Animals>;
 }
 
-<h1>Aggiungi Ricovero</h1>
+<h1>Aggiungi Visita</h1>
 
 <hr />
 <div class="row">
@@ -14,12 +14,12 @@
         <form asp-action="CreateExamination">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ExaminationDate" class="control-label">Inserisci data ricovero:</label>
+                <label asp-for="ExaminationDate" class="control-label">Inserisci data visita:</label>
                 <input asp-for="ExaminationDate" class="form-control" />
                 <span asp-validation-for="ExaminationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExaminationName" class="control-label mt-3">Inserisci informazioni ricovero:</label>
+                <label asp-for="ExaminationName" class="control-label mt-3">Inserisci informazioni visita:</label>
                 <input asp-for="ExaminationName" class="form-control" />
                 <span asp-validation-for="ExaminationName" class="text-danger"></span>
             </div>
@@ -29,7 +29,7 @@
                 <span asp-validation-for="Treatment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AnimalId" class="control-label mt-3">Seleziona l'animale per il ricovero:</label>
+                <label asp-for="AnimalId" class="control-label mt-3">Seleziona l'animale per il visita:</label>
                 <select asp-for="AnimalId" class="form-control">
                     <option value="" disabled selected>Seleziona un opzione</option>
                     @foreach(var a in animals)
