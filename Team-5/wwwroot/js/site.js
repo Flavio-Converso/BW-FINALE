@@ -104,6 +104,31 @@ $(document).on('click', '.prow', function () {
 });
 
 //
+//filter
+$(document).ready(function () {
+    $('#filter').on('change', function () {
+        var selectedType = $(this).val();
+
+        if (selectedType === 'All') {
+            $('.prow').show();
+            $('#printLocker').empty();
+        } else {
+            $('.prow').each(function () {
+                var productType = $(this).data('type');
+
+                if (productType === selectedType) {
+                    $(this).show();
+                    $('#printLocker').empty();
+                } else {
+                    $(this).hide();
+
+                }
+            });
+        }
+    });
+});
+
+//
 //disable drawer selection if "alimento" is selected
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("alimentoSelez").addEventListener("change", function () {
@@ -124,27 +149,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-//filter
-$(document).ready(function () {
-    $('#filter').on('change', function () {
-        var selectedType = $(this).val();
-        
-        if (selectedType === 'All') {
-            $('.prow').show();
-            $('#printLocker').empty();
-        } else {
-            $('.prow').each(function () {
-                var productType = $(this).data('type');
-
-                if (productType === selectedType) {
-                    $(this).show();
-                    $('#printLocker').empty();
-                } else {
-                    $(this).hide();
-                    
-                }
-            });
-        }
-    });
-});
