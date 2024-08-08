@@ -32,6 +32,19 @@
                         }
                         else
                         {
+                            <div class="dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Proprietari
+                                        </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Owners" asp-action="CreateOwner">Registra Proprietario</a>
+                                            </li>
+                                            <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Owners" asp-action="OwnersList">Lista Proprietari</a>
+                                            </li>
+                                        </ul>
+                           </div>
                                     <div class="dropdown">
                                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                             Animali
