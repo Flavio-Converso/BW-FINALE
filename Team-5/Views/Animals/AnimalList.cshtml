@@ -17,7 +17,7 @@
             <th scope="col">N.Microchip</th>
             <th scope="col">ID Padrone</th>
             <th scope="col">Immagine</th>
-            <th scope="col">Azioni</th> <!-- Nuova colonna per le azioni -->
+            <th scope="col">Azioni</th> 
         </tr>
     </thead>
     <tbody>
@@ -42,7 +42,6 @@
                     }
                 </td>
                 <td>
-                    <!-- Colonna per le azioni -->
                     <form asp-action="DeleteAnimal" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo animale?');">
                         <input type="hidden" name="id" value="@animal.IdAnimal" />
                         <button type="submit" class="btn btn-danger">Elimina</button>
