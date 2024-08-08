@@ -20,6 +20,12 @@ function countByMicroChip() {
                     animalDetails += `<p>Data Di Nascita: <span class="text-danger">${animal.birthDate}</span></p>`;
                     animalDetails += `<p>Colore: <span class="text-danger">${animal.color}</span></p>`;
                     animalDetails += `<img src="data:image/jpeg;base64,${animal.image}" alt="Immagine di ${animal.name}" style="max-width: 200px; max-height: 200px;" />`;
+                    if (animal.isHospitalized) {
+                        animalDetails += `<p>Ricovero: <span class="text-success">Ricoverato</span></p>`;
+                    } else {
+                        animalDetails += `<p>Ricovero: <span class="text-danger">Non ricoverato</span></p>`;
+                    }
+
 
                     // Aggiungi qui altri campi che desideri visualizzare   
                     div.append(animalDetails);
