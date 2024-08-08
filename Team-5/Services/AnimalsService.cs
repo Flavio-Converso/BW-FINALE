@@ -83,7 +83,12 @@ namespace Team_5.Services
 
         public async Task<List<Animals>> GetAnimalByMicrochipAsync(string microchipId)
         {
-            return await _ctx.Animals.Where(a => a.NumMicrochip == microchipId).ToListAsync();
+
+            return await _ctx.Animals
+                    .Include(a => a.Hospitalization) 
+                    .Where(a => a.NumMicrochip == microchipId)
+                    .ToListAsync();
+
         }
 
         public async Task<List<Animals>> GetAnimalsWithoutOwnerAsync()

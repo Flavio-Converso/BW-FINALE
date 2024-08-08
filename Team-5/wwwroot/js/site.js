@@ -17,6 +17,7 @@ function countByMicroChip() {
                     animalDetails += `<p>Colore: <span class="text-danger">${animal.color}</span></p>`;
                     animalDetails += `<img src="data:image/jpeg;base64,${animal.image}" alt="Immagine di ${animal.name}" style="max-width: 200px; max-height: 200px;" />`;
 
+                    
                     // Aggiungi qui altri campi che desideri visualizzare   
                     div.append(animalDetails);
                 });

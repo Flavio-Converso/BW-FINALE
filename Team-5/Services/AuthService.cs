@@ -17,7 +17,7 @@ namespace Team_5.Services
         public async Task<Users> RegisterAsync(Users user)
         {
             user.Password = PasswordHelper.HashPassword(user.Password);
-            var userRole = await _ctx.Roles.Where(r => r.IdRole == 3).FirstOrDefaultAsync(); //1 = master _ 2 = admin _ 3 = user
+            var userRole = await _ctx.Roles.Where(r => r.IdRole == 1).FirstOrDefaultAsync(); //1 = master _ 2 = admin _ 3 = user
             user.Roles.Add(userRole);
             await _ctx.Users.AddAsync(user);
             await _ctx.SaveChangesAsync();

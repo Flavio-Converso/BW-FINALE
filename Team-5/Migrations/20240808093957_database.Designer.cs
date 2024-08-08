@@ -12,8 +12,8 @@ using Team_5.Context;
 namespace Team_5.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240807150430_new")]
-    partial class @new
+    [Migration("20240808093957_database")]
+    partial class database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
