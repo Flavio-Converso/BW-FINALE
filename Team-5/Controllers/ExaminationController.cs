@@ -48,5 +48,20 @@ namespace Team_5.Controllers
             var esamiByAnimalId = await _examinationSvc.GetAllExaminationsByIdAnimalAsync(IdAnimal);
             return Ok(esamiByAnimalId);
         }
+
+        [HttpPost]
+        public async Task<IActionResult>DeleteExamination(int id)
+        {
+            var deletedExam = await _examinationSvc.DeleteExamination(id);
+
+            if (deletedExam == null)
+            {
+                // Se l'ordine non esiste, restituisci un 404 Not Found
+                return NotFound(new { Message = "Order not found." });
+            }
+
+            return RedirectToAction("ExaminationsList");
+
+        }
     }
 }

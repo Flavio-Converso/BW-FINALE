@@ -46,8 +46,7 @@ namespace Team_5.Controllers
                 return NotFound(new { Message = "Order not found." });
             }
 
-            // Se l'ordine è stato eliminato con successo, restituisci un 200 OK con i dettagli dell'ordine eliminato
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("OrderList");
         }
     }
 }

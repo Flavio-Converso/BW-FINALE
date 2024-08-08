@@ -23,6 +23,14 @@
                 <td>@esame.ExaminationName</td>
                 <td>@esame.Treatment</td>
                 <td>@esame.Animal.Name</td>
+                <td>
+                    <form asp-action="DeleteExamination" asp-controller="Examination" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo esame?');">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@esame.IdExamination" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+
             </tr>
         }
     </tbody>
