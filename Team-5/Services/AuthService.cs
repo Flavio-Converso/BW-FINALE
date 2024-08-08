@@ -35,7 +35,7 @@ namespace Team_5.Services
 
             if (existingUser == null)
             {
-                throw new Exception("Invalid username or password.");
+                throw new Exception();
             }
             return existingUser;
         }

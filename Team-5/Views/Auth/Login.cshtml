@@ -9,6 +9,14 @@
 <form asp-action="Login" method="post">
     @Html.AntiForgeryToken()
 
+    <!-- Custom Validation Message for Login -->
+    @if (ViewData.ModelState.ContainsKey("LoginError"))
+    {
+        <div class="alert alert-danger">
+            <span>Username o password non validi!Riprova</span>
+        </div>
+    }
+
     <div class="form-group">
         <label asp-for="Username" class="control-label"></label>
         <input asp-for="Username" class="form-control" />
@@ -26,7 +34,6 @@
     </div>
 
     <div>
-        @* Optional: Link to register if the user doesn't have an account *@
         <a asp-action="Register" class="btn btn-link">Register</a>
     </div>
 </form>

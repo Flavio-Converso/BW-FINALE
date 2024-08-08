@@ -49,7 +49,7 @@ namespace Team_5.Controllers
                 var existingUser = await _authSvc.LoginAsync(user);
                 if (existingUser == null)
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("LoginError", "");
                     return View(user);
                 }
 
@@ -73,6 +73,7 @@ namespace Team_5.Controllers
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError("LoginError", "");
                 return View(user);
             }
         }
