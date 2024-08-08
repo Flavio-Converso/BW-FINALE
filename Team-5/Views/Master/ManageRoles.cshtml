@@ -12,7 +12,7 @@
 <div class="container my-4">
     <div class="row">
         <div class="col-4">
-            <h3>Crea ruolo</h2>
+            <h3>Crea ruolo</h3>
             <form asp-action="CreateRole" method="post">
                 @Html.AntiForgeryToken()
                 <div class="form-group">
@@ -33,7 +33,7 @@
             <th>
                 Username
             </th>
-           
+
             <th>
                 Email
             </th>
@@ -47,42 +47,41 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var u in users) {
-        <tr>
-            <form asp-action="ManageRoles" method="post">
+        @foreach (var u in users)
+        {
+            <tr>
+                <form asp-action="ManageRoles" method="post">
 
-            <td>
-               @u.Username
-            </td>
-           
-            <td>
-                @u.Email
-            </td>
-            <td>
-                    @foreach(var role in u.Roles)
-                    {
-                
-                        <li class="list-unstyled">
+                <td>
+                        @u.Username
+                </td>
 
-                        @role.Name            
-                        </li>
-                    }
-            </td>
-            <td>
-                <select for="role" name="idRole" >
-                        <option value="" disabled selected>Scegli Ruolo</option>
-                        @foreach (var r in roles)
+                <td>
+                        @u.Email
+                </td>
+                <td>
+                        @foreach (var role in u.Roles)
                         {
-                            <option value="@r.IdRole">@r.Name</option>
+                        <li class="list-unstyled">
+                                @role.Name
+                        </li>
                         }
-                </select>
-            </td>
-            <input type="hidden" name="idUser" value="@u.IdUser" />
-            <td>
-                <button type="submit" class="btn btn-info">Aggiorna Ruoli</button> 
-            </td>
-            </form>
-        </tr>
-}
+                </td>
+                <td>
+                    <select for="role" name="idRole">
+                        <option value="" disabled selected>Scegli Ruolo</option>
+                            @foreach (var r in roles)
+                            {
+                            <option value="@r.IdRole">@r.Name</option>
+                            }
+                    </select>
+                </td>
+                <input type="hidden" name="idUser" value="@u.IdUser" />
+                <td>
+                    <button type="submit" class="btn btn-info">Aggiorna Ruoli</button>
+                </td>
+                </form>
+            </tr>
+        }
     </tbody>
 </table>

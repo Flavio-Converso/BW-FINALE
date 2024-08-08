@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Team_5.Context;
 using Team_5.Models.Pharmacy;
-using Team_5.Services;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
@@ -8,10 +8,12 @@ namespace Team_5.Controllers
     public class OrdersController : Controller
     {
         private readonly IOrdersService _ordersSvc;
+        private readonly DataContext _ctx;
 
-        public OrdersController(IOrdersService ordersService)
+        public OrdersController(IOrdersService ordersService, DataContext dataContext)
         {
             _ordersSvc = ordersService;
+            _ctx = dataContext;
         }
 
         public async Task<IActionResult> CreateOrder()
@@ -25,7 +27,14 @@ namespace Team_5.Controllers
 
         public async Task<IActionResult> CreateOrder(Orders o, string cf)
         {
-            var order = await _ordersSvc.CreateOrder(o, cf);
+            var order = await _ordersSvc.CreateOrder(orders, cf);
+
+            if (order == null)
+            {
+                ModelState.AddModelError(string.Empty, "Il codice fiscale o il prodotto fornito non sono validi.");
+                ViewBag.Products = await _ordersSvc.GetAllProducts();
+                return View(orders);
+            }
             return RedirectToAction("Index", "Home");
         }
 

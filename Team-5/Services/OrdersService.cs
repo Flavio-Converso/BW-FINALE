@@ -19,13 +19,23 @@ namespace Team_5.Services
             var product = await _ctx.Products.FirstOrDefaultAsync(p => p.IdProduct == orders.IdProduct);
             var owner = await _ctx.Owners.FirstOrDefaultAsync(o => o.CF == cf);
 
+            if (owner == null)
+            {
+                return null;
+            }
+
+            if (product == null)
+            {
+                return null;
+            }
+
             var order = new Orders
             {
                 OrderDate = orders.OrderDate,
                 OrderQuantity = orders.OrderQuantity,
                 PrescriptionNumber = orders.PrescriptionNumber,
-                IdOwner = owner?.IdOwner ?? 0,
-                IdProduct = product?.IdProduct ?? 0
+                IdOwner = owner.IdOwner,
+                IdProduct = product.IdProduct
             };
 
             await _ctx.Orders.AddAsync(order);

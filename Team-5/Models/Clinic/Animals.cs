@@ -21,6 +21,7 @@ namespace Team_5.Models.Clinic
         public DateTime BirthDate { get; set; } = DateTime.MinValue;
 
         [StringLength(16)]
+        [Required(ErrorMessage = "Il numero di microchip è obbligatorio.")]
         public string NumMicrochip { get; set; }
 
         public byte[]? Image { get; set; }
