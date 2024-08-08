@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
@@ -23,24 +23,12 @@ namespace Team_5.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateOwner(Owners owner)
+        public async Task<IActionResult> CreateOwner(OwnerViewModel ow)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(owner);
-            }
-
-            try
-            {
-                await _ownersService.CreateOwnersAsync(owner);
-                return RedirectToAction("OwnersList");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, "An error occurred while creating the owner. Please try again.");
-                return View(owner);
-            }
+            await _ownersService.CreateOwnersAsync(ow);
+            return RedirectToAction("OwnersList");
         }
+
 
         [HttpGet]
         public async Task<IActionResult> OwnersList()

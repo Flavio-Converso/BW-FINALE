@@ -2,6 +2,7 @@
 using Team_5.Context;
 using Team_5.Models.Auth;
 using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Services
@@ -15,26 +16,26 @@ namespace Team_5.Services
             _ctx = context;
         }
 
-        public async Task<Owners> CreateOwnersAsync(Owners o)
+        public async Task<OwnerViewModel> CreateOwnersAsync(OwnerViewModel o)
         {
-            var user = await _ctx.Users.FirstOrDefaultAsync(u => u.IdUser == o.User.IdUser);
+            var user = await _ctx.Users.FindAsync(o.IdUser);
             var owner = new Owners
             {
-                Name = o.Name,
-                Surname = o.Surname,
-                PhoneNumber = o.PhoneNumber,
-                CF = o.CF,
+                Name = o.Owners.Name,
+                Surname = o.Owners.Surname,
+                PhoneNumber = o.Owners.PhoneNumber,
+                CF = o.Owners.CF,
                 User = user!
             };
 
             await _ctx.Owners.AddAsync(owner);
             await _ctx.SaveChangesAsync();
-            return owner;
+            return o;
         }
 
         public async Task<List<Owners>> GetAllOwnersAsync()
         {
-            return await _ctx.Owners.ToListAsync();
+            return await _ctx.Owners.Include(o => o.User).ToListAsync();
         }
 
         public async Task<List<Users>> GetAllUsers()

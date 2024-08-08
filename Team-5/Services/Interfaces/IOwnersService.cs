@@ -1,12 +1,13 @@
 ﻿using Team_5.Models.Auth;
 using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 
 namespace Team_5.Services.Interfaces
 {
     public interface IOwnersService
     {
         Task<List<Owners>> GetAllOwnersAsync();
-        Task<Owners> CreateOwnersAsync(Owners owners);
+        Task<OwnerViewModel> CreateOwnersAsync(OwnerViewModel ow);
         Task<List<Users>> GetAllUsers();
 
     }

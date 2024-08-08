@@ -1,5 +1,5 @@
 ﻿@using Team_5.Models.Auth
-@model Team_5.Models.Clinic.Owners
+@model Team_5.Models.ViewModels.OwnerViewModel
 
 @{
     ViewData["Title"] = "Create Owner";
@@ -12,40 +12,39 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="Owners.Name" class="control-label"></label>
+        <input asp-for="Owners.Name" class="form-control" />
+        <span asp-validation-for="Owners.Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Surname" class="control-label"></label>
-        <input asp-for="Surname" class="form-control" />
-        <span asp-validation-for="Surname" class="text-danger"></span>
+        <label asp-for="Owners.Surname" class="control-label"></label>
+        <input asp-for="Owners.Surname" class="form-control" />
+        <span asp-validation-for="Owners.Surname" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="PhoneNumber" class="control-label"></label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        <label asp-for="Owners.PhoneNumber" class="control-label"></label>
+        <input asp-for="Owners.PhoneNumber" class="form-control" />
+        <span asp-validation-for="Owners.PhoneNumber" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="CF" class="control-label"></label>
-        <input asp-for="CF" class="form-control" />
-        <span asp-validation-for="CF" class="text-danger"></span>
+        <label asp-for="Owners.CF" class="control-label"></label>
+        <input asp-for="Owners.CF" class="form-control" />
+        <span asp-validation-for="Owners.CF" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="User.IdUser" class="control-label"></label>
-        <select asp-for="User.IdUser" class="form-control">
+        <label asp-for="IdUser" class="control-label">User</label>
+        <select asp-for="IdUser" class="form-control">
             <option disabled selected value="">Select a user</option>
             @foreach (var user in users)
             {
                 <option value="@user.IdUser">@user.Username</option>
             }
-
         </select>
-        <span asp-validation-for="User.IdUser" class="text-danger"></span>
+        <span asp-validation-for="IdUser" class="text-danger"></span>
     </div>
 
     <div class="form-group">
