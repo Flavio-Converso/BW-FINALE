@@ -1,1 +1,76 @@
-﻿<h1>todo</h1>
+﻿@using Team_5.Models.Auth
+@model Team_5.Models.ViewModels.UserRolesViewModel
+
+@{
+    ViewData["Title"] = "ManageRoles";
+    var roles = ViewBag.Roles as List<Roles>;
+}
+
+<h1>ManageRoles</h1>
+
+<div class="container">
+    <form asp-action="CreateRoles" method="post">
+        
+        <button type="submit" class="btn btn-info">Crea Ruolo</button>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Users.Username)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Users.Email)
+            </th>
+            <th>
+                Ruoli
+            </th>
+            <th>
+                Aggiungi/Rimuovi Ruolo
+            </th>
+            <th>Conferma</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Users) {
+        <tr>
+            <form asp-action="ManageRoles" method="post">
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Users.Username)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Users.Email)
+            </td>
+            <td>
+                    @foreach(var role in item.Users.Roles)
+                    {
+                
+                        <li class="list-unstyled">
+
+                        @role.Name            
+                        </li>
+                    }
+            </td>
+            <td>
+                <select for="role" name="idRole" >
+                        <option value="" disabled selected>Scegli Ruolo</option>
+                        @foreach (var r in roles)
+                        {
+                            <option value="@r.IdRole">@r.Name</option>
+                        }
+                </select>
+            </td>
+            <input type="hidden" name="idUser" value="@item.Users.IdUser" />
+            <td>
+                <button type="submit" class="btn btn-info">Aggiorna Ruoli</button> 
+            </td>
+            </form>
+        </tr>
+}
+    </tbody>
+</table>
