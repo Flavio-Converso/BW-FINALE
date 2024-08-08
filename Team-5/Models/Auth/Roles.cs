@@ -11,7 +11,7 @@ namespace Team_5.Models.Auth
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdRole { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Inserisci il nome per il nuovo ruolo!")]
         [StringLength(50)]
         public required string Name { get; set; }
 

@@ -153,19 +153,21 @@ $(document).ready(function () {
 //disable drawer selection if "alimento" is selected
 $(document).ready(function () {
     $("#alimentoSelez").on("change", function () {
-        var selectedValue = $(this).val();  // Corrected this line
+        var selectedValue = $(this).val();
         var drawerSelect = $("#selectDrawer");
         var drawerSelect2 = $("#selectDrawer2");
+        var drawerValidation = $("#selectDrawer3");
 
         if (selectedValue === "Alimento") {
-            drawerSelect.prop('disabled', true);  // Corrected this line
-            drawerSelect[0].selectedIndex = 0;  // Reset selected index
-            drawerSelect.hide();  // Corrected this line
-            drawerSelect2.hide();  // Corrected this line
+            drawerSelect.prop('disabled', true);
+            drawerSelect[0].selectedIndex = 0;
+            drawerSelect2.hide();
+            drawerValidation.hide();
         } else {
-            drawerSelect.prop('disabled', false);  // Corrected this line
-            drawerSelect.show();  // Corrected this line
-            drawerSelect2.show();  // Corrected this line
+            drawerSelect.prop('disabled', false);
+            drawerSelect.show();
+            drawerSelect2.show();
+            drawerValidation.show(); 
         }
     });
 
