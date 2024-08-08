@@ -49,9 +49,9 @@ $('#chipButton').on('click', () => {
 let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
 
 function triggerPastVisits() {
-    let IdAnimal = $('#pastVisits').val();  
+    let IdAnimal = $('#pastVisits').val();
     $.ajax({
-        url: `${pastVisitsPath}?IdAnimal=${IdAnimal}`,  
+        url: `${pastVisitsPath}?IdAnimal=${IdAnimal}`,
         method: 'GET',
         success: (data) => {
             console.log("Success", data);
@@ -60,19 +60,24 @@ function triggerPastVisits() {
             if (data.length > 0) {
                 examDiv.prepend(`<h1 class="mb-4">Lista esami pregressi</h1>`)
                 data.forEach(exam => {
-                    let examDetails =
-                        `                      
-                        <ul>
-                        <li> ${exam.idExamination} </li>
-                        <li> ${exam.examinationDate} </li>
-                        <li> ${exam.examinationName} </li>
-                        <li> ${exam.treatment} </li>
-                        </ul>
-                    `;                 
+                    let examDetails = `
+                    
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Esame n.${exam.idExamination}</h5>
+                                <p class="card-text">
+                                    <strong>Data:</strong> ${new Date(exam.examinationDate).toLocaleDateString()}<br />
+                                    <strong>Nome Esame:</strong> ${exam.examinationName}<br />
+                                    <strong>Trattamento:</strong> ${exam.treatment}
+                                </p>
+                            </div>
+                        </div>
+                    
+                    `;
                     examDiv.append(examDetails);
                 });
             } else {
-                examDiv.append($(`<h1 class="mb-4">Nessun esame trovato l'id: ${IdAnimal}</h1>`));
+                examDiv.append($(`<h1 class="mb-4">Nessun esame trovato per l'animale con ID: ${IdAnimal}</h1>`));
             }
         }
     });
@@ -81,6 +86,7 @@ function triggerPastVisits() {
 $('#pastVisits').on('change', () => {
     triggerPastVisits();
 });
+
 
 //
 //in productslist search drawer & locker for selected product

@@ -31,7 +31,7 @@ namespace Team_5.Controllers
             var animalExists = _dataContext.Animals.Any(a => a.IdAnimal == ex.AnimalId);
             if (!animalExists)
             {
-                ModelState.AddModelError("AnimalId", "Invalid AnimalId");
+                ModelState.AddModelError("AnimalId", "ID Animale non valido");
                 return View(ex); // Ritorna la vista con l'errore
             }
 
