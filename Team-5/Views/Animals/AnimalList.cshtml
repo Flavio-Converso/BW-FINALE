@@ -1,7 +1,7 @@
 ﻿@model List<Team_5.Models.Clinic.Animals>
 
 @{
-    ViewData["Title"] = "Animal List";
+    ViewData["Title"] = "Lista Animali";
 }
 
 <h2>Lista Animali</h2>
@@ -16,7 +16,8 @@
             <th scope="col">Colore</th>
             <th scope="col">N.Microchip</th>
             <th scope="col">ID Padrone</th>
-            <th scope="col">Immagine</th>       
+            <th scope="col">Immagine</th>
+            <th scope="col">Azioni</th> <!-- Nuova colonna per le azioni -->
         </tr>
     </thead>
     <tbody>
@@ -39,7 +40,14 @@
                     {
                         <span>Nessuna immagine</span>
                     }
-                </td>              
+                </td>
+                <td>
+                    <!-- Colonna per le azioni -->
+                    <form asp-action="DeleteAnimal" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo animale?');">
+                        <input type="hidden" name="id" value="@animal.IdAnimal" />
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

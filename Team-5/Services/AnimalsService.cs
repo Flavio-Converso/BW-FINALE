@@ -98,5 +98,18 @@ namespace Team_5.Services
                              .Include(a => a.Breed)
                              .ToListAsync();
         }
+
+        public async Task<bool> DeleteAnimalAsync(int animalId)
+        {
+            var animal = await _ctx.Animals.FindAsync(animalId);
+            if (animal == null)
+            {
+                return false; 
+            }
+
+            _ctx.Animals.Remove(animal);
+            await _ctx.SaveChangesAsync();
+            return true; 
+        }
     }
 }

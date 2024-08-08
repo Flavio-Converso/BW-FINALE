@@ -70,5 +70,20 @@ namespace Team_5.Controllers
             var animals = await _animalsSvc.GetAnimalsWithoutOwnerAsync();
             return View(animals);
         }
+
+        // eliminazione animale
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteAnimal(int id)
+        {
+            var success = await _animalsSvc.DeleteAnimalAsync(id);
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("AnimalList");
+        }
     }
 }
