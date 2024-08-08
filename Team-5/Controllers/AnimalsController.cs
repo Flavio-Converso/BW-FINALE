@@ -59,7 +59,6 @@ namespace Team_5.Controllers
         }
 
 
-
         [HttpGet("Animals/GetAnimalDataByMicrochip")]
         public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
         {
@@ -76,7 +75,6 @@ namespace Team_5.Controllers
 
             return Ok(animalData);
         }
-
 
 
         public async Task<IActionResult> AnimalsWithoutOwner()
