@@ -34,13 +34,15 @@ namespace Team_5.Controllers
 
 
         [HttpGet]
-        public IActionResult CreateHospitalization()
+        public async Task<IActionResult> CreateHospitalization()
         {
+            ViewBag.Animals = await _dataContext.Animals.ToListAsync();
             return View();
         }
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateHospitalization(Hospitalizations hospitalization)
         {
             try

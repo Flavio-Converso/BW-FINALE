@@ -64,5 +64,16 @@ namespace Team_5.Controllers
             return Ok(list);
         }
 
+        [HttpGet("Product/GetProductsFromCF")]
+        public async Task<IActionResult> GetProductsFromCF(string cf)
+        {
+            var list = await _dataContext.Orders
+                .Include(o => o.Owner).Include(o => o.Product)
+                .Where(o => o.Owner.CF == cf)
+                .ToListAsync();
+
+            return Ok(list);
+        }
+
     }
 }

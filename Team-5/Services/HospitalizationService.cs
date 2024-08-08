@@ -9,9 +9,11 @@ namespace Team_5.Services
     public class HospitalizationService : IHospitalizationService
     {
         private readonly DataContext _dataContext;
-        public HospitalizationService(DataContext dataContext)
+        private readonly ILogger<HospitalizationService> _logger;
+        public HospitalizationService(DataContext dataContext, ILogger<HospitalizationService> logger)
         {
             _dataContext = dataContext;
+            _logger = logger;
         }
 
 
