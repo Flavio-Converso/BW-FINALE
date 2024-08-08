@@ -31,6 +31,7 @@ namespace Team_5.Controllers
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError("RegisterError", ex.Message);
                 return View(u);
             }
         }

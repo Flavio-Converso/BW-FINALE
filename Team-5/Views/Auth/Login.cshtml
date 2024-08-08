@@ -9,11 +9,10 @@
 <form asp-action="Login" method="post">
     @Html.AntiForgeryToken()
 
-    <!-- Custom Validation Message for Login -->
     @if (ViewData.ModelState.ContainsKey("LoginError"))
     {
         <div class="alert alert-danger">
-            <span>Username o password non validi!Riprova</span>
+            <span>Username o password non validi! Riprova</span>
         </div>
     }
 
