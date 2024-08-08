@@ -4,7 +4,7 @@ namespace Team_5.Services.Interfaces
 {
     public interface IAuthService
     {
-        public Task<Users> RegisterAsync(Users user);
-        public Task<Users> LoginAsync(Users user);
+        Task<Users> RegisterAsync(Users user);
+        Task<Users> LoginAsync(Users user);
     }
 }
