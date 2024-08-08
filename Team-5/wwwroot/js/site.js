@@ -102,11 +102,18 @@ function FindLockers(idProduct) {
             div.empty();
             if (data) {
                 let productLocker = `
-                    <ul>
-                        <li>ID cassetto: ${data.drawers.idDrawer}</li>
-                        <li>ID armadietto: ${data.drawers.lockerId}</li>
-                    </ul>
-                `;
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h2 class="text-primary">Dettagli Cassetto</h2>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>ID cassetto:</strong> ${data.drawers.idDrawer}</li>
+                                    <li class="list-group-item"><strong>ID armadietto:</strong> ${data.drawers.lockerId}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
                 div.append(productLocker);
             } else {
                 div.append($(`<h1 class="mb-4">Nessun prodotto trovato con l'id: ${idProduct}</h1>`));
@@ -172,6 +179,8 @@ $(document).ready(function () {
     $("#alimentoSelez").trigger('change');
 });
 
+// Funzione per reperire il numero di farmaci venduti in una certa data
+
 let datePath = '/Product/GetProductsFromDate';
 
 function ProductsFromDate() {
@@ -190,8 +199,15 @@ function ProductsFromDate() {
                 data.forEach(order => {
                     
                     list += `
-                        <h1 class="text-danger">Nome Farmaco: ${order.product.productName}</h1>
-                        <h1 class="text-danger">Uso: ${order.product.use}</h1>`; 
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Uso:</strong> ${order.product.use}</p>
+                            </div>
+                        </div>`;
+                        
                 });
                 div.append(list);
             } else {
@@ -207,4 +223,52 @@ function ProductsFromDate() {
 
 $('#dateBtn').on('click', () => {
     ProductsFromDate();
+})
+
+let cfPath = '/Product/GetProductsFromCF';
+
+function ProductsFromCF() {
+    let cf = $('#cfInput').val();
+
+    $.ajax({
+        url: `${cfPath}?cf=${cf}`,
+        method: 'GET',
+        success: (data) => {
+            console.log("Data received:", data);
+            let div = $('#cf');
+            div.empty();
+
+            if (data && data.length > 0) {
+                let list = `<h1 class="mb-4">Farmaci per il cf ${cf}:</h1>`;
+                data.forEach(order => {
+
+                    list += `
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Uso: ${order.product.use}</h5>
+                                <p class="card-text"><strong>Data Ordine:</strong> ${order.orderDate}</p>
+                                <p class="card-text"><strong>Quantità:</strong> ${order.orderQuantity}</p>
+                                <p class="card-text"><strong>Num. Prescrizione:</strong> ${order.prescriptionNumber}</p>
+                            </div>
+                        </div>
+                    `;
+
+                });
+                div.append(list);
+            } else {
+                div.append(`<h1 class="mb-4">Nessun farmaco trovato per il cf ${cf}</h1>`);
+            }
+        },
+        error: (err) => {
+            console.error("Errore durante il recupero dei dati:", err);
+            $('#cf').empty().append('<h1 class="mb-4">Errore nel recupero dei dati. Per favore, riprova più tardi.</h1>');
+        }
+    });
+}
+
+$('#cfBtn').on('click', () => {
+    ProductsFromCF();
 })
