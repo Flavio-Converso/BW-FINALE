@@ -46,7 +46,7 @@
     <div class="form-group">
         <label asp-for="IdBreed" class="mt-2">Inserisci razza animale:</label>
         <select asp-for="IdBreed" class="form-control">
-            <option value="">Seleziona Razza</option>
+            <option value="" selected disabled>Seleziona Razza</option>
             @foreach (var breed in breeds)
             {
                 <option value="@breed.IdBreed">@breed.Name</option>

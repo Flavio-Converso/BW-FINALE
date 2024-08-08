@@ -23,7 +23,7 @@
             <div class="form-group">
                 <label asp-for="AnimalId" class="mt-2">Inserisci animale:</label>
                 <select asp-for="AnimalId" class="form-control">
-                    <option value="">Seleziona Animale</option>
+                    <option value="" selected disabled>Seleziona Animale</option>
                     @foreach (var a in animal)
                     {
                         <option value="@a.IdAnimal">@a.Name</option>

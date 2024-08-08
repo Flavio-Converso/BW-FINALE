@@ -36,7 +36,7 @@
             <div class="form-group">
                 <label asp-for="IdProduct" class="mt-2">Inserisci prodotto:</label>
                 <select asp-for="IdProduct" class="form-control">
-                    <option value="">Seleziona il prodotto</option>
+                    <option value="" selected disabled>Seleziona il prodotto</option>
                     @foreach (var pr in product)
                     {
                         <option value="@pr.IdProduct">@pr.ProductName</option>

@@ -6,39 +6,39 @@
     var users = ViewBag.Users as List<Users>;
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Registra Proprietario</h1>
 
 <form asp-action="CreateOwner" method="post">
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        <label asp-for="Owners.Name" class="control-label"></label>
+        <label asp-for="Owners.Name" class="control-label">Inserisci Nome Proprietario:</label>
         <input asp-for="Owners.Name" class="form-control" />
         <span asp-validation-for="Owners.Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Owners.Surname" class="control-label"></label>
+        <label asp-for="Owners.Surname" class="control-label mt-2">Inserisci Cognome Proprietario:</label>
         <input asp-for="Owners.Surname" class="form-control" />
         <span asp-validation-for="Owners.Surname" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Owners.PhoneNumber" class="control-label"></label>
+        <label asp-for="Owners.PhoneNumber" class="control-label mt-2">Inserisci Recapito Telefonico:</label>
         <input asp-for="Owners.PhoneNumber" class="form-control" />
         <span asp-validation-for="Owners.PhoneNumber" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Owners.CF" class="control-label"></label>
+        <label asp-for="Owners.CF" class="control-label mt-2">Inserisci C.F:</label>
         <input asp-for="Owners.CF" class="form-control" />
         <span asp-validation-for="Owners.CF" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="IdUser" class="control-label">User</label>
+        <label asp-for="IdUser" class="control-label mt-2">Inserisci Utente Da Associare Al Proprietario:</label>
         <select asp-for="IdUser" class="form-control">
-            <option disabled selected value="">Select a user</option>
+            <option disabled selected value="">Seleziona un utente:</option>
             @foreach (var user in users)
             {
                 <option value="@user.IdUser">@user.Username</option>
@@ -48,8 +48,8 @@
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-        <a asp-action="OwnersList" class="btn btn-secondary">Back to List</a>
+        <button type="submit" class="btn btn-primary mt-2">Crea</button>
+        <a asp-action="OwnersList" class="btn btn-secondary mt-2">Torna Alla Lista</a>
     </div>
 </form>
 

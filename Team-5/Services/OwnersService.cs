@@ -43,5 +43,13 @@ namespace Team_5.Services
             return await _ctx.Users.ToListAsync();
 
         }
+
+        public async Task<Owners> DeleteOwner(int id)
+        {
+            var owner = await _ctx.Owners.FindAsync(id);
+            _ctx.Owners.Remove(owner);
+            await _ctx.SaveChangesAsync();
+            return owner;
+        }
     }
 }
