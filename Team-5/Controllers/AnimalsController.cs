@@ -59,7 +59,7 @@ namespace Team_5.Controllers
         }
 
         [HttpGet("Animals/GetAnimalDataByMicrochip")]
-        public async Task<IActionResult> GetAnimalDataByMicrochip(int microchipId)
+        public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
         {
             var animals = await _animalsSvc.GetAnimalByMicrochipAsync(microchipId);
             return Ok(animals);

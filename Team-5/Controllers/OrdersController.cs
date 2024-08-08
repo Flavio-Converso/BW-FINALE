@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Team_5.Context;
 using Team_5.Models.Clinic;
 using Team_5.Models.Pharmacy;
@@ -18,8 +19,9 @@ namespace Team_5.Controllers
 
         }
 
-        public IActionResult CreateOrder()
+        public async Task<IActionResult> CreateOrder()
         {
+            ViewBag.Products = await _dataContext.Products.ToListAsync();
             return View();
         }
 
