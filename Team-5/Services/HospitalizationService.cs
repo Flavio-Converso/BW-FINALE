@@ -9,12 +9,10 @@ namespace Team_5.Services
     public class HospitalizationService : IHospitalizationService
     {
         private readonly DataContext _ctx;
-        private readonly ILogger<HospitalizationService> _logger;
 
-        public HospitalizationService(DataContext dataContext, ILogger<HospitalizationService> logger)
+        public HospitalizationService(DataContext dataContext)
         {
             _ctx = dataContext;
-            _logger = logger;
         }
 
         public async Task<Hospitalizations> CreateHospitalizationsAsync(Hospitalizations hosp)

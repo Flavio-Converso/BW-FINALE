@@ -20,7 +20,6 @@ namespace Team_5.Services
 
             Drawers drawer = null;
 
-            // Check if IdDrawer is greater than 0
             if (products.Drawers != null && products.Drawers.IdDrawer > 0)
             {
                 drawer = await _ctx.Drawers.FirstOrDefaultAsync(d => d.IdDrawer == products.Drawers.IdDrawer);
