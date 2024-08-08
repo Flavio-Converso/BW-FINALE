@@ -12,8 +12,13 @@ using Team_5.Context;
 namespace Team_5.Migrations
 {
     [DbContext(typeof(DataContext))]
+<<<<<<<< HEAD:Team-5/Migrations/20240808093957_database.Designer.cs
     [Migration("20240808093957_database")]
     partial class database
+========
+    [Migration("20240808105316_enw")]
+    partial class enw
+>>>>>>>> main:Team-5/Migrations/20240808105316_enw.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,6 +128,7 @@ namespace Team_5.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("NumMicrochip")
+                        .IsRequired()
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
 

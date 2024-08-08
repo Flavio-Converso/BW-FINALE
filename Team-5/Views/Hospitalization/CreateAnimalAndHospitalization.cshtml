@@ -22,10 +22,18 @@
         <input asp-for="Animal.NumMicrochip" class="form-control" />
         <span asp-validation-for="Animal.NumMicrochip" class="text-danger"></span>
     </div>
-
     <div class="form-group">
-        <label asp-for="Animal.Color" class="control-label mt-2">Inserisci colore:</label>
-        <input asp-for="Animal.Color" class="form-control" />
+        <label asp-for="Animal.Color" class="control-label mt-2">Inserisci colore animale:</label>
+        <select asp-for="Animal.Color" class="form-control">
+            <option value="" disabled selected>Seleziona un colore</option>
+            <option value="Black">Nero</option>
+            <option value="White">Bianco</option>
+            <option value="Brown">Marrone</option>
+            <option value="Gray">Grigio</option>
+            <option value="Orange">Arancione</option>
+            <option value="Spotted">Maculato</option>
+            <option value="Striped">Tigrato</option>
+        </select>
         <span asp-validation-for="Animal.Color" class="text-danger"></span>
     </div>
     <div class="form-group">

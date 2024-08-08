@@ -17,37 +17,37 @@
 
 <form asp-action="CreateAnimal" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label asp-for="Name" class="control-label">Nome</label>
+        <label asp-for="Name" class="control-label">Inserisci nome animale:</label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="RegistrationDate" class="control-label">Data di Registrazione</label>
+        <label asp-for="RegistrationDate" class="control-label mt-2">Data di registrazione:</label>
         <input asp-for="RegistrationDate" class="form-control" type="date" disabled />
         <span asp-validation-for="RegistrationDate" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="BirthDate" class="control-label">Data di Nascita</label>
+        <label asp-for="BirthDate" class="control-label mt-2">Inserisci data di nascita:</label>
         <input asp-for="BirthDate" class="form-control" type="date" />
         <span asp-validation-for="BirthDate" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="NumMicrochip" class="control-label">N.Microchip</label>
+        <label asp-for="NumMicrochip" class="control-label mt-2">Inserisci num. microchip:</label>
         <input asp-for="NumMicrochip" class="form-control" />
         <span asp-validation-for="NumMicrochip" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Image" class="control-label">Immagine</label>
+        <label asp-for="Image" class="control-label mt-2">Inserisci immagine:</label>
         <input asp-for="Image" class="form-control" type="file" />
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Color" class="control-label">Colore</label>
+        <label asp-for="Color" class="control-label mt-2">Inserisci colore animale:</label>
         <select asp-for="Color" class="form-control">
             <option value="" disabled selected>Seleziona un colore</option>
             <option value="Black">Nero</option>
@@ -62,7 +62,7 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="SelectedOwnerId" class="control-label">Proprietario</label>
+        <label asp-for="SelectedOwnerId" class="control-label mt-2">Inserisci proprietario:</label>
         <select asp-for="SelectedOwnerId" asp-items="ownerItems" class="form-control">
             <option value="" disabled selected>Seleziona un proprietario</option>
         </select>
@@ -70,7 +70,7 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="SelectedBreedId" class="control-label">Razza</label>
+        <label asp-for="SelectedBreedId" class="control-label mt-2">Inserisci razza animale:</label>
         <select asp-for="SelectedBreedId" asp-items="@(new SelectList(Model.Breeds, "IdBreed", "Name"))" class="form-control">
             <option value="" disabled selected>Seleziona una razza</option>
         </select>
@@ -78,8 +78,8 @@
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Crea</button>
-        <a asp-action="Index" class="btn btn-secondary">Torna alla Lista</a>
+        <button type="submit" class="btn btn-primary mt-2">Crea</button>
+        <a asp-action="Index" class="btn btn-secondary mt-2">Torna alla Lista</a>
     </div>
 </form>
 

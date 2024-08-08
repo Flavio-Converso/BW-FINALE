@@ -12,16 +12,14 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Team_5</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        
                          @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -34,9 +32,43 @@
                         }
                         else
                         {
+                                    <div class="dropdown">
+                                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Animali
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="CreateAnimal">Crea Animale</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="AnimalList">Lista Animali</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="AnimalsWithoutOwner">Lista Animali Senza Padrone</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="GetAnimalByMicrochip">Cerca Animale Per Microchip</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Prodotti
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="CreateProduct">Crea Prodotto</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductList">Lista Prodotti</a>
+                                    </li>
+                                </ul>
+                            </div>
                          <div class="dropdown">
-                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                 Menù
+                             <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 Visite
                              </button>
                              <ul class="dropdown-menu">
                                     <li class="nav-item">
@@ -45,45 +77,40 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Examination" asp-action="ExaminationsList">Lista Visite</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="CreateAnimal">Crea animale</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="AnimalList">Lista animali</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="AnimalsWithoutOwner">Lista Animali no padrone</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="GetAnimalByMicrochip">Animale per Microchip</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="CreateProduct">Crea Prodotto</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductList">Lista Prodotti</a>
-                                    </li>
-
                                 </ul>
                          </div>
+                            <div class="dropdown">
+                                <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ricoveri
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="CreateHospitalization">Crea Ricovero</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="CreateAnimalAndHospitalization">Crea Ricovero E Registra Animale</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="ActiveHospitalizations">Ricoveri Attivi</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ordini
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="CreateOrder">Crea Ordine</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="OrderList">Lista Ordini</a>
+                                    </li>
+                            </div>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Master" asp-action="ManageRoles">Manage Roles</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Master" asp-action="ManageRoles">Gestisci Ruoli</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="ActiveHospitalizations">Elenco Ospitalizzazioni Attive</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="CreateOrder">Crea Ordine</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="OrderList">Lista ordini</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="CreateAnimalAndHospitalization">Crea Ricovero e registra</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="CreateHospitalization">Crea Ricovero</a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
                             </li>
