@@ -14,6 +14,7 @@
             <th>Data di Nascita</th>
             <th>Colore</th>
             <th>Razza</th>
+            <th>Immagine</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,17 @@
                 <td>@animal.BirthDate.ToShortDateString()</td>
                 <td>@animal.Color</td>
                 <td>@animal.Breed.Name</td>
+                <td>
+                    @if (animal.Image != null && animal.Image.Length > 0)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(animal.Image)" alt="Animal Image" style="width: 100px; height: auto;" />
+                    }
+                    else
+                    {
+                        <span>Nessuna immagine</span>
+                    }
+                </td>
+
             </tr>
         }
     </tbody>
