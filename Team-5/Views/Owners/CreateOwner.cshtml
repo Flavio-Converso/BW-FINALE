@@ -1,0 +1,61 @@
+﻿@using Team_5.Models.Auth
+@model Team_5.Models.Clinic.Owners
+
+@{
+    ViewData["Title"] = "Create Owner";
+    var users = ViewBag.Users as List<Users>;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="CreateOwner" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Surname" class="control-label"></label>
+        <input asp-for="Surname" class="form-control" />
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CF" class="control-label"></label>
+        <input asp-for="CF" class="form-control" />
+        <span asp-validation-for="CF" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="User.IdUser" class="control-label"></label>
+        <select asp-for="User.IdUser" class="form-control">
+            <option disabled selected value="">Select a user</option>
+            @foreach (var user in users)
+            {
+                <option value="@user.IdUser">@user.Username</option>
+            }
+
+        </select>
+        <span asp-validation-for="User.IdUser" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-action="OwnersList" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -10,9 +10,9 @@ namespace Team_5.Services
     {
         private readonly DataContext _ctx;
         private readonly IBreedsService _breedSvc;
-        private readonly IOwnerService _ownerSvc;
+        private readonly IOwnersService _ownerSvc;
 
-        public AnimalsService(DataContext dataContext, IBreedsService breedsService, IOwnerService ownerService)
+        public AnimalsService(DataContext dataContext, IBreedsService breedsService, IOwnersService ownerService)
         {
             _ctx = dataContext;
             _breedSvc = breedsService;
