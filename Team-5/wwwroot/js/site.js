@@ -1,5 +1,9 @@
 ﻿//search animal by microchip number
 let chipPath = "/Animals/GetAnimalDataByMicrochip";
+let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
+let lockersPath = "/Product/FindLockers";
+let datePath = '/Product/GetProductsFromDate';
+let cfPath = '/Product/GetProductsFromCF';
 function countByMicroChip() {
     let microchip = $('#microchip').val();
     $.ajax({
@@ -36,17 +40,10 @@ function debounce(func, delay) {
     };
 }
 
-$('#microchip').on('keydown', debounce(countByMicroChip, 300));
-
-// Gestore dell'evento click per il pulsante
-$('#chipButton').on('click', () => {
-    countByMicroChip();
-});
-
 
 //
 //show past examinations before creating a new one for selected animal
-let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
+
 
 function triggerPastVisits() {
     let IdAnimal = $('#pastVisits').val();
@@ -83,14 +80,10 @@ function triggerPastVisits() {
     });
 }
 
-$('#pastVisits').on('change', () => {
-    triggerPastVisits();
-});
-
 
 //
 //in productslist search drawer & locker for selected product
-let lockersPath = "/Product/FindLockers";
+
 
 function FindLockers(idProduct) {
     $.ajax({
@@ -125,10 +118,6 @@ function FindLockers(idProduct) {
     });
 }
 
-$(document).on('click', '.prow', function () {
-    let idProduct = $(this).find('#idProduct').text().trim();
-    FindLockers(idProduct);
-});
 
 //
 //filter
@@ -179,10 +168,9 @@ $(document).ready(function () {
     $("#alimentoSelez").trigger('change');
 });
 
+
+
 // Funzione per reperire il numero di farmaci venduti in una certa data
-
-let datePath = '/Product/GetProductsFromDate';
-
 function ProductsFromDate() {
     let date = $('#dateInput').val();
 
@@ -221,12 +209,7 @@ function ProductsFromDate() {
     });
 }
 
-$('#dateBtn').on('click', () => {
-    ProductsFromDate();
-})
-
-let cfPath = '/Product/GetProductsFromCF';
-
+// Funzione per reperire il numero di farmaci venduti tramite un CF
 function ProductsFromCF() {
     let cf = $('#cfInput').val();
 
@@ -268,6 +251,29 @@ function ProductsFromCF() {
         }
     });
 }
+
+$('#microchip').on('keydown', debounce(countByMicroChip, 300));
+
+// Gestore dell'evento click per il pulsante
+$('#chipButton').on('click', () => {
+    countByMicroChip();
+});
+
+
+
+$('#pastVisits').on('change', () => {
+    triggerPastVisits();
+});
+
+$(document).on('click', '.prow', function () {
+    let idProduct = $(this).find('#idProduct').text().trim();
+    FindLockers(idProduct);
+});
+
+
+$('#dateBtn').on('click', () => {
+    ProductsFromDate();
+})
 
 $('#cfBtn').on('click', () => {
     ProductsFromCF();
