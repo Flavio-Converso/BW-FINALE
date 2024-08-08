@@ -16,6 +16,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <form asp-action="CreateAnimal" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
     <div class="form-group">
         <label asp-for="Name" class="control-label">Inserisci nome animale:</label>
         <input asp-for="Name" class="form-control" />

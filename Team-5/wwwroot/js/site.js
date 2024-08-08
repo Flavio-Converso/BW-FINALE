@@ -26,7 +26,6 @@ function countByMicroChip() {
                         animalDetails += `<p>Ricovero: <span class="text-danger">Non ricoverato</span></p>`;
                     }
 
-
                     // Aggiungi qui altri campi che desideri visualizzare   
                     div.append(animalDetails);
                 });

@@ -21,6 +21,8 @@ namespace Team_5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> CreateOrder(Orders o, string cf)
         {
             var order = await _ordersSvc.CreateOrder(o, cf);
@@ -36,6 +38,8 @@ namespace Team_5.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteOrder(int id)
         {
             var deletedOrder = await _ordersSvc.DeleteOrders(id);
@@ -46,8 +50,7 @@ namespace Team_5.Controllers
                 return NotFound(new { Message = "Order not found." });
             }
 
-            // Se l'ordine è stato eliminato con successo, restituisci un 200 OK con i dettagli dell'ordine eliminato
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("OrderList");
         }
     }
 }
