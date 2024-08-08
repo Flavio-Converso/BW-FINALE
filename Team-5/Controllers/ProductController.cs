@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Team_5.Models.Pharmacy;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
 {
+    [Authorize(Policy = "FarmacPolicy")]
     public class ProductController : Controller
     {
         private readonly IProductService _productSvc;

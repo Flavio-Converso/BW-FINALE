@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
 {
+    [Authorize(Policy = "VetPolicy")]
     public class OwnersController : Controller
     {
         private readonly IOwnersService _ownersService;

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Team_5.Models.Clinic;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
 {
+    [Authorize(Policy = "VetPolicy")]
     public class ExaminationController : Controller
     {
         private readonly IExaminationService _examinationSvc;

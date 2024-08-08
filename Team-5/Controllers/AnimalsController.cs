@@ -5,7 +5,7 @@ using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "VetPolicy")]
     public class AnimalsController : Controller
     {
         private readonly IAnimalsService _animalsSvc;
