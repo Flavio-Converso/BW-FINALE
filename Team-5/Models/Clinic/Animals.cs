@@ -9,22 +9,22 @@ namespace Team_5.Models.Clinic
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdAnimal { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Il nome dell'animale è obbligatorio.")]
         [StringLength(50)]
         public required string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La data di registrazione è obbligatoria.")] 
         public required DateTime RegistrationDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La data di nascita è obbligatoria.")]
         public DateTime BirthDate { get; set; } = DateTime.MinValue;
 
         [StringLength(16)]
-        public string? NumMicrochip { get; set; }
+        public int NumMicrochip { get; set; }
 
         public byte[]? Image { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Il colore dell'animale è obbligatorio.")]
         [StringLength(20)]
         public required string Color { get; set; }
 

@@ -6,6 +6,9 @@ namespace Team_5.Models.ViewModels
     {
         public Animals Animal { get; set; }
         public Hospitalizations Hospitalization { get; set; }
-        public List<Breeds> Breeds { get; set; }
+
+        public int? IdBreed { get; set; }
+        public IFormFile? Image { get; set; }
+
     }
 }

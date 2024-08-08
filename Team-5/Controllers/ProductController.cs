@@ -52,5 +52,28 @@ namespace Team_5.Controllers
 
             return Ok(product);
         }
+
+        [HttpGet("Product/GetProductsFromDate")]
+        public async Task<IActionResult> GetProductsFromDate(DateTime date)
+        {
+            var list = await _dataContext.Orders
+                .Include(o => o.Product)
+                .Where(o => o.OrderDate.Date == date.Date && o.Product.Type == "Farmaco")
+                .ToListAsync();
+
+            return Ok(list);
+        }
+
+        [HttpGet("Product/GetProductsFromCF")]
+        public async Task<IActionResult> GetProductsFromCF(string cf)
+        {
+            var list = await _dataContext.Orders
+                .Include(o => o.Owner).Include(o => o.Product)
+                .Where(o => o.Owner.CF == cf)
+                .ToListAsync();
+
+            return Ok(list);
+        }
+
     }
 }

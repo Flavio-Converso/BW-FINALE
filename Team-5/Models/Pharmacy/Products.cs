@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 
 namespace Team_5.Models.Pharmacy
@@ -26,6 +27,7 @@ namespace Team_5.Models.Pharmacy
         public required Companies Company { get; set; }
 
         public Drawers? Drawers { get; set; } = null;
+        [JsonIgnore]
         public List<Orders> Order { get; set; } = [];
 
     }

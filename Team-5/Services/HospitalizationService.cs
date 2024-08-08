@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Team_5.Context;
 using Team_5.Models.Clinic;
+using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Services
@@ -9,9 +9,11 @@ namespace Team_5.Services
     public class HospitalizationService : IHospitalizationService
     {
         private readonly DataContext _dataContext;
-        public HospitalizationService(DataContext dataContext)
+        private readonly ILogger<HospitalizationService> _logger;
+        public HospitalizationService(DataContext dataContext, ILogger<HospitalizationService> logger)
         {
             _dataContext = dataContext;
+            _logger = logger;
         }
 
 
@@ -27,32 +29,13 @@ namespace Team_5.Services
             var hospitalization = new Hospitalizations
             {
                 Animal = animal,
-                IsHospitalized=hosp.IsHospitalized=true,
-                HospDate= hosp.HospDate,
+                IsHospitalized = hosp.IsHospitalized = true,
+                HospDate = hosp.HospDate,
             };
 
             await _dataContext.Hospitalizations.AddAsync(hospitalization);
             await _dataContext.SaveChangesAsync();
             return hospitalization;
-        }
-
-
-        // ricovero e registrazione animale
-        public async Task<(Animals, Hospitalizations)> CreateAnimalAndHospitalizationAsync(Animals animal, Hospitalizations hospitalization)
-        {
-            // Aggiungi l'animale al contesto
-            _dataContext.Animals.Add(animal);
-            await _dataContext.SaveChangesAsync();
-
-            // Associa l'animale appena creato al ricovero
-            hospitalization.AnimalId = animal.IdAnimal;
-            hospitalization.Animal = animal;
-
-            // Aggiungi il ricovero al contesto
-            _dataContext.Hospitalizations.Add(hospitalization);
-            await _dataContext.SaveChangesAsync();
-
-            return (animal, hospitalization);
         }
 
         public async Task<List<Hospitalizations>> GetHospitalizationsWithAnimalsAsync()
@@ -64,9 +47,7 @@ namespace Team_5.Services
                 .ThenInclude(a => a.Owner)
                 .ToListAsync();
         }
-    
 
-    [HttpGet]
         public async Task<List<Hospitalizations>> GetActiveHospitalizationsAsync()
         {
             return await _dataContext.Hospitalizations
@@ -76,6 +57,45 @@ namespace Team_5.Services
                 .ToListAsync();
         }
 
-        
+        public async Task<AnimalHospitalizationViewModel> CreateAnimalHospitalizationViewModel(AnimalHospitalizationViewModel viewModel)
+        {
+            var breed = await _dataContext.Breeds.FindAsync(viewModel.IdBreed);
+            byte[] imageBytes = null;
+            if (viewModel.Image != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await viewModel.Image.CopyToAsync(memoryStream);
+                    imageBytes = memoryStream.ToArray();
+                }
+            }
+            var animal = new Animals
+            {
+                Name = viewModel.Animal.Name,
+                Color = viewModel.Animal.Color,
+                RegistrationDate = DateTime.Now,
+                Breed = breed,
+                BirthDate = viewModel.Animal.BirthDate,
+                NumMicrochip = viewModel.Animal.NumMicrochip,
+                Image = imageBytes,
+            };
+
+
+            await _dataContext.Animals.AddAsync(animal);
+            await _dataContext.SaveChangesAsync();
+
+            var hospitalization = new Hospitalizations
+            {
+                IsHospitalized = true,
+                HospDate = DateTime.Now,
+                AnimalId = animal.IdAnimal
+            };
+
+            await _dataContext.Hospitalizations.AddAsync(hospitalization);
+            await _dataContext.SaveChangesAsync();
+            return viewModel;
+        }
+
+
     }
 }

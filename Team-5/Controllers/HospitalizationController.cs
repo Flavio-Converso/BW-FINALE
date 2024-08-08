@@ -14,7 +14,7 @@ namespace Team_5.Controllers
         private readonly DataContext _dataContext;
         private readonly IBreedsService _breedsService;
         private readonly IAnimalsService _animalsService;
-       
+
 
         public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService)
         {
@@ -32,15 +32,17 @@ namespace Team_5.Controllers
             return View(isHospitalized);
         }
 
-        
+
         [HttpGet]
-        public IActionResult CreateHospitalization()
+        public async Task<IActionResult> CreateHospitalization()
         {
+            ViewBag.Animals = await _dataContext.Animals.ToListAsync();
             return View();
         }
 
-        
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateHospitalization(Hospitalizations hospitalization)
         {
             try
@@ -50,7 +52,7 @@ namespace Team_5.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 ViewBag.ErrorMessage = ex.Message;
                 return View(hospitalization);
             }
@@ -60,90 +62,21 @@ namespace Team_5.Controllers
         // crea animale e ricovero assieme
 
 
-        [HttpGet]
+
         public async Task<IActionResult> CreateAnimalAndHospitalization()
         {
-            var viewModel = new AnimalHospitalizationViewModel
-            {
-                Animal = new Animals
-                {
-                    Name = "",
-                    Color = "",
-                    RegistrationDate = DateTime.Now,
-                    Breed = new Breeds() // Assicurati che ci sia una razza selezionata
-                },
-                Hospitalization = new Hospitalizations
-                {
-                    IsHospitalized = false,
-                    HospDate = DateTime.Now
-                },
-                Breeds = await _breedsService.GetAllBreedsAsync() // Carica tutte le razze
-            };
 
-            return View(viewModel);
+            ViewBag.Breeds = await _dataContext.Breeds.ToListAsync();
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAnimalAndHospitalization(AnimalHospitalizationViewModel viewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                // Stampa gli errori nel ModelState per il debug
-                foreach (var modelState in ModelState)
-                {
-                    foreach (var error in modelState.Value.Errors)
-                    {
-                        Console.WriteLine($"Key: {modelState.Key}, Error: {error.ErrorMessage}");
-                    }
-                }
-
-                viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
-                return View(viewModel);
-            }
-
-            try
-            {
-                // Se è necessario, gestisci i file immagine
-                if (Request.Form.Files.Count > 0)
-                {
-                    var file = Request.Form.Files[0];
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        await file.CopyToAsync(memoryStream);
-                        viewModel.Animal.Image = memoryStream.ToArray();
-                    }
-                }
-
-                // Imposta il breed selezionato
-                var breed = await _breedsService.GetBreedByIdAsync(viewModel.Animal.Breed.IdBreed);
-                if (breed == null)
-                {
-                    ModelState.AddModelError("Animal.Breed.IdBreed", "Breed not found.");
-                    viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
-                    return View(viewModel);
-                }
-                viewModel.Animal.Breed = breed;
-
-                var (createdAnimal, createdHospitalization) = await _hospitalizationService.CreateAnimalAndHospitalizationAsync(
-                    viewModel.Animal, viewModel.Hospitalization);
-
-                return RedirectToAction("Index", "Home");
-            }
-            catch (ArgumentException ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError("", "Si è verificato un errore durante la creazione dell'animale e del ricovero.");
-            }
-
-            viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
-            return View(viewModel);
+            await _hospitalizationService.CreateAnimalHospitalizationViewModel(viewModel);
+            return RedirectToAction("Index", "Home");
         }
-
-
     }
 }
 

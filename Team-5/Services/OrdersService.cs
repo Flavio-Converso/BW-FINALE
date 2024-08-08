@@ -29,5 +29,13 @@ namespace Team_5.Services
             _dataContext.SaveChanges();
             return order;
         }
+
+        public async Task<List<Orders>> GetOrders()
+        {
+            return await _dataContext.Orders
+                .Include(o=> o.Product)
+                .Include(o => o.Owner)
+                .ToListAsync();
+        }
     }
 }
