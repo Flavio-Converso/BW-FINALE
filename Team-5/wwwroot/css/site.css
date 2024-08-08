@@ -60,7 +60,7 @@ body {
 }
 
 .myBlack {
-    background-color: black !important;
+    background-color: #191C24 !important;
 }
 
 .myIcon{
@@ -73,11 +73,10 @@ body {
     }
 
 
-/*DELETE BUTTON - TASTO ELIMINA*/
+/*CONFIRM BUTTON - TASTO CONFERMA*/
 .btn-red {
     color: white !important;
-    border-radius: 2em !important;
-    padding: 0 1.1em !important;
+    border-radius: 1.4em !important;
     background-color: #CC1617 !important;
     border-color: #CC1617 !important;
 }
@@ -94,5 +93,30 @@ body {
         box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.6) !important;
         outline: none !important;
     }
+/*CONFIRM BUTTON - TASTO CONFERMA*/
+
 /*DELETE BUTTON - TASTO ELIMINA*/
+.btn-grey {
+    color: white !important;
+    border-radius: 1.4em !important;
+    background-color: #6C7293 !important; /* Background color for normal state */
+    border-color: #6C7293 !important; /* Border color for normal state */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+    .btn-grey:hover {
+        background-color: #000000 !important; /* Background color for hover state */
+        border-color: #000000 !important; /* Border color for hover state */
+    }
+
+    .btn-grey:focus,
+    .btn-grey:active {
+        box-shadow: 0 0 7px 3px rgba(166, 18, 20, 0.4) !important; /* Shadow for focus and active state */
+        outline: none !important;
+    }
+/*DELETE BUTTON - TASTO ELIMINA*/
+
 

@@ -93,7 +93,7 @@
                     <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?')">
                         @Html.AntiForgeryToken()
                         <input type="hidden" value="@item.IdProduct" name="id" />
-                        <button type="submit" class="btn btn-red">Elimina</button>
+                        <button type="submit" class="btn btn-grey">Elimina</button>
                     </form>
                 </td>
             </tr>
