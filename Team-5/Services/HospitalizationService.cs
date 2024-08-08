@@ -10,14 +10,13 @@ namespace Team_5.Services
     {
         private readonly DataContext _dataContext;
         private readonly ILogger<HospitalizationService> _logger;
+
         public HospitalizationService(DataContext dataContext, ILogger<HospitalizationService> logger)
         {
             _dataContext = dataContext;
             _logger = logger;
         }
 
-
-        // ricovero animale già registrato
         public async Task<Hospitalizations> CreateHospitalizationsAsync(Hospitalizations hosp)
         {
             var animal = await _dataContext.Animals.FindAsync(hosp.AnimalId);
@@ -35,6 +34,7 @@ namespace Team_5.Services
 
             await _dataContext.Hospitalizations.AddAsync(hospitalization);
             await _dataContext.SaveChangesAsync();
+
             return hospitalization;
         }
 
@@ -53,14 +53,16 @@ namespace Team_5.Services
             return await _dataContext.Hospitalizations
                 .Include(a => a.Animal)
                 .ThenInclude(o => o.Owner)
-                .Where(h => h.IsHospitalized == true)
+                .Where(h => h.IsHospitalized)
                 .ToListAsync();
         }
 
         public async Task<AnimalHospitalizationViewModel> CreateAnimalHospitalizationViewModel(AnimalHospitalizationViewModel viewModel)
         {
             var breed = await _dataContext.Breeds.FindAsync(viewModel.IdBreed);
+
             byte[] imageBytes = null;
+
             if (viewModel.Image != null)
             {
                 using (var memoryStream = new MemoryStream())
@@ -69,6 +71,7 @@ namespace Team_5.Services
                     imageBytes = memoryStream.ToArray();
                 }
             }
+
             var animal = new Animals
             {
                 Name = viewModel.Animal.Name,
@@ -79,7 +82,6 @@ namespace Team_5.Services
                 NumMicrochip = viewModel.Animal.NumMicrochip,
                 Image = imageBytes,
             };
-
 
             await _dataContext.Animals.AddAsync(animal);
             await _dataContext.SaveChangesAsync();
@@ -93,9 +95,18 @@ namespace Team_5.Services
 
             await _dataContext.Hospitalizations.AddAsync(hospitalization);
             await _dataContext.SaveChangesAsync();
+
             return viewModel;
         }
 
+        public async Task<List<Animals>> GetAllAnimalsAsync()
+        {
+            return await _dataContext.Animals.ToListAsync();
+        }
 
+        public async Task<List<Breeds>> GetAllBreedsAsync()
+        {
+            return await _dataContext.Breeds.ToListAsync();
+        }
     }
 }

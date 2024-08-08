@@ -28,7 +28,6 @@ namespace Team_5.Services
                 IdProduct = product?.IdProduct ?? 0
             };
 
-            // Add the order to the database context and save changes
             await _dataContext.Orders.AddAsync(order);
             await _dataContext.SaveChangesAsync();
 

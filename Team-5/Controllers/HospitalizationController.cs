@@ -1,7 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Team_5.Context;
+﻿using Microsoft.AspNetCore.Mvc;
 using Team_5.Models.Clinic;
 using Team_5.Models.ViewModels;
 using Team_5.Services.Interfaces;
@@ -11,35 +8,25 @@ namespace Team_5.Controllers
     public class HospitalizationController : Controller
     {
         private readonly IHospitalizationService _hospitalizationService;
-        private readonly DataContext _dataContext;
-        private readonly IBreedsService _breedsService;
-        private readonly IAnimalsService _animalsService;
 
-
-        public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService)
+        public HospitalizationController(IHospitalizationService hospitalizationService)
         {
             _hospitalizationService = hospitalizationService;
-            _dataContext = dataContext;
-            _breedsService = breedsService;
-            _animalsService = animalsService;
         }
 
-
         [HttpGet]
-        public async Task<ActionResult<List<Examinations>>> ActiveHospitalizations()
+        public async Task<ActionResult<List<Hospitalizations>>> ActiveHospitalizations()
         {
             var isHospitalized = await _hospitalizationService.GetActiveHospitalizationsAsync();
             return View(isHospitalized);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> CreateHospitalization()
         {
-            ViewBag.Animals = await _dataContext.Animals.ToListAsync();
+            ViewBag.Animals = await _hospitalizationService.GetAllAnimalsAsync();
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -52,21 +39,15 @@ namespace Team_5.Controllers
             }
             catch (Exception ex)
             {
-
                 ViewBag.ErrorMessage = ex.Message;
                 return View(hospitalization);
             }
         }
 
-
-        // crea animale e ricovero assieme
-
-
-
+        [HttpGet]
         public async Task<IActionResult> CreateAnimalAndHospitalization()
         {
-
-            ViewBag.Breeds = await _dataContext.Breeds.ToListAsync();
+            ViewBag.Breeds = await _hospitalizationService.GetAllBreedsAsync();
             return View();
         }
 
@@ -79,6 +60,3 @@ namespace Team_5.Controllers
         }
     }
 }
-
-
-
