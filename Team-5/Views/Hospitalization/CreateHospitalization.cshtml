@@ -7,21 +7,20 @@
     var animal = ViewBag.Animals as List<Animals>;
 }
 
-<h1>CreateHospitalization</h1>
+<h1>Aggiungi Ricovero</h1>
 
-<h4>Hospitalizations</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateHospitalization" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="HospDate" class="control-label"></label>
+                <label asp-for="HospDate" class="control-label">Inserisci data ricovero:</label>
                 <input asp-for="HospDate" class="form-control" />
                 <span asp-validation-for="HospDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AnimalId" class="mt-2">Inserisci razza animale:</label>
+                <label asp-for="AnimalId" class="mt-2">Inserisci animale:</label>
                 <select asp-for="AnimalId" class="form-control">
                     <option value="">Seleziona Animale</option>
                     @foreach (var a in animal)
@@ -31,15 +30,12 @@
                 </select>
                 <span asp-validation-for="AnimalId" class="text-danger"></span>
             </div>            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Aggiungi" class="btn btn-primary mt-2" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

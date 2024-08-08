@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Team_5.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class enw : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -185,7 +185,7 @@ namespace Team_5.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NumMicrochip = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
+                    NumMicrochip = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Color = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     OwnerId = table.Column<int>(type: "int", nullable: true),

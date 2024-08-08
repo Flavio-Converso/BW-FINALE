@@ -6,35 +6,34 @@
     var product = ViewBag.Products as List<Products>;
 }
 
-<h1>CreateOrder</h1>
+<h1>Aggiungi Ordine</h1>
 
-<h4>Orders</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateOrder">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="OrderQuantity" class="control-label"></label>
+                <label asp-for="OrderQuantity" class="control-label">Inserisci quantità:</label>
                 <input asp-for="OrderQuantity" class="form-control" />
                 <span asp-validation-for="OrderQuantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label for="cf" class="control-label">Codice Fiscale</label>
+                <label for="cf" class="control-label mt-2">Inserisci codice fiscale:</label>
                 <input name="cf" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
+                <label asp-for="OrderDate" class="control-label mt-2">Inserisci data ordine:</label>
                 <input asp-for="OrderDate" class="form-control" />
                 <span asp-validation-for="OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrescriptionNumber" class="control-label"></label>
+                <label asp-for="PrescriptionNumber" class="control-label mt-2">Inserisci num. ricetta medica:</label>
                 <input asp-for="PrescriptionNumber" class="form-control" />
                 <span asp-validation-for="PrescriptionNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdProduct" class="mt-2">Inserisci razza animale:</label>
+                <label asp-for="IdProduct" class="mt-2">Inserisci prodotto:</label>
                 <select asp-for="IdProduct" class="form-control">
                     <option value="">Seleziona il prodotto</option>
                     @foreach (var pr in product)
@@ -45,13 +44,9 @@
                 <span asp-validation-for="IdProduct" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Aggiungi" class="btn btn-primary mt-2" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

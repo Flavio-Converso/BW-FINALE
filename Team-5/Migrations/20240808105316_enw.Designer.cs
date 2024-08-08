@@ -12,8 +12,8 @@ using Team_5.Context;
 namespace Team_5.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240808102712_animalFix")]
-    partial class animalFix
+    [Migration("20240808105316_enw")]
+    partial class enw
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
