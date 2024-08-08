@@ -9,6 +9,7 @@
 <h1>Crea Animale e Ricovero</h1>
 
 <form asp-action="CreateAnimalAndHospitalization" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
     @* Animal Details *@
     <h3>Dettagli Animale</h3>
     <div class="form-group">

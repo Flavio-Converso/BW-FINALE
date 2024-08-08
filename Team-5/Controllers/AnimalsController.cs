@@ -58,12 +58,24 @@ namespace Team_5.Controllers
             return View();
         }
 
+
         [HttpGet("Animals/GetAnimalDataByMicrochip")]
         public async Task<IActionResult> GetAnimalDataByMicrochip(string microchipId)
         {
             var animals = await _animalsSvc.GetAnimalByMicrochipAsync(microchipId);
-            return Ok(animals);
+            var animalData = animals.Select(animal => new
+            {
+                animal.Name,
+                RegistrationDate = animal.RegistrationDate.ToString("yyyy-MM-dd"),
+                BirthDate = animal.BirthDate.ToString("yyyy-MM-dd"),
+                animal.Color,
+                Image = animal.Image != null ? Convert.ToBase64String(animal.Image) : null,
+                IsHospitalized = animal.Hospitalization != null && animal.Hospitalization.Any(h => h.IsHospitalized)
+            }).ToList();
+
+            return Ok(animalData);
         }
+
 
         public async Task<IActionResult> AnimalsWithoutOwner()
         {

@@ -61,5 +61,24 @@ namespace Team_5.Services
         {
             return await _ctx.Animals.AnyAsync(a => a.IdAnimal == animalId);
         }
+
+        public async Task<Examinations> DeleteExamination(int id)
+        {
+            var examination = await _ctx.Examinations.FindAsync(id);
+
+            if (examination == null)
+            {
+                return null;
+            }
+
+            _ctx.Examinations.Remove(examination);
+
+            await _ctx.SaveChangesAsync();
+
+            return examination;
+        }
     }
+
 }
+
+

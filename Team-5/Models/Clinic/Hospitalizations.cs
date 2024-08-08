@@ -11,9 +11,11 @@ namespace Team_5.Models.Clinic
         [Required]
         public required bool IsHospitalized { get; set; }
 
+        [Required(ErrorMessage = "La data di ricovero è obbligatoria.")]
         public DateTime HospDate { get; set; }
 
         //RIFERIMENTI EF
+        [Required(ErrorMessage = "Seleziona l'animale.")]
         public int AnimalId { get; set; }
 
         [ForeignKey(nameof(AnimalId))]

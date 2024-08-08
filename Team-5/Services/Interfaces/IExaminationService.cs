@@ -9,5 +9,6 @@ namespace Team_5.Services.Interfaces
         Task<List<Examinations>> GetAllExaminationsByIdAnimalAsync(int IdAnimal);
         Task<List<Animals>> GetAllAnimalsAsync();
         Task<bool> AnimalExistsAsync(int animalId);
+        Task<Examinations> DeleteExamination(int id);
     }
 }

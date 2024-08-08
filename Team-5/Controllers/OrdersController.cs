@@ -23,7 +23,9 @@ namespace Team_5.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(Orders orders, string cf)
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> CreateOrder(Orders o, string cf)
         {
             var order = await _ordersSvc.CreateOrder(orders, cf);
 
@@ -45,6 +47,8 @@ namespace Team_5.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteOrder(int id)
         {
             var deletedOrder = await _ordersSvc.DeleteOrders(id);

@@ -17,6 +17,7 @@ namespace Team_5.Models.ViewModels
         public DateTime BirthDate { get; set; } = DateTime.MinValue;
 
         [StringLength(16)]
+        [Required(ErrorMessage = "Il numero di microchip è obbligatorio.")]
         
         public string NumMicrochip { get; set; }
 
