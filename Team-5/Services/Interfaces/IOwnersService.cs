@@ -9,6 +9,8 @@ namespace Team_5.Services.Interfaces
         Task<List<Owners>> GetAllOwnersAsync();
         Task<OwnerViewModel> CreateOwnersAsync(OwnerViewModel ow);
         Task<List<Users>> GetAllUsers();
+        Task<Owners> DeleteOwner(int id);
+
 
     }
 }

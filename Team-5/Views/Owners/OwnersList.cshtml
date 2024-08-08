@@ -4,16 +4,17 @@
     ViewData["Title"] = "Owners List";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Lista Proprietari</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Phone Number</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Num. Telefono</th>
             <th>CF</th>
-            <th>User</th>
+            <th>Username</th>
+            <th>Azioni</th>
           
         </tr>
     </thead>
@@ -26,6 +27,12 @@
                 <td>@owner.PhoneNumber</td>
                 <td>@owner.CF</td>
                 <td>@owner.User.Username</td>
+                <td>
+                    <form asp-action="DeleteOwner" method="post">
+                        <input type="hidden" value="@owner.IdOwner" name="id" />
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
+                </td>
                
             </tr>
         }
@@ -33,5 +40,5 @@
 </table>
 
 <div>
-    <a asp-action="CreateOwner" class="btn btn-success">Create New Owner</a>
+    <a asp-action="CreateOwner" class="btn btn-success">Crea Proprietario</a>
 </div>

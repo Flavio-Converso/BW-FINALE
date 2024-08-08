@@ -38,5 +38,13 @@ namespace Team_5.Controllers
             var owners = await _ownersService.GetAllOwnersAsync();
             return View(owners);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteOwner(int id)
+        {
+            await _ownersService.DeleteOwner(id);
+            return RedirectToAction("OwnersList");
+        }
     }
 }
