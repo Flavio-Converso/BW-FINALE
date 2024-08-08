@@ -41,6 +41,18 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim(ClaimTypes.Role, "admin"); // [Authorize(Policy = "AdminPolicy")]
     });
 
+    //Farmacista Policy
+    options.AddPolicy("FarmacPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "farmacista"); // [Authorize(Policy = "FarmacPolicy")]
+    });
+
+    //Veterinario Policy
+    options.AddPolicy("VetPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "veterinario"); // [Authorize(Policy = "VetPolicy")]
+    });
+
 });
 
 
