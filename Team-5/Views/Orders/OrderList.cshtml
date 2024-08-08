@@ -9,11 +9,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Quantità:</th>
+            <th>Quantità</th>
             <th>Data dell'ordine</th>
             <th>Numero della ricetta</th>
             <th>Prodotto</th>
             <th>Proprietario</th>
+            <th>Azioni</th> <!-- Colonna per il bottone Delete -->
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,13 @@
                 <td>@order.PrescriptionNumber</td>
                 <td>@order.Product?.ProductName</td>
                 <td>@order.Owner?.Name</td>
+                <td>
+                    <form asp-action="DeleteOrder" asp-controller="Orders" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@order.IdOrder" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
