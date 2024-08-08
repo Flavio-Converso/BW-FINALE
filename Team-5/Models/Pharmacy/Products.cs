@@ -9,16 +9,16 @@ namespace Team_5.Models.Pharmacy
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdProduct { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Il nome del prodotto è obbligatorio.")]
         [StringLength(50)]
         public required string ProductName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Il tipo di prodotto è obbligatorio.")]
         [StringLength(50)]
         public required string Type { get; set; }
-        [Required]
+        [Required(ErrorMessage = "L'uso del prodotto è obbligatorio.")]
         [StringLength(50)]
         public required string Use { get; set; }
-        [Required]
+        [Required(ErrorMessage = "La quantità è obbligatoria.")]
         public required int Quantity { get; set; }
         [Required]
         public required bool Availability { get; set; }

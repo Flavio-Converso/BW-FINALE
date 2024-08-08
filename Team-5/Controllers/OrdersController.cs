@@ -13,10 +13,10 @@ namespace Team_5.Controllers
         private readonly IOrdersService _ordersService;
         private readonly DataContext _dataContext;
 
-        public OrdersController(IOrdersService ordersService)
+        public OrdersController(IOrdersService ordersService,DataContext dataContext)
         {
             _ordersService = ordersService;
-
+            _dataContext = dataContext;
         }
 
         public async Task<IActionResult> CreateOrder()

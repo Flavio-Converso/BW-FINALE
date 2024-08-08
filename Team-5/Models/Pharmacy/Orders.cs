@@ -12,7 +12,7 @@ namespace Team_5.Models.Pharmacy
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdOrder { get; set; }
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Order quantity must be at least 1.")]
+        [Range(1, int.MaxValue, ErrorMessage = "La quantità dell'ordine deve essere almeno di 1.")]
         public required int OrderQuantity { get; set; }
         [Required]
         public required DateTime OrderDate { get; set; }
