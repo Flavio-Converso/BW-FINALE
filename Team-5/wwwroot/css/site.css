@@ -85,10 +85,10 @@ body {
     border-color: #CC1617 !important;
 }
 
-.btn-red:hover {
-    background-color: #a61214 !important;
-    border-color: #a61214 !important;
-}
+    .btn-red:hover {
+        background-color: #c41a1c !important;
+        border-color: #c41a1c !important;
+    }
 
 btn:focus,
 btn:active,
@@ -127,5 +127,32 @@ btn:active,
     /* Shadow for focus and active state */
     outline: none !important;
 }
-
 /*DELETE BUTTON - TASTO ELIMINA*/
+
+
+.btn-blu {
+    color: white !important;
+    border-radius: 1.4em !important;
+    background-color: #191C24 !important;
+    /* Background color for normal state */
+    border-color: #191C24 !important;
+    /* Border color for normal state */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+    .btn-blu:hover {
+        background-color: #6C7293 !important;
+        /* Background color for hover state */
+        border-color: #6C7293 !important;
+        /* Border color for hover state */
+    }
+
+    .btn-blu:focus,
+    .btn-blu:active {
+        box-shadow: 0 0 7px 3px rgba(25, 28, 36, 0.5) !important;
+        /* Shadow for focus and active state */
+        outline: none !important;
+    }
