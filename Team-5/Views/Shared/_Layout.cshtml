@@ -6,157 +6,131 @@
     <title>@ViewData["Title"] - Team_5</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
   
 </head>
-<body>  
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        
-                         @if (!User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Register">Register</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
-                            </li>
-                           
-                        }
-                        @if (User.IsInRole("veterinario"))
-                        {
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Proprietari
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Owners" asp-action="CreateOwner">Registra Proprietario</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Owners" asp-action="OwnersList">Lista Proprietari</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Animali
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="CreateAnimal">Crea Animale</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="AnimalList">Lista Animali</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="AnimalsWithoutOwner">Lista Animali Senza Padrone</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="GetAnimalByMicrochip">Cerca Animale Per Microchip</a>
-                                    </li>
-                                </ul>
-                            </div>
+<body class="overflow-hidden">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 p-0">
+                <nav class="navbar navbar-expand bg-dark navbar-dark sticky-top px-4 py-0">
+                    <div class="navbar-nav align-items-center flex-grow-1 justify-content-between px-4 py-2">
+                        <li>
+                            <a class="text-white mt-5 fs-4" asp-area="" asp-controller="Home" asp-action="Index">
 
-                            <div class="dropdown">
-                                <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Visite
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Examination" asp-action="CreateExamination">Crea Visita</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Examination" asp-action="ExaminationsList">Lista Visite</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Ricoveri
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="CreateHospitalization">Crea Ricovero</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="CreateAnimalAndHospitalization">Crea Ricovero E Registra Animale</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Hospitalization" asp-action="ActiveHospitalizations">Ricoveri Attivi</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            }
-                            @if (User.IsInRole("master"))
+                                <i class="bi bi-house-door text-white fs-2"></i>
+                            </a>
+                        </li>
+                            @if (User.Identity.IsAuthenticated)
                             {
-                            <div>  &lt;- veterinario DA ELIMINARE farmacista -&gt;</div>                              
+                                <li class="nav-item">
+                                <a class="text-white fs-2" asp-area="" asp-controller="Auth" asp-action="Logout">
+                                    <i class="bi bi-door-closed"></i>
+                                </a>
+                                </li>
                             }
-                        @if (User.IsInRole("farmacista"))
-                        {
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Prodotti
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="CreateProduct">Crea Prodotto</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductList">Lista Prodotti</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Ordini
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="CreateOrder">Crea Ordine</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="OrderList">Lista Ordini</a>
-                                    </li>
-                            </div>
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                               
+                                <li class="nav-item">
+                                    <a class="text-white fs-4" asp-area="" asp-controller="Auth" asp-action="Login">Accedi</a>
+                                </li>
                             }
-                            @if (User.IsInRole("master"))
-                            {                        
-                            <div> DA ELIMINARE master -&gt;</div>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Master" asp-action="ManageRoles">Gestisci Ruoli</a>
-                            </li>
-                            }
-                        @if (User.Identity.IsAuthenticated)
-                        {                    
-                        <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
-                            </li>
-                        }
-                        
-                    </ul>
-                </div>
+                    </div>
+                </nav>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Team_5 
         </div>
-    </footer>
+        <div class="row">
+            <div class="col-2 bg-dark" id="scrollStyle">
+                <ul class="list-unstyled ps-3 pb-4">
+
+                    @if (User.IsInRole("veterinario"))
+                    {
+                        <li class="text-white  my-2">PROPRIETARI</li>
+
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Owners" asp-action="CreateOwner">Registra Proprietario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Owners" asp-action="OwnersList">Lista Proprietari</a>
+                        </li>
+
+                        <li class="text-white mt-5 mb-2">ANIMALI</li>
+
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Animals" asp-action="CreateAnimal">Crea Animale</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Animals" asp-action="AnimalList">Lista Animali</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Animals" asp-action="AnimalsWithoutOwner">Lista Animali Senza Padrone</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Animals" asp-action="GetAnimalByMicrochip">Cerca Animale Per Microchip</a>
+                        </li>
+
+                        <li class="text-white mt-5 mb-2">VISITE</li>
+
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Examination" asp-action="CreateExamination">Crea Visita</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-controller="Examination" asp-action="ExaminationsList">Lista Visite</a>
+                        </li>
+
+                        <li class="text-white mt-5 mb-2">RICOVERI</li>
+
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Hospitalization" asp-action="CreateHospitalization">Crea Ricovero</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Hospitalization" asp-action="CreateAnimalAndHospitalization">Crea Ricovero E Registra Animale</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Hospitalization" asp-action="ActiveHospitalizations">Ricoveri Attivi</a>
+                        </li>
+
+                    }
+                    @if (User.IsInRole("farmacista"))
+                    {
+                        <li class="text-white mt-5 mb-2">PRODOTTI</li>
+
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Product" asp-action="CreateProduct">Crea Prodotto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Product" asp-action="ProductList">Lista Prodotti</a>
+                        </li>
+
+                        <li class="text-white mt-5 mb-2">ORDINI</li>
+
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Orders" asp-action="CreateOrder">Crea Ordine</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Orders" asp-action="OrderList">Lista Ordini</a>
+                        </li>
+
+                    }
+                    @if (User.IsInRole("master"))
+                    {
+                        <li class="text-white mt-5 mb-2">RUOLI</li
+                        <li class="nav-item mt-5 mb-5">
+                            <a class="fs-5 mylink" asp-area="" asp-controller="Master" asp-action="ManageRoles">Gestisci Ruoli</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-10 p-0">
+                
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
