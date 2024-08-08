@@ -11,5 +11,7 @@ namespace Team_5.Services.Interfaces
         Task<Products> FindLockers(int id);
         Task<List<Orders>> GetProductsFromDate(DateTime date);
         Task<List<Orders>> GetProductsFromCF(string cf);
+        Task<Products> DeleteProduct(int id);
+
     }
 }
