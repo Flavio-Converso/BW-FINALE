@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Team_5.Models.Pharmacy;
+using Team_5.Services;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
@@ -31,6 +32,22 @@ namespace Team_5.Controllers
         {
             var orderList = await _ordersSvc.GetOrders();
             return View(orderList);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteOrder(int id)
+        {
+            var deletedOrder = await _ordersSvc.DeleteOrders(id);
+
+            if (deletedOrder == null)
+            {
+                // Se l'ordine non esiste, restituisci un 404 Not Found
+                return NotFound(new { Message = "Order not found." });
+            }
+
+            // Se l'ordine è stato eliminato con successo, restituisci un 200 OK con i dettagli dell'ordine eliminato
+            return RedirectToAction("Index","Home");
         }
     }
 }

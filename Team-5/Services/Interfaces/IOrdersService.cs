@@ -7,5 +7,6 @@ namespace Team_5.Services.Interfaces
         Task<Orders> CreateOrder(Orders orders, string cf);
         Task<List<Orders>> GetOrders();
         Task<List<Products>> GetAllProducts();
+        Task<Orders> DeleteOrders(int id);
     }
 }
