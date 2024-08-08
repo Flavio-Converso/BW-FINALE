@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Team_5.Context;
 using Team_5.Models.Clinic;
 using Team_5.Services.Interfaces;
 
@@ -9,17 +7,16 @@ namespace Team_5.Controllers
     public class ExaminationController : Controller
     {
         private readonly IExaminationService _examinationService;
-        private readonly DataContext _dataContext;
 
-        public ExaminationController(IExaminationService examinationService, DataContext dataContext)
+        public ExaminationController(IExaminationService examinationService)
         {
-            _dataContext = dataContext;
             _examinationService = examinationService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> CreateExaminationAsync()
         {
-            var animals = await _dataContext.Animals.ToListAsync();
+            var animals = await _examinationService.GetAllAnimalsAsync();
             ViewBag.Animals = animals;
             return View();
         }
@@ -27,19 +24,18 @@ namespace Team_5.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateExaminationAsync(Examinations ex)
         {
-            // Verifica se l'AnimalId esiste
-            var animalExists = _dataContext.Animals.Any(a => a.IdAnimal == ex.AnimalId);
+            var animalExists = await _examinationService.AnimalExistsAsync(ex.AnimalId);
             if (!animalExists)
             {
-                ModelState.AddModelError("AnimalId", "ID Animale non valido");
-                return View(ex); // Ritorna la vista con l'errore
+                ModelState.AddModelError("AnimalId", "Invalid Animal ID");
+                return View(ex);
             }
 
             await _examinationService.CreateExaminationAsync(ex);
             return RedirectToAction("Index", "Home");
         }
 
-        // Azione per visualizzare l'elenco delle visite per ciascun animale
+        [HttpGet]
         public async Task<IActionResult> ExaminationsList()
         {
             var esami = await _examinationService.GetAllExaminationsAsync();

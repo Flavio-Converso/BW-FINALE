@@ -13,6 +13,7 @@ namespace Team_5.Services
         {
             _dataContext = dataContext;
         }
+
         public async Task<Examinations> CreateExaminationAsync(Examinations ex)
         {
             var animal = await _dataContext.Animals.FindAsync(ex.AnimalId);
@@ -34,7 +35,6 @@ namespace Team_5.Services
             return examination;
         }
 
-
         public async Task<List<Examinations>> GetAllExaminationsAsync()
         {
             return await _dataContext.Examinations
@@ -50,6 +50,16 @@ namespace Team_5.Services
                 .Include(e => e.Animal)
                 .OrderByDescending(e => e.ExaminationDate)
                 .ToListAsync();
+        }
+
+        public async Task<List<Animals>> GetAllAnimalsAsync()
+        {
+            return await _dataContext.Animals.ToListAsync();
+        }
+
+        public async Task<bool> AnimalExistsAsync(int animalId)
+        {
+            return await _dataContext.Animals.AnyAsync(a => a.IdAnimal == animalId);
         }
     }
 }

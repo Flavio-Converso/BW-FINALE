@@ -4,8 +4,10 @@ namespace Team_5.Services.Interfaces
 {
     public interface IExaminationService
     {
-        public Task<Examinations> CreateExaminationAsync(Examinations ex);
-        public Task<List<Examinations>> GetAllExaminationsAsync();
-        public Task<List<Examinations>> GetAllExaminationsByIdAnimalAsync(int IdAnimal);
+        Task<Examinations> CreateExaminationAsync(Examinations ex);
+        Task<List<Examinations>> GetAllExaminationsAsync();
+        Task<List<Examinations>> GetAllExaminationsByIdAnimalAsync(int IdAnimal);
+        Task<List<Animals>> GetAllAnimalsAsync();
+        Task<bool> AnimalExistsAsync(int animalId);
     }
 }
