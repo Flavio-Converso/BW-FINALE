@@ -1,5 +1,5 @@
-﻿let chipPath = "/Animals/GetAnimalDataByMicrochip";
-
+﻿//search animal by microchip number
+let chipPath = "/Animals/GetAnimalDataByMicrochip";
 function countByMicroChip() {
     let microchip = $('#microchip').val();
     $.ajax({
@@ -22,7 +22,7 @@ function countByMicroChip() {
                 });
             } else {
                 div.append($(`<h1 class="mb-4">Nessun animale trovato per numero di microchip: ${microchip}</h1>`));
-            }
+          }
         }
     });
 }
@@ -43,6 +43,9 @@ $('#chipButton').on('click', () => {
     countByMicroChip();
 });
 
+
+//
+//show past examinations before creating a new one for selected animal
 let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
 
 function triggerPastVisits() {
@@ -71,7 +74,6 @@ function triggerPastVisits() {
             } else {
                 examDiv.append($(`<h1 class="mb-4">Nessun esame trovato l'id: ${IdAnimal}</h1>`));
             }
-       
         }
     });
 }
@@ -80,3 +82,58 @@ $('#pastVisits').on('change', () => {
     triggerPastVisits();
 });
 
+//
+//in productslist search drawer & locker for selected product
+let lockersPath = "/Product/FindLockers";
+
+function FindLockers(idProduct) {
+    $.ajax({
+        url: `${lockersPath}?id=${idProduct}`,
+        method: 'GET',
+        success: (data) => {
+            console.log("Success", data);
+            let div = $('#printLocker');
+            div.empty();
+            if (data) {
+                let productLocker = `
+                    <ul>
+                        <li>ID cassetto: ${data.drawers.idDrawer}</li>
+                        <li>ID armadietto: ${data.drawers.lockerId}</li>
+                    </ul>
+                `;
+                div.append(productLocker);
+            } else {
+                div.append($(`<h1 class="mb-4">Nessun prodotto trovato con l'id: ${idProduct}</h1>`));
+            }
+        },
+        error: (err) => {
+            console.error("Error", err);
+        }
+    });
+}
+
+$(document).on('click', '#row', function () {
+    let idProduct = $(this).find('#idProduct').text().trim();
+    FindLockers(idProduct);
+});
+
+//
+//disable drawer selection if "alimento" is selected
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("alimentoSelez").addEventListener("change", function () {
+        var selectedValue = this.value;
+        var drawerSelect = document.getElementById("selectDrawer");
+        var drawerSelect2 = document.getElementById("selectDrawer2");
+
+        if (selectedValue === "Alimento") {
+            drawerSelect.disabled = true;
+            drawerSelect.selectedIndex = 0;
+            drawerSelect.hidden = true;
+            drawerSelect2.hidden = true;
+        } else {
+            drawerSelect.disabled = false;
+            drawerSelect.hidden = false;
+            drawerSelect2.hidden = false;
+        }
+    });
+});

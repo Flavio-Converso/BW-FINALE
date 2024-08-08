@@ -20,7 +20,9 @@ namespace Team_5.Controllers
         public async Task<IActionResult> CreateProduct()
         {
             var companies = await _dataContext.Companies.ToListAsync();
+            var drawers = await _dataContext.Drawers.Include(d => d.Lockers).ToListAsync();
             ViewBag.Companies = companies;
+            ViewBag.Drawers = drawers;
             return View();
         }
 
@@ -38,6 +40,17 @@ namespace Team_5.Controllers
         {
             var products = await _productService.GetAllProducts();
             return View(products);
-        }        
+        }
+
+        [HttpGet("Product/FindLockers")]
+        public async Task<IActionResult> FindLockers(int id)
+        {
+            var product = await _dataContext.Products
+            .Where(p => p.IdProduct == id)
+            .Include(p => p.Drawers)
+            .FirstOrDefaultAsync();
+
+            return Ok(product);
+        }
     }
 }

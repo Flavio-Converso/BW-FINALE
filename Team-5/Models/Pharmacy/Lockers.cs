@@ -7,6 +7,8 @@ namespace Team_5.Models.Pharmacy
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdLocker { get; set; }
+        [Required]
+        public int NumLocker { get; set; }
 
         public List<Drawers> Drawers { get; set; } = [];
     }
