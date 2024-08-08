@@ -71,3 +71,25 @@ body {
     .myIcon:hover {
         color: #CC1617;
     }
+
+
+/*DELETE BUTTON - TASTO ELIMINA*/
+.btn-red {
+    color:white !important;
+    background-color: #CC1617 !important;
+    border-color: #CC1617 !important;
+}
+
+    .btn-red:hover {
+        background-color: #a61214 !important;
+        border-color: #a61214 !important;
+    }
+
+    btn:focus,
+    btn:active,
+    .btn-red:focus,
+    .btn-red:active {
+        box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.6) !important;
+        outline: none !important;
+    }
+/*DELETE BUTTON - TASTO ELIMINA*/
