@@ -14,7 +14,6 @@ namespace Team_5.Controllers
         private readonly DataContext _dataContext;
         private readonly IBreedsService _breedsService;
         private readonly IAnimalsService _animalsService;
-        private readonly ILogger<HospitalizationController> _logger;
 
 
         public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService, ILogger<HospitalizationController> logger)
@@ -34,14 +33,14 @@ namespace Team_5.Controllers
             return View(isHospitalized);
         }
 
-        
+
         [HttpGet]
         public IActionResult CreateHospitalization()
         {
             return View();
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> CreateHospitalization(Hospitalizations hospitalization)
         {
@@ -52,7 +51,7 @@ namespace Team_5.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 ViewBag.ErrorMessage = ex.Message;
                 return View(hospitalization);
             }
@@ -62,75 +61,23 @@ namespace Team_5.Controllers
         // crea animale e ricovero assieme
 
 
-         [HttpGet]
+
         public async Task<IActionResult> CreateAnimalAndHospitalization()
         {
-            var breeds = await _dataContext.Breeds.ToListAsync();
-            var viewModel = new AnimalHospitalizationViewModel
-            {
-                Animal = new Animals
-                {
-                    Name = "",
-                    Color = "",
-                    RegistrationDate = DateTime.Now,
-                    Breed = new Breeds()
-                },
-                Hospitalization = new Hospitalizations
-                {
-                    IsHospitalized = false,
-                    HospDate = DateTime.Now
-                },
-                Breeds = await _breedsService.GetAllBreedsAsync()
-            };
 
-            return View(viewModel);
+            ViewBag.Breeds = await _dataContext.Breeds.ToListAsync();
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAnimalAndHospitalization(AnimalHospitalizationViewModel viewModel)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    // Se è necessario, gestisci i file immagine
-                    if (Request.Form.Files.Count > 0)
-                    {
-                        var file = Request.Form.Files[0];
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await file.CopyToAsync(memoryStream);
-                            viewModel.Animal.Image = memoryStream.ToArray();
-                        }
-                    }
-
-                    // Imposta il breed selezionato
-                    viewModel.Animal.Breed = await _breedsService.GetBreedByIdAsync(viewModel.Animal.Breed.IdBreed);
-
-                    // Utilizza il servizio per creare l'animale e il ricovero
-                    var createdViewModel = await _hospitalizationService.CreateAnimalAndHospitalizationAsync(viewModel);
-
-                    return RedirectToAction("Index", "Home");
-                }
-                catch (ArgumentException ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Si è verificato un errore durante la creazione dell'animale e del ricovero: " + ex.Message);
-                    _logger.LogError(ex, "Errore durante la creazione dell'animale e del ricovero");
-                }
-            }
-
-            // Ricarica le razze nel view model in caso di errore di validazione
-            viewModel.Breeds = await _breedsService.GetAllBreedsAsync();
-            return View(viewModel);
+            await _hospitalizationService.CreateAnimalHospitalizationViewModel(viewModel);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
-    
 
 
 

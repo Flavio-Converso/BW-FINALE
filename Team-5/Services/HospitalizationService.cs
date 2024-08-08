@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Team_5.Context;
 using Team_5.Models.Clinic;
 using Team_5.Models.ViewModels;
@@ -30,8 +29,8 @@ namespace Team_5.Services
             var hospitalization = new Hospitalizations
             {
                 Animal = animal,
-                IsHospitalized=hosp.IsHospitalized=true,
-                HospDate= hosp.HospDate,
+                IsHospitalized = hosp.IsHospitalized = true,
+                HospDate = hosp.HospDate,
             };
 
             await _dataContext.Hospitalizations.AddAsync(hospitalization);
@@ -39,29 +38,6 @@ namespace Team_5.Services
             return hospitalization;
         }
 
-
-        // ricovero e registrazione animale
-        public async Task<AnimalHospitalizationViewModel> CreateAnimalAndHospitalizationAsync(AnimalHospitalizationViewModel viewModel)
-        {
-            using var transaction = await _dataContext.Database.BeginTransactionAsync();
-
-                // Aggiungi l'animale al contesto
-                _dataContext.Animals.Add(viewModel.Animal);
-                await _dataContext.SaveChangesAsync();
-
-                // Associa l'animale appena creato al ricovero
-                viewModel.Hospitalization.AnimalId = viewModel.Animal.IdAnimal;
-                viewModel.Hospitalization.Animal = viewModel.Animal;
-
-                // Aggiungi il ricovero al contesto
-                _dataContext.Hospitalizations.Add(viewModel.Hospitalization);
-                await _dataContext.SaveChangesAsync();
-
-                await transaction.CommitAsync();
-
-                return viewModel;
-
-        }
         public async Task<List<Hospitalizations>> GetHospitalizationsWithAnimalsAsync()
         {
             return await _dataContext.Hospitalizations
@@ -71,9 +47,7 @@ namespace Team_5.Services
                 .ThenInclude(a => a.Owner)
                 .ToListAsync();
         }
-    
 
-    [HttpGet]
         public async Task<List<Hospitalizations>> GetActiveHospitalizationsAsync()
         {
             return await _dataContext.Hospitalizations
@@ -83,6 +57,45 @@ namespace Team_5.Services
                 .ToListAsync();
         }
 
-        
+        public async Task<AnimalHospitalizationViewModel> CreateAnimalHospitalizationViewModel(AnimalHospitalizationViewModel viewModel)
+        {
+            var breed = await _dataContext.Breeds.FindAsync(viewModel.IdBreed);
+            byte[] imageBytes = null;
+            if (viewModel.Image != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await viewModel.Image.CopyToAsync(memoryStream);
+                    imageBytes = memoryStream.ToArray();
+                }
+            }
+            var animal = new Animals
+            {
+                Name = viewModel.Animal.Name,
+                Color = viewModel.Animal.Color,
+                RegistrationDate = DateTime.Now,
+                Breed = breed,
+                BirthDate = viewModel.Animal.BirthDate,
+                NumMicrochip = viewModel.Animal.NumMicrochip,
+                Image = imageBytes,
+            };
+
+
+            await _dataContext.Animals.AddAsync(animal);
+            await _dataContext.SaveChangesAsync();
+
+            var hospitalization = new Hospitalizations
+            {
+                IsHospitalized = true,
+                HospDate = DateTime.Now,
+                AnimalId = animal.IdAnimal
+            };
+
+            await _dataContext.Hospitalizations.AddAsync(hospitalization);
+            await _dataContext.SaveChangesAsync();
+            return viewModel;
+        }
+
+
     }
 }

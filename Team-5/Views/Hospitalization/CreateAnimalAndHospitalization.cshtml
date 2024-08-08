@@ -1,7 +1,9 @@
-﻿@model Team_5.Models.ViewModels.AnimalHospitalizationViewModel
+﻿@using Team_5.Models.Clinic
+@model Team_5.Models.ViewModels.AnimalHospitalizationViewModel
 
 @{
     ViewData["Title"] = "Crea Animale e Ricovero";
+    var breeds = ViewBag.Breeds as List<Breeds>;
 }
 
 <h1>Crea Animale e Ricovero</h1>
@@ -10,57 +12,46 @@
     @* Animal Details *@
     <h3>Dettagli Animale</h3>
     <div class="form-group">
-        <label asp-for="Animal.Name" class="control-label">Nome</label>
+        <label asp-for="Animal.Name" class="control-label mt-2">Inserisci nome animale:</label>
         <input asp-for="Animal.Name" class="form-control" />
         <span asp-validation-for="Animal.Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Animal.NumMicrochip" class="control-label">Numero Microchip</label>
+        <label asp-for="Animal.NumMicrochip" class="control-label mt-2">Inserisci numero microchip:</label>
         <input asp-for="Animal.NumMicrochip" class="form-control" />
         <span asp-validation-for="Animal.NumMicrochip" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Animal.Color" class="control-label">Colore</label>
+        <label asp-for="Animal.Color" class="control-label mt-2">Inserisci colore:</label>
         <input asp-for="Animal.Color" class="form-control" />
         <span asp-validation-for="Animal.Color" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="Animal.BirthDate" class="control-label mt-2">Inserisci data di nascita:</label>
+        <input asp-for="Animal.BirthDate" type="date" class="form-control" />
+        <span asp-validation-for="Animal.BirthDate" class="text-danger"></span>
+    </div>
 
     <div class="form-group">
-        <label asp-for="Animal.Breed.IdBreed" class="control-label">Razza</label>
-        <select asp-for="Animal.Breed.IdBreed" class="form-control">
+        <label asp-for="IdBreed" class="mt-2">Inserisci razza animale:</label>
+        <select asp-for="IdBreed" class="form-control">
             <option value="">Seleziona Razza</option>
-            @foreach (var breed in Model.Breeds)
+            @foreach (var breed in breeds)
             {
                 <option value="@breed.IdBreed">@breed.Name</option>
             }
         </select>
-        <span asp-validation-for="Animal.Breed.IdBreed" class="text-danger"></span>
+        <span asp-validation-for="IdBreed" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Animal.Image" class="control-label">Immagine</label>
-        <input type="file" asp-for="Animal.Image" class="form-control" />
-        <span asp-validation-for="Animal.Image" class="text-danger"></span>
+    <div class="form-group mt-2">
+        <label for="Image">Inserisci immagine:</label>
+        <input type="file" id="Image" name="Image" class="form-control" />
     </div>
 
-    @* Hospitalization Details *@
-    <h3>Dettagli Ricovero</h3>
-
-    <div class="form-group">
-        <label asp-for="Hospitalization.IsHospitalized" class="control-label">È Ricoverato</label>
-        <input asp-for="Hospitalization.IsHospitalized" type="checkbox" class="form-check-input" />
-        <span asp-validation-for="Hospitalization.IsHospitalized" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Hospitalization.HospDate" class="control-label">Data Ricovero</label>
-        <input asp-for="Hospitalization.HospDate" type="date" class="form-control" />
-        <span asp-validation-for="Hospitalization.HospDate" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Invia</button>
+    <button type="submit" class="btn btn-primary mt-2">Invia</button>
 </form>
 
 @section Scripts {

@@ -5,6 +5,34 @@
 }
 
 <h2>Product List</h2>
+<div class="form-group">
+    <label for="filter">Filtra per tipo:</label>
+    <select id="filter" class="form-control">
+        <option value="All">Tutti</option>
+        <option value="Alimento">Alimento</option>
+        <option value="Farmaco">Farmaco</option>
+    </select>
+</div>
+
+<div class="my-4">
+    <div class="d-flex align-items-center">
+        <h5 class="mb-0">Inserisci la data per visualizzare i farmaci venduti:</h5>
+        <input type="date" id="dateInput" class="form-control ms-3" style="max-width: 200px;" />
+        <button id="dateBtn" class="btn btn-info text-white ms-3">Lista farmaci</button>
+    </div>
+    <div id="date" class="mt-2"></div>
+</div>
+
+@* <div class="my-4">
+    <div class="d-flex align-items-center">
+        <h5 class="mb-0">Inserisci il CF per visualizzare i farmaci venduti:</h5>
+        <input type="date" id="dateInput" class="form-control ms-3" style="max-width: 200px;" />
+        <button id="dateBtn" class="btn btn-info text-white ms-3">Lista farmaci</button>
+    </div>
+    <div id="date" class="mt-2"></div>
+</div> *@
+
+<div id="printLocker"></div>
 
 <table class="table table-striped">
     <thead>
@@ -35,9 +63,9 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdProduct)
+            <tr class="prow" data-type="@item.Type">
+                <td id="idProduct" value="@item.IdProduct">
+                    @item.IdProduct
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductName)

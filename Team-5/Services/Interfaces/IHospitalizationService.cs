@@ -8,6 +8,7 @@ namespace Team_5.Services.Interfaces
     {
         public Task<Hospitalizations> CreateHospitalizationsAsync(Hospitalizations hosp);
         public Task<List<Hospitalizations>> GetActiveHospitalizationsAsync();
-        public Task<AnimalHospitalizationViewModel> CreateAnimalAndHospitalizationAsync(AnimalHospitalizationViewModel viewModel);
+        public Task<AnimalHospitalizationViewModel> CreateAnimalHospitalizationViewModel(AnimalHospitalizationViewModel viewModel);
+
     }
 }
