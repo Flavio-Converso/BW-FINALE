@@ -8,23 +8,23 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body class="overflow-hidden">
+<body class="overflow-hidden myBlack">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 p-0">
-                <nav class="navbar navbar-expand bg-dark navbar-dark sticky-top px-4 py-0">
+                <nav class="navbar navbar-expand myBg sticky-top px-4 py-0">
                     <div class="navbar-nav align-items-center flex-grow-1 justify-content-between px-4 py-2">
                         <li>
                             <a class="text-white mt-5 fs-4" asp-area="" asp-controller="Home" asp-action="Index">
 
-                                <i class="bi bi-house-door text-white fs-2"></i>
+                                <i class="bi bi-house-door myIcon fs-2"></i>
                             </a>
                         </li>
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                <a class="text-white fs-2" asp-area="" asp-controller="Auth" asp-action="Logout">
-                                    <i class="bi bi-door-closed"></i>
+                                <a class="fs-2" asp-area="" asp-controller="Auth" asp-action="Logout">
+                                    <i class="bi bi-door-closed myIcon"></i>
                                 </a>
                                 </li>
                             }
@@ -32,7 +32,9 @@
                             {
                                
                                 <li class="nav-item">
-                                    <a class="text-white fs-4" asp-area="" asp-controller="Auth" asp-action="Login">Accedi</a>
+                                    <a class="fs-2" asp-area="" asp-controller="Auth" asp-action="Login">
+                                        <i class="bi bi-door-closed-fill myIcon"></i>
+                                    </a>
                                 </li>
                             }
                     </div>
@@ -40,7 +42,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-2 bg-dark" id="scrollStyle">
+            <div class="col-2 myBg" id="scrollStyle">
                 <ul class="list-unstyled ps-3 pb-4">
 
                     @if (User.IsInRole("veterinario"))
@@ -124,7 +126,8 @@
 
             <div class="col-10 p-0">
                 
-                <main role="main" class="pb-3">
+                <main role="main" class="pb-3 container-fluid">
+                    
                     @RenderBody()
                 </main>
             </div>

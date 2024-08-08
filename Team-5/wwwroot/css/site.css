@@ -28,6 +28,7 @@ body {
     overflow-y:auto;
     height:100vh;
     padding-bottom: 3em;
+    padding-top: 2em;
 }
 
 #scrollStyle::-webkit-scrollbar {
@@ -52,4 +53,21 @@ body {
     .mylink:hover {
         color: #CC1617;
         left: 10px; 
+    }
+
+.myBg {
+    background-color: #191C24 !important;
+}
+
+.myBlack {
+    background-color: black !important;
+}
+
+.myIcon{
+    color:white;
+    transition:0.3s;
+}
+
+    .myIcon:hover {
+        color: #CC1617;
     }
