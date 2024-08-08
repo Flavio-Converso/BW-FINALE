@@ -16,13 +16,12 @@ namespace Team_5.Controllers
         private readonly IAnimalsService _animalsService;
 
 
-        public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService, ILogger<HospitalizationController> logger)
+        public HospitalizationController(IHospitalizationService hospitalizationService, DataContext dataContext, IBreedsService breedsService, IAnimalsService animalsService)
         {
             _hospitalizationService = hospitalizationService;
             _dataContext = dataContext;
             _breedsService = breedsService;
             _animalsService = animalsService;
-            _logger = logger;
         }
 
 
