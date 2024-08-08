@@ -20,7 +20,7 @@ namespace Team_5.Models.Clinic
         public DateTime BirthDate { get; set; } = DateTime.MinValue;
 
         [StringLength(16)]
-        public int NumMicrochip { get; set; }
+        public string NumMicrochip { get; set; }
 
         public byte[]? Image { get; set; }
 

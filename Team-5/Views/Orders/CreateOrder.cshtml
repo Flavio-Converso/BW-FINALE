@@ -1,7 +1,9 @@
-﻿@model Team_5.Models.Pharmacy.Orders
+﻿@using Team_5.Models.Pharmacy
+@model Team_5.Models.Pharmacy.Orders
 
 @{
     ViewData["Title"] = "CreateOrder";
+    var product = ViewBag.Products as List<Products>;
 }
 
 <h1>CreateOrder</h1>
@@ -32,8 +34,15 @@
                 <span asp-validation-for="PrescriptionNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdProduct" class="control-label"></label>
-                <input asp-for="IdProduct" class="form-control" />
+                <label asp-for="IdProduct" class="mt-2">Inserisci razza animale:</label>
+                <select asp-for="IdProduct" class="form-control">
+                    <option value="">Seleziona il prodotto</option>
+                    @foreach (var pr in product)
+                    {
+                        <option value="@pr.IdProduct">@pr.ProductName</option>
+                    }
+                </select>
+                <span asp-validation-for="IdProduct" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

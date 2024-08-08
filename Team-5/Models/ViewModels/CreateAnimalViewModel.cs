@@ -18,7 +18,7 @@ namespace Team_5.Models.ViewModels
 
         [StringLength(16)]
         
-        public int NumMicrochip { get; set; }
+        public string NumMicrochip { get; set; }
 
         public IFormFile? Image { get; set; }
 

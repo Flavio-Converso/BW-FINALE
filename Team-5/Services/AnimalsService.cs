@@ -81,7 +81,7 @@ namespace Team_5.Services
             return await _ctx.Animals.Include(a => a.Breed).ToListAsync();
         }
 
-        public async Task<List<Animals>> GetAnimalByMicrochipAsync(int microchipId)
+        public async Task<List<Animals>> GetAnimalByMicrochipAsync(string microchipId)
         {
 
             return await _ctx.Animals
