@@ -56,6 +56,14 @@ namespace Team_5.Services
             return await _ctx.Products.Include(p => p.Company).ToListAsync();
         }
 
+        public async Task<Products> DeleteProduct(int id)
+        {
+            var product = await _ctx.Products.FindAsync(id);
+            _ctx.Products.Remove(product);
+            await _ctx.SaveChangesAsync();
+            return product;
+        }
+
         public async Task<Products> FindLockers(int id)
         {
             return await _ctx.Products

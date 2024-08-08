@@ -30,6 +30,13 @@ namespace Team_5.Controllers
             return RedirectToAction("ProductList", "Product");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            await _productSvc.DeleteProduct(id);
+            return RedirectToAction("ProductList");
+        }
+
         [HttpGet]
         public async Task<IActionResult> ProductList()
         {
