@@ -20,9 +20,10 @@ namespace Team_5.Controllers
 
         public async Task<IActionResult> ManageRoles()
         {
-            var users = await _dataContext.Users.Include(u => u.Roles).ToListAsync();
+            ViewBag.Users = await _dataContext.Users.Include(u => u.Roles).ToListAsync();
+
             ViewBag.Roles = await _dataContext.Roles.ToListAsync();
-            return View(users);
+            return View();
         }
 
         [HttpPost]

@@ -1,29 +1,40 @@
 ﻿@using Team_5.Models.Auth
-@model Team_5.Models.ViewModels.UserRolesViewModel
+@model Team_5.Models.Auth.Roles
 
 @{
     ViewData["Title"] = "ManageRoles";
     var roles = ViewBag.Roles as List<Roles>;
+    var users = ViewBag.Users as List<Users>;
 }
 
-<h1>ManageRoles</h1>
+<h1>Gestione Ruoli</h1>
 
-<div class="container">
-    <form asp-action="CreateRoles" method="post">
-        
-        <button type="submit" class="btn btn-info">Crea Ruolo</button>
-    </form>
+<div class="container my-4">
+    <div class="row">
+        <div class="col-4">
+            <h3>Crea ruolo</h2>
+            <form asp-action="CreateRole" method="post">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Inserisci nome ruolo:</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-info mt-2">Crea Ruolo</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Users.Username)
+                Username
             </th>
            
             <th>
-                @Html.DisplayNameFor(model => model.Users.Email)
+                Email
             </th>
             <th>
                 Ruoli
@@ -35,19 +46,19 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Users) {
+@foreach (var u in users) {
         <tr>
             <form asp-action="ManageRoles" method="post">
 
             <td>
-                @Html.DisplayFor(modelItem => item.Users.Username)
+               @u.Username
             </td>
            
             <td>
-                @Html.DisplayFor(modelItem => item.Users.Email)
+                @u.Email
             </td>
             <td>
-                    @foreach(var role in item.Users.Roles)
+                    @foreach(var role in u.Roles)
                     {
                 
                         <li class="list-unstyled">
@@ -65,7 +76,7 @@
                         }
                 </select>
             </td>
-            <input type="hidden" name="idUser" value="@item.Users.IdUser" />
+            <input type="hidden" name="idUser" value="@u.IdUser" />
             <td>
                 <button type="submit" class="btn btn-info">Aggiorna Ruoli</button> 
             </td>
