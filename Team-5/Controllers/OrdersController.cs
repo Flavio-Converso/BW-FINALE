@@ -27,13 +27,13 @@ namespace Team_5.Controllers
 
         public async Task<IActionResult> CreateOrder(Orders o, string cf)
         {
-            var order = await _ordersSvc.CreateOrder(orders, cf);
+            var order = await _ordersSvc.CreateOrder(o, cf);
 
             if (order == null)
             {
                 ModelState.AddModelError(string.Empty, "Il codice fiscale o il prodotto fornito non sono validi.");
                 ViewBag.Products = await _ordersSvc.GetAllProducts();
-                return View(orders);
+                return View(o);
             }
             return RedirectToAction("Index", "Home");
         }
