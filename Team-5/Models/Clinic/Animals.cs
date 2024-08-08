@@ -6,6 +6,7 @@ namespace Team_5.Models.Clinic
 {
     public class Animals
     {
+        [Required(ErrorMessage = "Seleziona un animale.")]
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdAnimal { get; set; }
 
@@ -39,7 +40,7 @@ namespace Team_5.Models.Clinic
         [JsonIgnore]
         public List<Examinations>? Examination { get; set; } = new();
 
-        [Required]
+        [Required(ErrorMessage = "La razza è obbligatoria.")]
         public Breeds Breed { get; set; }
     }
 }
