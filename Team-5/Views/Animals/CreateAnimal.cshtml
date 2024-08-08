@@ -12,77 +12,81 @@
 @{
     ViewData["Title"] = "Aggiungi Animale";
 }
+<div class="row justify-content-center">
+    <div class="col-11 bg-info">
+        <h1>@ViewData["Title"]</h1>
 
-<h1>@ViewData["Title"]</h1>
+        <form asp-action="CreateAnimal" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Inserisci nome animale:</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
-<form asp-action="CreateAnimal" method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken()
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Inserisci nome animale:</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="RegistrationDate" class="control-label mt-2">Data di registrazione:</label>
+                <input asp-for="RegistrationDate" class="form-control" type="date" disabled />
+                <span asp-validation-for="RegistrationDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label mt-2">Inserisci data di nascita:</label>
+                <input asp-for="BirthDate" class="form-control" type="date" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NumMicrochip" class="control-label mt-2">Inserisci num. microchip:</label>
+                <input asp-for="NumMicrochip" class="form-control" />
+                <span asp-validation-for="NumMicrochip" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image" class="control-label mt-2">Inserisci immagine:</label>
+                <input asp-for="Image" class="form-control" type="file" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Color" class="control-label mt-2">Inserisci colore animale:</label>
+                <select asp-for="Color" class="form-control">
+                    <option value="" disabled selected>Seleziona un colore</option>
+                    <option value="Black">Nero</option>
+                    <option value="White">Bianco</option>
+                    <option value="Brown">Marrone</option>
+                    <option value="Gray">Grigio</option>
+                    <option value="Orange">Arancione</option>
+                    <option value="Spotted">Maculato</option>
+                    <option value="Striped">Tigrato</option>
+                </select>
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SelectedOwnerId" class="control-label mt-2">Inserisci proprietario:</label>
+                <select asp-for="SelectedOwnerId" asp-items="ownerItems" class="form-control">
+                    <option value="" disabled selected>Seleziona un proprietario</option>
+                </select>
+                <span asp-validation-for="SelectedOwnerId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SelectedBreedId" class="control-label mt-2">Inserisci razza animale:</label>
+                <select asp-for="SelectedBreedId" asp-items="@(new SelectList(Model.Breeds, "IdBreed", "Name"))" class="form-control">
+                    <option value="" disabled selected>Seleziona una razza</option>
+                </select>
+                <span asp-validation-for="SelectedBreedId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary mt-2">Crea</button>
+                <a asp-action="Index" class="btn btn-secondary mt-2">Torna alla Lista</a>
+            </div>
+        </form>
+
     </div>
-
-    <div class="form-group">
-        <label asp-for="RegistrationDate" class="control-label mt-2">Data di registrazione:</label>
-        <input asp-for="RegistrationDate" class="form-control" type="date" disabled />
-        <span asp-validation-for="RegistrationDate" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="BirthDate" class="control-label mt-2">Inserisci data di nascita:</label>
-        <input asp-for="BirthDate" class="form-control" type="date" />
-        <span asp-validation-for="BirthDate" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NumMicrochip" class="control-label mt-2">Inserisci num. microchip:</label>
-        <input asp-for="NumMicrochip" class="form-control" />
-        <span asp-validation-for="NumMicrochip" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Image" class="control-label mt-2">Inserisci immagine:</label>
-        <input asp-for="Image" class="form-control" type="file" />
-        <span asp-validation-for="Image" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Color" class="control-label mt-2">Inserisci colore animale:</label>
-        <select asp-for="Color" class="form-control">
-            <option value="" disabled selected>Seleziona un colore</option>
-            <option value="Black">Nero</option>
-            <option value="White">Bianco</option>
-            <option value="Brown">Marrone</option>
-            <option value="Gray">Grigio</option>
-            <option value="Orange">Arancione</option>
-            <option value="Spotted">Maculato</option>
-            <option value="Striped">Tigrato</option>
-        </select>
-        <span asp-validation-for="Color" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="SelectedOwnerId" class="control-label mt-2">Inserisci proprietario:</label>
-        <select asp-for="SelectedOwnerId" asp-items="ownerItems" class="form-control">
-            <option value="" disabled selected>Seleziona un proprietario</option>
-        </select>
-        <span asp-validation-for="SelectedOwnerId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="SelectedBreedId" class="control-label mt-2">Inserisci razza animale:</label>
-        <select asp-for="SelectedBreedId" asp-items="@(new SelectList(Model.Breeds, "IdBreed", "Name"))" class="form-control">
-            <option value="" disabled selected>Seleziona una razza</option>
-        </select>
-        <span asp-validation-for="SelectedBreedId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary mt-2">Crea</button>
-        <a asp-action="Index" class="btn btn-secondary mt-2">Torna alla Lista</a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     @{

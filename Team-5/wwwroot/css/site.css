@@ -20,8 +20,8 @@ html {
 }
 
 body {
+    font-family: "Barlow", sans-serif!important;
     margin-bottom: 60px;
-    font-family: "Barlow", sans-serif;
 }
 
 #scrollStyle {
@@ -75,7 +75,9 @@ body {
 
 /*DELETE BUTTON - TASTO ELIMINA*/
 .btn-red {
-    color:white !important;
+    color: white !important;
+    border-radius: 2em !important;
+    padding: 0 1.1em !important;
     background-color: #CC1617 !important;
     border-color: #CC1617 !important;
 }
@@ -93,3 +95,4 @@ body {
         outline: none !important;
     }
 /*DELETE BUTTON - TASTO ELIMINA*/
+
