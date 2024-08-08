@@ -22,6 +22,7 @@ namespace Team_5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateExaminationAsync(Examinations ex)
         {
             var animalExists = await _examinationSvc.AnimalExistsAsync(ex.AnimalId);
@@ -50,6 +51,7 @@ namespace Team_5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult>DeleteExamination(int id)
         {
             var deletedExam = await _examinationSvc.DeleteExamination(id);

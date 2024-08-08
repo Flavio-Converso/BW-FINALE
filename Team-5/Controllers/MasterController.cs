@@ -23,6 +23,7 @@ namespace Team_5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ManageRoles(int idUser, int idRole)
         {
             await _masterSvc.ToggleUserRoleAsync(idUser, idRole);
@@ -30,6 +31,8 @@ namespace Team_5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> CreateRole(Roles role)
         {
             await _masterSvc.CreateRoleAsync(role);

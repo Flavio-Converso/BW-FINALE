@@ -24,6 +24,7 @@ namespace Team_5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateProduct(Products products)
         {
             await _productSvc.CreateProducts(products);
@@ -31,6 +32,8 @@ namespace Team_5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteProduct(int id)
         {
             await _productSvc.DeleteProduct(id);
