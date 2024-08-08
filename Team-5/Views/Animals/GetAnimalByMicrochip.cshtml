@@ -1,12 +1,22 @@
-﻿
-@{
-    ViewData["Title"] = "GetAnimalByMicrochip";
+﻿@{
+    ViewData["Title"] = "Trova Animale per Microchip";
 }
 
-<h1>GetAnimalByMicrochip</h1>
+<h1>@ViewData["Title"]</h1>
 
-<div class="container">
-    <h1>Inserisci n. microchip:</h1>
-    <input type="text" id="microchip" />
-    <div id="animals"></div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Inserisci il numero del microchip</h2>
+                    <div class="input-group mt-4 mb-4">
+                        <input type="text" id="microchip" class="form-control" placeholder="Es. 1234567890" aria-label="Numero Microchip" />
+                       
+                    </div>
+                    <div id="animals" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

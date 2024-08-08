@@ -6,17 +6,18 @@ namespace Team_5.Models.Clinic
 {
     public class Animals
     {
+        [Required(ErrorMessage = "Seleziona un animale.")]
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdAnimal { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Il nome è obbligatorio.")]
         [StringLength(50)]
         public required string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La data di registrazione è obbligatoria.")]
         public required DateTime RegistrationDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La data di nascita è obbligatoria.")]
         public DateTime BirthDate { get; set; } = DateTime.MinValue;
 
         [StringLength(16)]
@@ -24,7 +25,7 @@ namespace Team_5.Models.Clinic
 
         public byte[]? Image { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Il colore è obbligatorio.")]
         [StringLength(20)]
         public required string Color { get; set; }
 
@@ -39,7 +40,7 @@ namespace Team_5.Models.Clinic
         [JsonIgnore]
         public List<Examinations>? Examination { get; set; } = new();
 
-        [Required]
+        [Required(ErrorMessage = "La razza è obbligatoria.")]
         public Breeds Breed { get; set; }
     }
 }
