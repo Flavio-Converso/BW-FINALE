@@ -6,7 +6,7 @@ namespace Team_5.Models.Pharmacy
     public class Drawers
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required(ErrorMessage = "INSERISCI!")]
+        [Required(ErrorMessage = "Inserisci il cassetto di destinazione!")]
         public int IdDrawer { get; set; }
 
         [Required]
