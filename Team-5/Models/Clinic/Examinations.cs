@@ -24,9 +24,9 @@ namespace Team_5.Models.Clinic
         [Required(ErrorMessage = "Seleziona l'animale.")]
         public int AnimalId { get; set; }
 
-       
+
         [ForeignKey(nameof(AnimalId))]
-        
+
         public required Animals Animal { get; set; }
     }
 }
