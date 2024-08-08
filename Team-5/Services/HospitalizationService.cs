@@ -8,18 +8,18 @@ namespace Team_5.Services
 {
     public class HospitalizationService : IHospitalizationService
     {
-        private readonly DataContext _dataContext;
+        private readonly DataContext _ctx;
         private readonly ILogger<HospitalizationService> _logger;
 
         public HospitalizationService(DataContext dataContext, ILogger<HospitalizationService> logger)
         {
-            _dataContext = dataContext;
+            _ctx = dataContext;
             _logger = logger;
         }
 
         public async Task<Hospitalizations> CreateHospitalizationsAsync(Hospitalizations hosp)
         {
-            var animal = await _dataContext.Animals.FindAsync(hosp.AnimalId);
+            var animal = await _ctx.Animals.FindAsync(hosp.AnimalId);
             if (animal == null)
             {
                 throw new Exception("Animal not found");
@@ -32,15 +32,15 @@ namespace Team_5.Services
                 HospDate = hosp.HospDate,
             };
 
-            await _dataContext.Hospitalizations.AddAsync(hospitalization);
-            await _dataContext.SaveChangesAsync();
+            await _ctx.Hospitalizations.AddAsync(hospitalization);
+            await _ctx.SaveChangesAsync();
 
             return hospitalization;
         }
 
         public async Task<List<Hospitalizations>> GetHospitalizationsWithAnimalsAsync()
         {
-            return await _dataContext.Hospitalizations
+            return await _ctx.Hospitalizations
                 .Include(h => h.Animal)
                 .ThenInclude(a => a.Breed)
                 .Include(h => h.Animal)
@@ -50,7 +50,7 @@ namespace Team_5.Services
 
         public async Task<List<Hospitalizations>> GetActiveHospitalizationsAsync()
         {
-            return await _dataContext.Hospitalizations
+            return await _ctx.Hospitalizations
                 .Include(a => a.Animal)
                 .ThenInclude(o => o.Owner)
                 .Where(h => h.IsHospitalized)
@@ -59,7 +59,7 @@ namespace Team_5.Services
 
         public async Task<AnimalHospitalizationViewModel> CreateAnimalHospitalizationViewModel(AnimalHospitalizationViewModel viewModel)
         {
-            var breed = await _dataContext.Breeds.FindAsync(viewModel.IdBreed);
+            var breed = await _ctx.Breeds.FindAsync(viewModel.IdBreed);
 
             byte[] imageBytes = null;
 
@@ -83,8 +83,8 @@ namespace Team_5.Services
                 Image = imageBytes,
             };
 
-            await _dataContext.Animals.AddAsync(animal);
-            await _dataContext.SaveChangesAsync();
+            await _ctx.Animals.AddAsync(animal);
+            await _ctx.SaveChangesAsync();
 
             var hospitalization = new Hospitalizations
             {
@@ -93,20 +93,20 @@ namespace Team_5.Services
                 AnimalId = animal.IdAnimal
             };
 
-            await _dataContext.Hospitalizations.AddAsync(hospitalization);
-            await _dataContext.SaveChangesAsync();
+            await _ctx.Hospitalizations.AddAsync(hospitalization);
+            await _ctx.SaveChangesAsync();
 
             return viewModel;
         }
 
         public async Task<List<Animals>> GetAllAnimalsAsync()
         {
-            return await _dataContext.Animals.ToListAsync();
+            return await _ctx.Animals.ToListAsync();
         }
 
         public async Task<List<Breeds>> GetAllBreedsAsync()
         {
-            return await _dataContext.Breeds.ToListAsync();
+            return await _ctx.Breeds.ToListAsync();
         }
     }
 }

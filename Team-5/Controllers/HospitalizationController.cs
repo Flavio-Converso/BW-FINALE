@@ -7,24 +7,24 @@ namespace Team_5.Controllers
 {
     public class HospitalizationController : Controller
     {
-        private readonly IHospitalizationService _hospitalizationService;
+        private readonly IHospitalizationService _hospitalizationSvc;
 
         public HospitalizationController(IHospitalizationService hospitalizationService)
         {
-            _hospitalizationService = hospitalizationService;
+            _hospitalizationSvc = hospitalizationService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Hospitalizations>>> ActiveHospitalizations()
         {
-            var isHospitalized = await _hospitalizationService.GetActiveHospitalizationsAsync();
+            var isHospitalized = await _hospitalizationSvc.GetActiveHospitalizationsAsync();
             return View(isHospitalized);
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateHospitalization()
         {
-            ViewBag.Animals = await _hospitalizationService.GetAllAnimalsAsync();
+            ViewBag.Animals = await _hospitalizationSvc.GetAllAnimalsAsync();
             return View();
         }
 
@@ -34,7 +34,7 @@ namespace Team_5.Controllers
         {
             try
             {
-                var createdHospitalization = await _hospitalizationService.CreateHospitalizationsAsync(hospitalization);
+                var createdHospitalization = await _hospitalizationSvc.CreateHospitalizationsAsync(hospitalization);
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -47,7 +47,7 @@ namespace Team_5.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateAnimalAndHospitalization()
         {
-            ViewBag.Breeds = await _hospitalizationService.GetAllBreedsAsync();
+            ViewBag.Breeds = await _hospitalizationSvc.GetAllBreedsAsync();
             return View();
         }
 
@@ -55,7 +55,7 @@ namespace Team_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAnimalAndHospitalization(AnimalHospitalizationViewModel viewModel)
         {
-            await _hospitalizationService.CreateAnimalHospitalizationViewModel(viewModel);
+            await _hospitalizationSvc.CreateAnimalHospitalizationViewModel(viewModel);
             return RedirectToAction("Index", "Home");
         }
     }

@@ -7,23 +7,23 @@ namespace Team_5.Services
 {
     public class ProductService : IProductService
     {
-        private readonly DataContext _dataContext;
+        private readonly DataContext _ctx;
 
         public ProductService(DataContext dataContext)
         {
-            _dataContext = dataContext;
+            _ctx = dataContext;
         }
 
         public async Task<Products> CreateProducts(Products products)
         {
-            var company = await _dataContext.Companies.FirstOrDefaultAsync(c => c.IdCompany == products.Company.IdCompany);
+            var company = await _ctx.Companies.FirstOrDefaultAsync(c => c.IdCompany == products.Company.IdCompany);
 
             Drawers drawer = null;
 
             // Check if IdDrawer is greater than 0
             if (products.Drawers != null && products.Drawers.IdDrawer > 0)
             {
-                drawer = await _dataContext.Drawers.FirstOrDefaultAsync(d => d.IdDrawer == products.Drawers.IdDrawer);
+                drawer = await _ctx.Drawers.FirstOrDefaultAsync(d => d.IdDrawer == products.Drawers.IdDrawer);
             }
 
             var product = new Products
@@ -37,29 +37,29 @@ namespace Team_5.Services
                 Drawers = drawer,
             };
 
-            _dataContext.Products.Add(product);
-            await _dataContext.SaveChangesAsync();
+            _ctx.Products.Add(product);
+            await _ctx.SaveChangesAsync();
             return product;
         }
 
         public async Task<List<Companies>> GetAllCompanies()
         {
-            return await _dataContext.Companies.ToListAsync();
+            return await _ctx.Companies.ToListAsync();
         }
 
         public async Task<List<Drawers>> GetAllDrawers()
         {
-            return await _dataContext.Drawers.Include(d => d.Lockers).ToListAsync();
+            return await _ctx.Drawers.Include(d => d.Lockers).ToListAsync();
         }
 
         public async Task<List<Products>> GetAllProducts()
         {
-            return await _dataContext.Products.Include(p => p.Company).ToListAsync();
+            return await _ctx.Products.Include(p => p.Company).ToListAsync();
         }
 
         public async Task<Products> FindLockers(int id)
         {
-            return await _dataContext.Products
+            return await _ctx.Products
                 .Where(p => p.IdProduct == id)
                 .Include(p => p.Drawers)
                 .FirstOrDefaultAsync();
@@ -67,7 +67,7 @@ namespace Team_5.Services
 
         public async Task<List<Orders>> GetProductsFromDate(DateTime date)
         {
-            return await _dataContext.Orders
+            return await _ctx.Orders
                 .Include(o => o.Product)
                 .Where(o => o.OrderDate.Date == date.Date && o.Product.Type == "Farmaco")
                 .ToListAsync();
@@ -75,7 +75,7 @@ namespace Team_5.Services
 
         public async Task<List<Orders>> GetProductsFromCF(string cf)
         {
-            return await _dataContext.Orders
+            return await _ctx.Orders
                 .Include(o => o.Owner).Include(o => o.Product)
                 .Where(o => o.Owner.CF == cf)
                 .ToListAsync();

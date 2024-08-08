@@ -14,19 +14,16 @@ namespace Team_5.Services
             _ctx = dataContext;
         }
 
-        // Get all users with their roles
         public async Task<List<Users>> GetAllUsersWithRolesAsync()
         {
             return await _ctx.Users.Include(u => u.Roles).ToListAsync();
         }
 
-        // Get all roles
         public async Task<List<Roles>> GetAllRolesAsync()
         {
             return await _ctx.Roles.ToListAsync();
         }
 
-        // Toggle a user's role
         public async Task<bool> ToggleUserRoleAsync(int idUser, int idRole)
         {
             var user = await _ctx.Users
@@ -53,7 +50,6 @@ namespace Team_5.Services
             return true;
         }
 
-        // Create a new role
         public async Task CreateRoleAsync(Roles role)
         {
             var r = new Roles { Name = role.Name };

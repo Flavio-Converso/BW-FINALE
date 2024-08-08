@@ -8,31 +8,31 @@ namespace Team_5.Controllers
     [Authorize(Policy = "MasterPolicy")]
     public class MasterController : Controller
     {
-        private readonly IMasterService _masterService;
+        private readonly IMasterService _masterSvc;
 
         public MasterController(IMasterService masterService)
         {
-            _masterService = masterService;
+            _masterSvc = masterService;
         }
 
         public async Task<IActionResult> ManageRoles()
         {
-            ViewBag.Users = await _masterService.GetAllUsersWithRolesAsync();
-            ViewBag.Roles = await _masterService.GetAllRolesAsync();
+            ViewBag.Users = await _masterSvc.GetAllUsersWithRolesAsync();
+            ViewBag.Roles = await _masterSvc.GetAllRolesAsync();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> ManageRoles(int idUser, int idRole)
         {
-            await _masterService.ToggleUserRoleAsync(idUser, idRole);
+            await _masterSvc.ToggleUserRoleAsync(idUser, idRole);
             return RedirectToAction("ManageRoles");
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateRole(Roles role)
         {
-            await _masterService.CreateRoleAsync(role);
+            await _masterSvc.CreateRoleAsync(role);
             return RedirectToAction("ManageRoles");
         }
     }
