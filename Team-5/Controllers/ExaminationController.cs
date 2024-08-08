@@ -33,7 +33,7 @@ namespace Team_5.Controllers
             }
 
             await _examinationSvc.CreateExaminationAsync(ex);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ExaminationsList");
         }
 
         [HttpGet]
@@ -52,7 +52,7 @@ namespace Team_5.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>DeleteExamination(int id)
+        public async Task<IActionResult> DeleteExamination(int id)
         {
             var deletedExam = await _examinationSvc.DeleteExamination(id);
 
