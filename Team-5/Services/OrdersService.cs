@@ -46,5 +46,27 @@ namespace Team_5.Services
         {
             return await _ctx.Products.ToListAsync();
         }
+
+        public async Task<Orders> DeleteOrders(int id)
+        {
+            // Cerca l'ordine nel database utilizzando l'id fornito
+            var order = await _ctx.Orders.FindAsync(id);
+
+            // Se l'ordine non esiste, potresti voler restituire null o lanciare un'eccezione
+            if (order == null)
+            {
+                // Gestione del caso in cui l'ordine non esiste
+                return null;
+            }
+
+            // Rimuovi l'ordine dal contesto
+            _ctx.Orders.Remove(order);
+
+            // Salva le modifiche nel database
+            await _ctx.SaveChangesAsync();
+
+            // Restituisci l'ordine eliminato
+            return order;
+        }
     }
 }
