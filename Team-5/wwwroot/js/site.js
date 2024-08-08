@@ -1,5 +1,9 @@
 ﻿//search animal by microchip number
 let chipPath = "/Animals/GetAnimalDataByMicrochip";
+let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
+let lockersPath = "/Product/FindLockers";
+let datePath = '/Product/GetProductsFromDate';
+let cfPath = '/Product/GetProductsFromCF';
 function countByMicroChip() {
     let microchip = $('#microchip').val();
     $.ajax({
@@ -36,17 +40,10 @@ function debounce(func, delay) {
     };
 }
 
-$('#microchip').on('keydown', debounce(countByMicroChip, 300));
-
-// Gestore dell'evento click per il pulsante
-$('#chipButton').on('click', () => {
-    countByMicroChip();
-});
-
 
 //
 //show past examinations before creating a new one for selected animal
-let pastVisitsPath = "/Examination/ExaminationsListByIdAnimal";
+
 
 function triggerPastVisits() {
     let IdAnimal = $('#pastVisits').val();
@@ -83,14 +80,10 @@ function triggerPastVisits() {
     });
 }
 
-$('#pastVisits').on('change', () => {
-    triggerPastVisits();
-});
-
 
 //
 //in productslist search drawer & locker for selected product
-let lockersPath = "/Product/FindLockers";
+
 
 function FindLockers(idProduct) {
     $.ajax({
@@ -102,11 +95,18 @@ function FindLockers(idProduct) {
             div.empty();
             if (data) {
                 let productLocker = `
-                    <ul>
-                        <li>ID cassetto: ${data.drawers.idDrawer}</li>
-                        <li>ID armadietto: ${data.drawers.lockerId}</li>
-                    </ul>
-                `;
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h2 class="text-primary">Dettagli Cassetto</h2>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>ID cassetto:</strong> ${data.drawers.idDrawer}</li>
+                                    <li class="list-group-item"><strong>ID armadietto:</strong> ${data.drawers.lockerId}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
                 div.append(productLocker);
             } else {
                 div.append($(`<h1 class="mb-4">Nessun prodotto trovato con l'id: ${idProduct}</h1>`));
@@ -118,10 +118,6 @@ function FindLockers(idProduct) {
     });
 }
 
-$(document).on('click', '.prow', function () {
-    let idProduct = $(this).find('#idProduct').text().trim();
-    FindLockers(idProduct);
-});
 
 //
 //filter
@@ -172,8 +168,9 @@ $(document).ready(function () {
     $("#alimentoSelez").trigger('change');
 });
 
-let datePath = '/Product/GetProductsFromDate';
 
+
+// Funzione per reperire il numero di farmaci venduti in una certa data
 function ProductsFromDate() {
     let date = $('#dateInput').val();
 
@@ -190,8 +187,15 @@ function ProductsFromDate() {
                 data.forEach(order => {
                     
                     list += `
-                        <h1 class="text-danger">Nome Farmaco: ${order.product.productName}</h1>
-                        <h1 class="text-danger">Uso: ${order.product.use}</h1>`; 
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Uso:</strong> ${order.product.use}</p>
+                            </div>
+                        </div>`;
+                        
                 });
                 div.append(list);
             } else {
@@ -205,6 +209,72 @@ function ProductsFromDate() {
     });
 }
 
+// Funzione per reperire il numero di farmaci venduti tramite un CF
+function ProductsFromCF() {
+    let cf = $('#cfInput').val();
+
+    $.ajax({
+        url: `${cfPath}?cf=${cf}`,
+        method: 'GET',
+        success: (data) => {
+            console.log("Data received:", data);
+            let div = $('#cf');
+            div.empty();
+
+            if (data && data.length > 0) {
+                let list = `<h1 class="mb-4">Farmaci per il cf ${cf}:</h1>`;
+                data.forEach(order => {
+
+                    list += `
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Uso: ${order.product.use}</h5>
+                                <p class="card-text"><strong>Data Ordine:</strong> ${order.orderDate}</p>
+                                <p class="card-text"><strong>Quantità:</strong> ${order.orderQuantity}</p>
+                                <p class="card-text"><strong>Num. Prescrizione:</strong> ${order.prescriptionNumber}</p>
+                            </div>
+                        </div>
+                    `;
+
+                });
+                div.append(list);
+            } else {
+                div.append(`<h1 class="mb-4">Nessun farmaco trovato per il cf ${cf}</h1>`);
+            }
+        },
+        error: (err) => {
+            console.error("Errore durante il recupero dei dati:", err);
+            $('#cf').empty().append('<h1 class="mb-4">Errore nel recupero dei dati. Per favore, riprova più tardi.</h1>');
+        }
+    });
+}
+
+$('#microchip').on('keydown', debounce(countByMicroChip, 300));
+
+// Gestore dell'evento click per il pulsante
+$('#chipButton').on('click', () => {
+    countByMicroChip();
+});
+
+
+
+$('#pastVisits').on('change', () => {
+    triggerPastVisits();
+});
+
+$(document).on('click', '.prow', function () {
+    let idProduct = $(this).find('#idProduct').text().trim();
+    FindLockers(idProduct);
+});
+
+
 $('#dateBtn').on('click', () => {
     ProductsFromDate();
+})
+
+$('#cfBtn').on('click', () => {
+    ProductsFromCF();
 })
