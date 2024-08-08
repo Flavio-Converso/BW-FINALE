@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Team_5.Context;
+using Team_5.Models.Clinic;
 using Team_5.Models.Pharmacy;
+using Team_5.Services;
 using Team_5.Services.Interfaces;
 
 namespace Team_5.Controllers
@@ -26,6 +28,13 @@ namespace Team_5.Controllers
         {
             var order = await _ordersService.CreateOrder(o, cf);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Examinations>>> OrderList()
+        {
+            var orderList = await _ordersService.GetOrders();
+            return View(orderList);
         }
     }
 }

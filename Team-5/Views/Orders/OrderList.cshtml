@@ -1,0 +1,31 @@
+﻿@model List<Team_5.Models.Pharmacy.Orders>
+
+@{
+    ViewData["Title"] = "Order List";
+}
+
+<h2>Lista ordini:</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Quantità:</th>
+            <th>Data dell'ordine</th>
+            <th>Numero della ricetta</th>
+            <th>Prodotto</th>
+            <th>Proprietario</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderQuantity</td>
+                <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                <td>@order.PrescriptionNumber</td>
+                <td>@order.Product?.ProductName</td>
+                <td>@order.Owner?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
