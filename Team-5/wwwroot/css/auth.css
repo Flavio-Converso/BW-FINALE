@@ -41,7 +41,6 @@
     color: #f8f9fa !important; 
 }
 
-
 a.text-red {
     color: #CC1617 !important; 
     transition: color 0.2s ease-in-out !important; 
@@ -96,4 +95,22 @@ input:-webkit-autofill:active {
     .btn-pw:active {
         box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.6) !important;
         outline: none !important;
+    }
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+/* Stile del bottone */
+.custom-file-upload label {
+    cursor: pointer;
+    color: white !important;
+    border-radius: 2em !important;
+    background-color: #CC1617 !important;
+    border-color: #CC1617 !important;
+}
+
+    /* Modifica il colore di sfondo al passaggio del mouse */
+    .custom-file-upload label:hover {
+        background-color: #a61214 !important;
+        border-color: #a61214 !important;
     }

@@ -46,6 +46,24 @@ body {
     background-color: #CC1617;
 }
 
+#scrollStyleTwo {
+    overflow-y: auto;
+    height: 100vh;
+    padding-bottom: 3em;
+    padding-top: 2em;
+}
+
+    #scrollStyleTwo::-webkit-scrollbar {
+        width: 12px;
+        background-color: transparent;
+    }
+
+    #scrollStyleTwo::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #CC1617;
+    }
+
 .mylink {
     color: #c3c8db;
     text-decoration: none;
