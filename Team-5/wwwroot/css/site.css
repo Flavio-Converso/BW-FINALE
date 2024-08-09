@@ -25,7 +25,10 @@ html {
 
 body {
     font-family: "Barlow", sans-serif !important;
-    margin-bottom: 60px;
+}
+
+main{
+    margin-bottom:4em;
 }
 
 #scrollStyle {
@@ -104,7 +107,7 @@ body {
 }
 
     .btn-red:hover {
-        background-color: #c41a1c !important;
+        background-color: #a61214 !important;
         border-color: #c41a1c !important;
     }
 
