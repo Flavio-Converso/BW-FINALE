@@ -3,42 +3,47 @@
 @{
     ViewData["Title"] = "Animali senza Proprietario";
 }
+<div class="row">
+    <div class="col">
+        <h1 class="text-light">Animali senza Proprietario</h1>
+        <hr />
 
-<h1>Animali senza Proprietario</h1>
+        <table class="table table-dark-personal">
+            <thead class="personal-tr">
+                <tr class="personal-tr">
+                    <th scope="col">Nome</th>
+                    <th scope="col">Data di Registrazione</th>
+                    <th scope="col">Data di Nascita</th>
+                    <th scope="col">Colore</th>
+                    <th scope="col">Razza</th>
+                    <th scope="col">Immagine</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var animal in Model)
+                {
+                    <tr>
+                        <td>@animal.Name</td>
+                        <td>@animal.RegistrationDate.ToShortDateString()</td>
+                        <td>@animal.BirthDate.ToShortDateString()</td>
+                        <td>@animal.Color</td>
+                        <td>@animal.Breed.Name</td>
+                        <td>
+                            @if (animal.Image != null && animal.Image.Length > 0)
+                            {
+                                <img src="data:image/png;base64,@Convert.ToBase64String(animal.Image)" alt="Animal Image" style="width: 100px; height: auto;" />
+                            }
+                            else
+                            {
+                                <span>Nessuna immagine</span>
+                            }
+                        </td>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Data di Registrazione</th>
-            <th>Data di Nascita</th>
-            <th>Colore</th>
-            <th>Razza</th>
-            <th>Immagine</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var animal in Model)
-        {
-            <tr>
-                <td>@animal.Name</td>
-                <td>@animal.RegistrationDate.ToShortDateString()</td>
-                <td>@animal.BirthDate.ToShortDateString()</td>
-                <td>@animal.Color</td>
-                <td>@animal.Breed.Name</td>
-                <td>
-                    @if (animal.Image != null && animal.Image.Length > 0)
-                    {
-                        <img src="data:image/png;base64,@Convert.ToBase64String(animal.Image)" alt="Animal Image" style="width: 100px; height: auto;" />
-                    }
-                    else
-                    {
-                        <span>Nessuna immagine</span>
-                    }
-                </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-            </tr>
-        }
-    </tbody>
-</table>
+    </div>
+</div>
 

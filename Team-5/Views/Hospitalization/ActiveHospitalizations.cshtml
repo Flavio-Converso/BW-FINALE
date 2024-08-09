@@ -3,25 +3,30 @@
 @{
     ViewData["Title"] = "Ricoveri Attivi";
 }
+<div class="row">
+    <div class="col">
+        <h2 class="text-light">Ricoveri Attivi</h2>
+        <hr />
 
-<h2>Ricoveri Attivi</h2>
+        <table class="table table-dark-personal">
+            <thead class="personal-tr">
+                <tr class="personal-tr">
+                    <th scope="col">Nome Animale</th>
+                    <th scope="col">Nome Proprietario</th>
+                    <th scope="col">Data Inizio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hospitalization in Model)
+                {
+                    <tr>
+                        <td>@hospitalization.Animal?.Name</td>
+                        <td>@hospitalization.Animal?.Owner?.Name @hospitalization.Animal?.Owner?.Surname</td>
+                        <td>@hospitalization.HospDate.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome Animale</th>
-            <th>Nome Proprietario</th>
-            <th>Data Inizio</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var hospitalization in Model)
-        {
-            <tr>
-                <td>@hospitalization.Animal?.Name</td>
-                <td>@hospitalization.Animal?.Owner?.Name @hospitalization.Animal?.Owner?.Surname</td>
-                <td>@hospitalization.HospDate.ToString("yyyy-MM-dd")</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    </div>
+</div>
