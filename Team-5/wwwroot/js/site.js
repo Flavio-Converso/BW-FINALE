@@ -19,18 +19,18 @@ function countByMicroChip() {
                     animalDetails += `<p class="text-personal">Data Registrazione: <span class="text-danger">${animal.registrationDate}</span></p>`;
                     animalDetails += `<p class="text-personal">Data Di Nascita: <span class="text-danger">${animal.birthDate}</span></p>`;
                     animalDetails += `<p class="text-personal">Colore: <span class="text-danger">${animal.color}</span></p>`;
-                    animalDetails += `<img src="data:image/jpeg;base64,${animal.image}" alt="Immagine di ${animal.name}" style="max-width: 200px; max-height: 200px;" />`;
+                    animalDetails += `<img src="data:image/jpeg;base64,${animal.image}" class="text-personal" alt="Immagine di ${animal.name}" style="max-width: 200px; max-height: 200px;" />`;
                     if (animal.isHospitalized) {
-                        animalDetails += `<p>Ricovero: <span class="text-success">Ricoverato</span></p>`;
+                        animalDetails += `<p class="text-personal">Ricovero: <span class="text-success">Ricoverato</span></p>`;
                     } else {
-                        animalDetails += `<p>Ricovero: <span class="text-danger">Non ricoverato</span></p>`;
+                        animalDetails += `<p class="text-personal">Ricovero: <span class="text-danger">Non ricoverato</span></p>`;
                     }
 
                     // Aggiungi qui altri campi che desideri visualizzare   
                     div.append(animalDetails);
                 });
             } else {
-                div.append($(`<h1 class="mb-4">Nessun animale trovato per numero di microchip: ${microchip}</h1>`));
+                div.append($(`<h1 class="mb-4 text-light">Nessun animale trovato per numero di microchip: ${microchip}</h1>`));
           }
         }
     });
