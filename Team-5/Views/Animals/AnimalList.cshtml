@@ -47,7 +47,7 @@
                     <form asp-action="DeleteAnimal" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo animale?');">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@animal.IdAnimal" />
-                        <button type="submit" class="btn btn-red">Elimina</button>
+                        <button type="submit" class="btn btn-grey">Elimina</button>
                     </form>
                 </td>
             </tr>

@@ -60,9 +60,9 @@
         <input type="file" id="Image" name="Image" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-primary mt-2">Invia</button>
+    <button type="submit" class="btn btn-red mt-2">Invia</button>
 </form>
-
+<a asp-action="ActiveHospitalizations" class="btn btn-blu mt-2">Torna Alla Lista</a>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

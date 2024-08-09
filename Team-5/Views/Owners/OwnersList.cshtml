@@ -30,7 +30,7 @@
                 <td>
                     <form asp-action="DeleteOwner" method="post">
                         <input type="hidden" value="@owner.IdOwner" name="id" />
-                        <button type="submit" class="btn btn-red">Elimina</button>
+                        <button type="submit" class="btn btn-grey">Elimina</button>
                     </form>
                 </td>
                
@@ -39,6 +39,3 @@
     </tbody>
 </table>
 
-<div>
-    <a asp-action="CreateOwner" class="btn btn-success">Crea Proprietario</a>
-</div>
