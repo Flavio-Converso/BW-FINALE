@@ -28,6 +28,7 @@
                         <td>@animal.BirthDate.ToShortDateString()</td>
                         <td>@animal.Color</td>
                         <td>@animal.Breed.Name</td>
+                        
                         <td>
                             @if (animal.Image != null && animal.Image.Length > 0)
                             {
@@ -38,7 +39,13 @@
                                 <span>Nessuna immagine</span>
                             }
                         </td>
-
+                        <td>
+                            <form asp-action="DeleteAnimal" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo animale?');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@animal.IdAnimal" />
+                                <button type="submit" class="btn btn-grey">Elimina</button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
