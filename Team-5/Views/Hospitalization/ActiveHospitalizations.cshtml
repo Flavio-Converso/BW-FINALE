@@ -21,11 +21,21 @@
                 {
                     <tr>
                         <td>@hospitalization.Animal?.Name</td>
-                        <td>@hospitalization.Animal?.Owner?.Name @hospitalization.Animal?.Owner?.Surname</td>
+                        <td>
+                            @if (hospitalization.Animal?.Owner == null)
+                            {
+                                <span>Nessun Proprietario</span>
+                            }
+                            else
+                            {
+                                <span>@hospitalization.Animal.Owner.Name @hospitalization.Animal.Owner.Surname</span>
+                            }
+                        </td>
                         <td>@hospitalization.HospDate.ToString("yyyy-MM-dd")</td>
                     </tr>
                 }
             </tbody>
+
         </table>
 
     </div>
