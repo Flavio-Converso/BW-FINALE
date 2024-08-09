@@ -45,6 +45,59 @@
         </div>
         <div class="row">
             <div class="col-2 myBg" id="scrollStyle">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <h2 class="text-white text-center">I NOSTRI SOCIAL</h2>
+        <div class="d-flex flex-column align-items-center">
+          <div class="mt-2">
+            <a
+              href="https://www.youtube.com/watch?v=A4StMUgtAJc"
+              target="_blank" class="display-5"
+            >
+              <i class="bi bi-facebook myIcon"></i>
+          </div>
+          <div class="mt-3">
+            <a
+              href="https://www.youtube.com/watch?v=bFvqf8Z13PU"
+              target="_blank" class="display-5"
+            >
+              <i class="bi bi-instagram myIcon"></i>
+            </a>
+          </div>
+           <div class="mt-3">
+            <a
+              href="https://www.youtube.com/watch?v=kE3-JAo0VQc"
+              target="_blank" class="display-5"
+            >
+              <i class="fa-brands fa-threads myIcon"></i>
+            </a>
+          </div>
+          <div class="mt-3">
+            <a
+              href="https://www.youtube.com/watch?v=dW2utwg9oOg"
+              target="_blank" class="display-5"
+            >
+               <i class="fa-brands fa-x-twitter myIcon"></i>
+            </a>
+          </div>
+          <div class="mt-3">
+            <a
+              href="https://www.youtube.com/watch?v=tzJdk9g0gG0"
+              target="_blank" class="display-5"
+            >
+              <i class="bi bi-youtube myIcon"></i>
+            </a>
+          </div>
+          <div class="mt-3">
+            <a
+              href="https://www.youtube.com/watch?v=G0hLIqWpJpQ"
+              target="_blank" class="display-5"
+            >
+              <i class="bi bi-tiktok myIcon"></i>
+            </a>
+          </div>
+        </div>
+                }
                 <ul class="list-unstyled ps-3 pb-4">
 
                     @if (User.IsInRole("veterinario"))
