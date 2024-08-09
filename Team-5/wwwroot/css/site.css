@@ -67,6 +67,9 @@ main{
         background-color: #CC1617;
     }
 
+.text-red {
+    color: #CC1617 !important;
+}
 .mylink {
     color: #c3c8db;
     text-decoration: none;
@@ -293,3 +296,29 @@ tbody > tr:hover {
 .bg-personal {
     background-color: #191C24;
 }
+
+
+
+.form-group {
+    position: relative; 
+}
+
+input[type="date"].form-control:disabled {
+    padding-right: 30px; 
+    background-color: #e0e0e0; 
+    border-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+   
+    input[type="date"].form-control:disabled::after {
+        content: '✖';
+        color: #CC1617; 
+        position: absolute; 
+        right: 20px; 
+        top: 70%; 
+        transform: translateY(-50%); 
+        pointer-events: none; 
+        font-size: 18px; 
+    }

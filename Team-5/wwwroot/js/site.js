@@ -100,14 +100,14 @@ function FindLockers(idProduct) {
             div.empty();
             if (data) {
                 let productLocker = `
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h2 class="text-primary">Dettagli Cassetto</h2>
+                        <div class="table-dark-personal mb-2">
+                            <div>
+                                <h2 class="text-red mb-0">Dettagli Cassetto</h2>
                             </div>
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><strong>ID cassetto:</strong> ${data.drawers.idDrawer}</li>
-                                    <li class="list-group-item"><strong>ID armadietto:</strong> ${data.drawers.lockerId}</li>
+                                    <li class="personal-tr text-light"><strong >ID cassetto:</strong> ${data.drawers.idDrawer}</li>
+                                    <li class="personal-tr text-light"><strong>ID armadietto:</strong> ${data.drawers.lockerId}</li>
                                 </ul>
                             </div>
                         </div>
@@ -249,7 +249,7 @@ function ProductsFromCF() {
                 });
                 div.append(list);
             } else {
-                div.append(`<h1 class="mb-4">Nessun farmaco trovato per il cf ${cf}</h1>`);
+                div.append(`<h1 class="mb-4 text-personal">Nessun farmaco trovato per il CF ${cf}</h1>`);
             }
         },
         error: (err) => {
