@@ -220,6 +220,7 @@ function ProductsFromDate() {
 function ProductsFromCF() {
     let cf = $('#cfInput').val();
 
+
     $.ajax({
         url: `${cfPath}?cf=${cf}`,
         method: 'GET',
@@ -229,7 +230,7 @@ function ProductsFromCF() {
             div.empty();
 
             if (data && data.length > 0) {
-                let list = `<h1 class="mb-4 text-personal">Farmaci per il cf ${cf}:</h1>`;
+                let list = `<h1 class="mb-4 text-personal">Farmaci per il CF ${cf}:</h1>`;
                 data.forEach(order => {
 
                     list += `
@@ -285,3 +286,10 @@ $('#dateBtn').on('click', () => {
 $('#cfBtn').on('click', () => {
     ProductsFromCF();
 })
+
+$('#cfInput').on('input', () => {
+    let cf = $('#cfInput').val();
+    if (cf.length < 16) {
+        $('#cf').empty();
+    }
+});

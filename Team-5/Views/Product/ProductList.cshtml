@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Product List";
 }
+
+<link rel="stylesheet" href="~/css/auth.css" />
+
 <div class="row">
     <div class="col">
 <h2 class="text-personal">Lista Prodotti</h2>
@@ -25,16 +28,17 @@
                 <input type="text" id="cfInput" class="form-control ms-3" style="max-width: 200px;" />
                 <button id="cfBtn" class="btn btn-red ms-3">Cerca</button>
             </div>
-                <div id="cf" class="d-flex justify-content-evenly align-items-center mt-2"></div>
+                <div id="cf" class="mt-2"></div>
         </div>
         <div id="cfDiv"></div>
         </div>
 </div>
 
+
     <div class="form-group mt-5">
-        <label for="filter" class="text-personal mb-2">Filtra per tipo:</label>
-        <select id="filter" class="form-control">
-            <option value="All">Tutti</option>
+            <label for="filter" class="control-label mb-2 text-personal">Filtra per tipo:</label>
+            <select id="filter" class="form-control bg-custom text-light">
+            <option value="" selected disabled>Scegli un opzione</option>
             <option value="Alimento">Alimento</option>
             <option value="Farmaco">Farmaco</option>
         </select>
