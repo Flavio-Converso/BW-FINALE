@@ -177,3 +177,6 @@ btn:active,
         /* Shadow for focus and active state */
         outline: none !important;
     }
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}

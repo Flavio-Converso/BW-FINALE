@@ -6,52 +6,61 @@
     var users = ViewBag.Users as List<Users>;
 }
 
-<h1>Registra Proprietario</h1>
+<link rel="stylesheet" href="~/css/auth.css" />
 
-<form asp-action="CreateOwner" method="post">
-    @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        <label asp-for="Owners.Name" class="control-label">Inserisci Nome Proprietario:</label>
-        <input asp-for="Owners.Name" class="form-control" />
-        <span asp-validation-for="Owners.Name" class="text-danger"></span>
-    </div>
+<div class="row align-items-center justify-content-center">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7">
+        <div class="bg-custom rounded p-5 my-4 mx-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h3 class="text-red">REGISTRAZIONE PROPRIETARIO</h3>
+                <h3 class="text-light">Creazione <i class="fa-solid fa-person text-red"></i></h3>
+            </div>
+            <form asp-action="CreateOwner" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        <label asp-for="Owners.Surname" class="control-label mt-2">Inserisci Cognome Proprietario:</label>
-        <input asp-for="Owners.Surname" class="form-control" />
-        <span asp-validation-for="Owners.Surname" class="text-danger"></span>
-    </div>
+                <div class="form-group">
+                    <label asp-for="Owners.Name" class="control-label mb-1 text-light">Inserisci nome proprietario:</label>
+                    <input asp-for="Owners.Name" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Owners.Name" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Owners.PhoneNumber" class="control-label mt-2">Inserisci Recapito Telefonico:</label>
-        <input asp-for="Owners.PhoneNumber" class="form-control" />
-        <span asp-validation-for="Owners.PhoneNumber" class="text-danger"></span>
-    </div>
+                <div class="form-group">
+                    <label asp-for="Owners.Surname" class="control-label mb-1 text-light">Inserisci cognome proprietario:</label>
+                    <input asp-for="Owners.Surname" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Owners.Surname" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Owners.CF" class="control-label mt-2">Inserisci C.F:</label>
-        <input asp-for="Owners.CF" class="form-control" />
-        <span asp-validation-for="Owners.CF" class="text-danger"></span>
-    </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Owners.PhoneNumber" class="control-label mb-1 text-light mt-2">Inserisci recapito telefonico</label>
+                    <input asp-for="Owners.PhoneNumber" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Owners.PhoneNumber" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="IdUser" class="control-label mt-2">Inserisci Utente Da Associare Al Proprietario:</label>
-        <select asp-for="IdUser" class="form-control">
-            <option disabled selected value="">Seleziona un utente:</option>
-            @foreach (var user in users)
-            {
-                <option value="@user.IdUser">@user.Username</option>
-            }
-        </select>
-        <span asp-validation-for="IdUser" class="text-danger"></span>
-    </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Owners.CF" class="control-label  mb-1 text-light mt-2">Inserisci C.F:</label>
+                    <input asp-for="Owners.CF" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Owners.CF" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="IdUser" class="control-label mb-1 text-light mt-2">Inserisci utente da associare al proprietario:</label>
+                    <select asp-for="IdUser" class="form-control bg-secondary text-light">
+                        <option disabled selected value="">Seleziona un utente:</option>
+                        @foreach (var user in users)
+                        {
+                            <option value="@user.IdUser">@user.Username</option>
+                        }
+                    </select>
+                    <span asp-validation-for="IdUser" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-red mt-2">Crea</button>
-    </div>
-</form>
+                <input type="submit" value="Crea" class="btn btn-red py-3 w-100 my-4 text-white" />
+
+            </form>
+        </div>
         <a asp-action="OwnersList" class="btn btn-blu mt-2">Torna Alla Lista</a>
+    </div>
+</div>
 
 @section Scripts {
     @{

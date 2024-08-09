@@ -7,73 +7,82 @@
     var drawers = ViewBag.Drawers as List<Drawers>;
 }
 
-<h1>Aggiungi Prodotto</h1>
+<link rel="stylesheet" href="~/css/auth.css" />
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateProduct">
-            @Html.AntiForgeryToken()
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label">Inserisci nome prodotto:</label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
+
+<div class="row align-items-center justify-content-center">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7">
+        <div class="bg-custom rounded p-5 my-4 mx-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h3 class="text-red">CREAZIONE PRODOTTO</h3>
+                <h3 class="text-light">Creazione <i class="fa-solid fa-stethoscope text-red"></i></h3>
             </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label mt-2">Inserisci tipo prodotto:</label>
-                <select id="alimentoSelez" asp-for="Type" class="form-control">
-                    <option value="" disabled selected>Seleziona un opzione</option>
-                    <option value="Alimento">Prodotto Alimentare</option>
-                    <option value="Farmaco">Farmaco</option>
-                </select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Use" class="control-label mt-2">Inserisci uso prodotto:</label>
-                <input asp-for="Use" class="form-control" />
-                <span asp-validation-for="Use" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label mt-2">Inserisci quantità:</label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check mt-2">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Availability" />
-                    Disponibile
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Company.IdCompany" class="control-label mt-2">Inserisci compagnia farmaceutica:</label>
-                <select asp-for="Company.IdCompany" class="form-control">
-                    <option value="" disabled selected>Seleziona un opzione</option>
-                    @foreach (var c in companies)
-                    {
-                        <option value="@c.IdCompany">@c.CompanyName</option>
-                    }
-                </select>
-                <span asp-validation-for="Company.IdCompany" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label id="selectDrawer2" asp-for="Drawers.IdDrawer" class="control-label mt-2">Inserisci Cassetto:</label>
-                <select id="selectDrawer" asp-for="Drawers.IdDrawer" class="form-control">
-                    <option value="" disabled selected>Seleziona un opzione</option>
-                    @foreach (var d in drawers)
-                    {
-                        <option value="@d.IdDrawer">@d.IdDrawer (Armadietto: @d.Lockers.NumLocker)</option>
-                    }
-                </select>
-                <span id="selectDrawer3" asp-validation-for="Drawers.IdDrawer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-red mt-2" />
-            </div>
-        </form>
+            <form asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group mt-2">
+                    <label asp-for="ProductName" class="control-label mb-1 text-light">Inserisci nome prodotto:</label>
+                    <input asp-for="ProductName" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Type" class="control-label mb-1 text-light">Inserisci tipo prodotto:</label>
+                    <select id="alimentoSelez" asp-for="Type" class="form-control bg-secondary text-light">
+                        <option value="" disabled selected>Seleziona un opzione</option>
+                        <option value="Alimento">Prodotto Alimentare</option>
+                        <option value="Farmaco">Farmaco</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Use" class="control-label mb-1 text-light">Inserisci uso prodotto:</label>
+                    <input asp-for="Use" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Use" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Quantity" class="control-label mb-1 text-light">Inserisci quantità prodotto:</label>
+                    <input asp-for="Quantity" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check mt-3">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Availability" />
+                        Disponibile
+                    </label>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="Company.IdCompany" class="control-label mb-1 text-light">Inserisci compagnia farmaceutica:</label>
+                    <select asp-for="Company.IdCompany" class="form-control bg-secondary text-light">
+                        <option value="" disabled selected>Seleziona un opzione</option>
+                        @foreach (var c in companies)
+                        {
+                            <option value="@c.IdCompany">@c.CompanyName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Company.IdCompany" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label id="selectDrawer2" asp-for="Drawers.IdDrawer" class="control-label mb-1 text-light">Inserisci Cassetto:</label>
+                    <select id="selectDrawer" asp-for="Drawers.IdDrawer" class="form-control bg-secondary text-light">
+                        <option value="" disabled selected>Seleziona un opzione</option>
+                        @foreach (var d in drawers)
+                        {
+                            <option value="@d.IdDrawer">@d.IdDrawer (Armadietto: @d.Lockers.NumLocker)</option>
+                        }
+                    </select>
+                    <span id="selectDrawer3" asp-validation-for="Drawers.IdDrawer" class="text-danger"></span>
+                </div>
+
+                <input type="submit" value="Crea" class="btn btn-red py-3 w-100 my-4 text-white" />
+
+            </form>
+        </div>
+        <a asp-action="OwnerList" class="btn btn-blu mt-2">Torna Alla Lista</a>
     </div>
 </div>
-<a asp-action="OwnerList" class="btn btn-blu mt-2">Torna Alla Lista</a>
+
+
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

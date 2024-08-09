@@ -7,37 +7,45 @@
     var animal = ViewBag.Animals as List<Animals>;
 }
 
-<h1>Aggiungi Ricovero</h1>
+<link rel="stylesheet" href="~/css/auth.css" />
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateHospitalization" method="post">
-            @Html.AntiForgeryToken()
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="HospDate" class="control-label">Inserisci data ricovero:</label>
-                <input asp-for="HospDate" class="form-control" />
-                <span asp-validation-for="HospDate" class="text-danger"></span>
+
+<div class="row align-items-center justify-content-center">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7">
+        <div class="bg-custom rounded p-5 my-4 mx-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h3 class="text-red">REGISTRAZIONE RICOVERO</h3>
+                <h3 class="text-light">Creazione <i class="fa-solid fa-hospital text-red"></i></h3>
             </div>
-            <div class="form-group">
-                <label asp-for="AnimalId" class="mt-2">Inserisci animale:</label>
-                <select asp-for="AnimalId" class="form-control">
-                    <option value="" selected disabled>Seleziona Animale</option>
-                    @foreach (var a in animal)
-                    {
-                        <option value="@a.IdAnimal">@a.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="AnimalId" class="text-danger"></span>
-            </div>            <div class="form-group">
-                <input type="submit" value="Aggiungi" class="btn btn-red mt-2" />
-            </div>
-        </form>
+            <form asp-action="CreateHospitalization" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group  mt-2">
+                    <label asp-for="HospDate" class="control-label mb-1 text-light">Inserisci data ricovero:</label>
+                    <input asp-for="HospDate" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="HospDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label asp-for="AnimalId" class="control-label mb-1 text-light">Inserisci animale:</label>
+                    <select asp-for="AnimalId" class="form-control bg-secondary text-light">
+                        <option value="" selected disabled>Seleziona Animale</option>
+                        @foreach (var a in animal)
+                        {
+                            <option value="@a.IdAnimal">@a.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="AnimalId" class="text-danger"></span>
+                </div>            
+
+                <input type="submit" value="Crea" class="btn btn-red py-3 w-100 my-4 text-white" />
+
+            </form>
+        </div>
+        <a asp-action="ActiveHospitalizations" class="btn btn-blu mt-2">Torna Alla Lista</a>
     </div>
 </div>
-<a asp-action="ActiveHospitalizations" class="btn btn-blu mt-2">Torna Alla Lista</a>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
