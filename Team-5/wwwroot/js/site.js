@@ -194,13 +194,14 @@ function ProductsFromDate() {
                 data.forEach(order => {
                     
                     list += `
-                        <div class="card my-4">
-                            <div class="card-header">
-                                <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
+                        <div class="table-dark-personal my-4">
+                            <div>
+                                <h2 class="text-red">Nome Farmaco: <span class="text-light"> ${order.product.productName}</span></h2>
                             </div>
-                            <div class="card-body">
-                                <p class="card-text"><strong>Uso:</strong> ${order.product.use}</p>
-                            </div>
+                          
+                                <li class="personal-tr text-light mb-0"><strong>ID:</strong> ${order.product.idProduct}</p>
+                                <li class="personal-tr text-light"><strong>Uso:</strong> ${order.product.use}</p>
+                          
                         </div>`;
                         
                 });
