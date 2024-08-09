@@ -230,19 +230,17 @@ function ProductsFromCF() {
             div.empty();
 
             if (data && data.length > 0) {
-                let list = `<h1 class="mb-4 text-personal">Farmaci per il CF ${cf}:</h1>`;
+                let list = `<h1 class="mt-4 text-personal">Farmaci per il CF ${cf}:</h1>`;
                 data.forEach(order => {
 
                     list += `
                         <div class="card my-4 me-2">
-                            <div class="card-header">
-                                <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Uso: ${order.product.use}</h5>
-                                <p class="card-text"><strong>Data Ordine:</strong> ${order.orderDate}</p>
-                                <p class="card-text"><strong>Quantità:</strong> ${order.orderQuantity}</p>
-                                <p class="card-text"><strong>Num. Prescrizione:</strong> ${order.prescriptionNumber}</p>
+                            <div class="card-header bg-custom">
+                                <h2 class="text-red">Nome Farmaco: <span class="text-personal">${order.product.productName}</span></h2>
+                                <h5 class="card-text text-red"><strong>Uso:</strong> <span class="text-personal">${order.product.use}</span></h5>
+                                <h5 class="card-text text-red"><strong>Data Ordine:</strong> <span class="text-personal">${order.orderDate}</span></h5>
+                                <h5 class="card-text text-red"><strong>Quantità:</strong> <span class="text-personal">${order.orderQuantity}</span></h5>
+                                <h5 class="card-text text-red"><strong>Num. Prescrizione:</strong> <span class="text-personal">${order.prescriptionNumber}</span></h5>
                             </div>
                         </div>
                     `;
@@ -287,6 +285,7 @@ $('#cfBtn').on('click', () => {
     ProductsFromCF();
 })
 
+// Se il valore del cf è minore di 16, svuota il div
 $('#cfInput').on('input', () => {
     let cf = $('#cfInput').val();
     if (cf.length < 16) {
