@@ -67,6 +67,9 @@ main{
         background-color: #CC1617;
     }
 
+.text-red {
+    color: #CC1617 !important;
+}
 .mylink {
     color: #c3c8db;
     text-decoration: none;
