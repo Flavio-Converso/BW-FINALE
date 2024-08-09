@@ -33,7 +33,7 @@
                             <form asp-action="DeleteOrder" asp-controller="Orders" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo ordine?');">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="id" value="@order.IdOrder" />
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-grey">Elimina</button>
                             </form>
                         </td>
                     </tr>
