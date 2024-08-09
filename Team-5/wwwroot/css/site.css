@@ -322,3 +322,21 @@ input[type="date"].form-control:disabled {
         pointer-events: none; 
         font-size: 18px; 
     }
+
+
+
+
+
+/* Optional: Custom styling for the modal */
+.modal-content {
+    background-color: #191C24 !important;
+    color: #fff;
+}
+
+.modal-header {
+    border-bottom: 1px solid #444;
+}
+
+.modal-footer {
+    border-top: 1px solid #444;
+}

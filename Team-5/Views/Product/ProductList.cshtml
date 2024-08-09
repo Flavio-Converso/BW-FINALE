@@ -4,109 +4,121 @@
     ViewData["Title"] = "Product List";
 }
 <link rel="stylesheet" href="~/css/auth.css" />
-
 <h2 class="text-personal">Lista Prodotti</h2>
 
-
 <div class="row">
-        <div class="col mt-5 bg-custom py-3 ">
+    <div class="col mt-5 bg-custom py-3 ">
         <div class="d-flex align-items-center">
-                <h5 class="mb-0 text-personal">Inserisci la data per visualizzare i farmaci venduti:</h5>
-                    <input type="date" id="dateInput" class="form-control bg-secondary text-light ms-3" style="max-width: 200px;" />
-                <button id="dateBtn" class="btn btn-red ms-3">Cerca</button>
-            </div>
-            <div id="date" class="mt-4"></div>
+            <h5 class="mb-0 text-personal">Inserisci la data per visualizzare i farmaci venduti:</h5>
+            <input type="date" id="dateInput" class="form-control bg-secondary text-light ms-3" style="max-width: 200px;" />
+            <button id="dateBtn" class="btn btn-red ms-3">Cerca</button>
         </div>
+        <div id="date" class="mt-4"></div>
+    </div>
 
-
-        <div class="my-4">
-            <div class="d-flex  align-items-center">
-                <h5 class="mb-0 text-personal">Inserisci il CF per visualizzare i farmaci venduti:</h5>
-                <input type="text" id="cfInput" class="form-control ms-3" style="max-width: 200px;" />
-                <button id="cfBtn" class="btn btn-red ms-3">Cerca</button>
-            </div>
-                <div id="cf" class="d-flex justify-content-evenly align-items-center mt-2"></div>
+    <div class="my-4">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0 text-personal">Inserisci il CF per visualizzare i farmaci venduti:</h5>
+            <input type="text" id="cfInput" class="form-control ms-3" style="max-width: 200px;" />
+            <button id="cfBtn" class="btn btn-red ms-3">Cerca</button>
         </div>
-        <div id="cfDiv"></div>
+        <div id="cf" class="d-flex justify-content-evenly align-items-center mt-2"></div>
+    </div>
+    <div id="cfDiv"></div>
 </div>
 
+<div class="form-group mt-5">
+    <label for="filter" class="text-personal mb-2">Filtra per tipo:</label>
+    <select id="filter" class="form-control">
+        <option value="All">Tutti</option>
+        <option value="Alimento">Alimento</option>
+        <option value="Farmaco">Farmaco</option>
+    </select>
+</div>
 
-    <div class="form-group mt-5">
-        <label for="filter" class="text-personal mb-2">Filtra per tipo:</label>
-        <select id="filter" class="form-control">
-            <option value="All">Tutti</option>
-            <option value="Alimento">Alimento</option>
-            <option value="Farmaco">Farmaco</option>
-        </select>
-    </div>
 <div class="my-4">
-
-
-        <table class="table table-dark-personal">
-    <thead class="personal-tr">
-        <tr class="personal-tr p-2">
-                    <th scope="col">
-                Id. Prodotto
-            </th>
-            <th scope="col">
-                Nome Prodotto
-            </th>
-            <th scope="col">
-                Tipo Prodotto
-            </th>
-            <th scope="col">
-                Uso
-            </th>
-            <th scope="col">
-                Quantità
-            </th>
-            <th scope="col">
-                Disponibilità
-            </th>
-            <th scope="col">
-                Compagnia Farmaceutica
-            </th>
-            <th scope="col">
-                Azioni
-            </th>
-        </tr>
-    </thead>
-    <tbody class="p-2">
-        @foreach (var item in Model)
-        {
-            <tr class="prow" data-type="@item.Type" style="cursor:pointer">
-                <td id="idProduct" value="@item.IdProduct">
-                    @item.IdProduct
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Use)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td class="checkboxHelper">
-                    @Html.DisplayFor(modelItem => item.Availability)
-                            <span></span>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
-                </td>
-                <td>
-                    <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?')">
-                        @Html.AntiForgeryToken()
-                        <input type="hidden" value="@item.IdProduct" name="id" />
-                        <button type="submit" class="btn btn-grey">Elimina</button>
-                    </form>
-                </td>
+    <table class="table table-dark-personal">
+        <thead class="personal-tr">
+            <tr class="personal-tr p-2">
+                <th scope="col">
+                    Id. Prodotto
+                </th>
+                <th scope="col">
+                    Nome Prodotto
+                </th>
+                <th scope="col">
+                    Tipo Prodotto
+                </th>
+                <th scope="col">
+                    Uso
+                </th>
+                <th scope="col">
+                    Quantità
+                </th>
+                <th scope="col">
+                    Disponibilità
+                </th>
+                <th scope="col">
+                    Compagnia Farmaceutica
+                </th>
+                <th scope="col">
+                    Azioni
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
-<div id="printLocker"></div>
+        </thead>
+        <tbody class="p-2">
+            @foreach (var item in Model)
+            {
+                <tr class="prow" data-type="@item.Type" style="cursor:pointer">
+                    <td id="idProduct" value="@item.IdProduct">
+                        @item.IdProduct
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Use)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td class="checkboxHelper">
+                        @Html.DisplayFor(modelItem => item.Availability)
+                        <span></span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                    </td>
+                    <td>
+                        <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?')">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" value="@item.IdProduct" name="id" />
+                            <button type="submit" class="btn btn-grey">Elimina</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div id="printLocker"></div>
+</div>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-red" id="detailsModalLabel">Dettagli Cassetto</h4>               
+            </div>
+            <div class="modal-body" id="modalBodyContent">
+                <!-- Drawer details will be injected here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-red" data-bs-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
 </div>
