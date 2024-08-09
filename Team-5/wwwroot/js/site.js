@@ -96,32 +96,34 @@ function FindLockers(idProduct) {
         method: 'GET',
         success: (data) => {
             console.log("Success", data);
-            let div = $('#printLocker');
-            div.empty();
+            let modalBody = $('#modalBodyContent');
+            modalBody.empty(); 
+
             if (data) {
                 let productLocker = `
-                        <div class="table-dark-personal mb-2">
-                            <div>
-                                <h2 class="text-red mb-0">Dettagli Cassetto</h2>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="personal-tr text-light"><strong >ID cassetto:</strong> ${data.drawers.idDrawer}</li>
-                                    <li class="personal-tr text-light"><strong>ID armadietto:</strong> ${data.drawers.lockerId}</li>
-                                </ul>
-                            </div>
+                    <div class="my-bg mb-2">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="personal-tr text-light"><strong>ID cassetto:</strong> ${data.drawers.idDrawer}</li>
+                                <li class="personal-tr text-light"><strong>ID armadietto:</strong> ${data.drawers.lockerId}</li>
+                            </ul>
                         </div>
-                    `;
-                div.append(productLocker);
+                    </div>
+                `;
+                modalBody.append(productLocker);
             } else {
-                div.append($(`<h1 class="mb-4">Nessun prodotto trovato con l'id: ${idProduct}</h1>`));
+                modalBody.append($(`<h1 class="mb-4">Nessun prodotto trovato con l'id: ${idProduct}</h1>`));
             }
+
+            // Show the modal
+            $('#detailsModal').modal('show');
         },
         error: (err) => {
             console.error("Error", err);
         }
     });
 }
+
 
 
 //
@@ -194,13 +196,14 @@ function ProductsFromDate() {
                 data.forEach(order => {
                     
                     list += `
-                        <div class="card my-4">
-                            <div class="card-header">
-                                <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
+                        <div class="table-dark-personal my-4">
+                            <div>
+                                <h2 class="text-red">Nome Farmaco: <span class="text-light"> ${order.product.productName}</span></h2>
                             </div>
-                            <div class="card-body">
-                                <p class="card-text"><strong>Uso:</strong> ${order.product.use}</p>
-                            </div>
+                          
+                                <li class="personal-tr text-light mb-0"><strong>ID:</strong> ${order.product.idProduct}</p>
+                                <li class="personal-tr text-light"><strong>Uso:</strong> ${order.product.use}</p>
+                          
                         </div>`;
                         
                 });
