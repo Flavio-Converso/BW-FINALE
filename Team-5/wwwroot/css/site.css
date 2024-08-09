@@ -293,3 +293,30 @@ tbody > tr:hover {
 .bg-personal {
     background-color: #191C24;
 }
+
+
+
+.form-group {
+    position: relative; /* Allows absolute positioning of the "X" */
+}
+
+/* Styling for the input */
+input[type="date"].form-control:disabled {
+    padding-right: 30px; /* Make space for the "X" */
+    background-color: #e0e0e0; /* Light grey for visibility */
+    border-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+    /* Styling the pseudo-element for the "X" */
+    input[type="date"].form-control:disabled::after {
+        content: '✖'; /* Unicode for the "X" character */
+        color: #CC1617; /* Red color for the "X" */
+        position: absolute; /* Absolute positioning */
+        right: 20px; /* Distance from the right edge */
+        top: 70%; /* Center vertically */
+        transform: translateY(-50%); /* Center adjustment */
+        pointer-events: none; /* Ignore pointer events */
+        font-size: 18px; /* Adjust size if needed */
+    }
