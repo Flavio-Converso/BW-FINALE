@@ -150,6 +150,9 @@ btn:active,
 }
 /*DELETE BUTTON - TASTO ELIMINA*/
 
+
+/* TABLE */
+
 .table-dark-personal {
     background-color: #191C24;
     border-left: 1px solid #818283 !important;
@@ -198,6 +201,8 @@ tbody > tr:hover {
     background-color: #4a4e63 !important;
     transition: 0.5s;
 }
+
+/*************************/
 
 .btn-blu {
     color: white !important;
@@ -276,3 +281,15 @@ tbody > tr:hover {
     background-color:#191C24;
 }
 
+
+
+/* CERCA ANIMALE */
+
+.text-personal {
+    color: #C3C8DB;
+}
+
+
+.bg-personal {
+    background-color: #191C24;
+}
