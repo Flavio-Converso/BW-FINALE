@@ -14,11 +14,11 @@ function countByMicroChip() {
             div.empty();
             if (data.length > 0) {
                 data.forEach(animal => {
-                    let animalDetails = `<h1 class="mb-4">Animale per numero di microchip: ${microchip}:</h1>`;
-                    animalDetails += `<p>Nome: <span class="text-danger">${animal.name}</span></p>`;
-                    animalDetails += `<p>Data Registrazione: <span class="text-danger">${animal.registrationDate}</span></p>`;
-                    animalDetails += `<p>Data Di Nascita: <span class="text-danger">${animal.birthDate}</span></p>`;
-                    animalDetails += `<p>Colore: <span class="text-danger">${animal.color}</span></p>`;
+                    let animalDetails = `<h1 class="mb-4 text-personal">Animale per numero di microchip: ${microchip}</h1>`;
+                    animalDetails += `<p class="text-personal">Nome: <span class="text-danger">${animal.name}</span></p>`;
+                    animalDetails += `<p class="text-personal">Data Registrazione: <span class="text-danger">${animal.registrationDate}</span></p>`;
+                    animalDetails += `<p class="text-personal">Data Di Nascita: <span class="text-danger">${animal.birthDate}</span></p>`;
+                    animalDetails += `<p class="text-personal">Colore: <span class="text-danger">${animal.color}</span></p>`;
                     animalDetails += `<img src="data:image/jpeg;base64,${animal.image}" alt="Immagine di ${animal.name}" style="max-width: 200px; max-height: 200px;" />`;
                     if (animal.isHospitalized) {
                         animalDetails += `<p>Ricovero: <span class="text-success">Ricoverato</span></p>`;
@@ -190,11 +190,11 @@ function ProductsFromDate() {
             div.empty(); 
 
             if (data && data.length > 0) {
-                let list = `<h1 class="mb-4">Farmaci venduti il giorno ${date}:</h1>`;
+                let list = `<h1 class="mb-4 text-personal">Farmaci venduti il giorno ${date}:</h1>`;
                 data.forEach(order => {
                     
                     list += `
-                        <div class="card mb-4">
+                        <div class="card my-4">
                             <div class="card-header">
                                 <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
                             </div>
@@ -206,7 +206,7 @@ function ProductsFromDate() {
                 });
                 div.append(list);
             } else {
-                div.append(`<h1 class="mb-4">Nessun farmaco trovato per il giorno ${date}</h1>`);
+                div.append(`<h1 class="mb-4 text-personal">Nessun farmaco trovato per il giorno ${date}</h1>`);
             }
         },
         error: (err) => {
@@ -229,11 +229,11 @@ function ProductsFromCF() {
             div.empty();
 
             if (data && data.length > 0) {
-                let list = `<h1 class="mb-4">Farmaci per il cf ${cf}:</h1>`;
+                let list = `<h1 class="mb-4 text-personal">Farmaci per il cf ${cf}:</h1>`;
                 data.forEach(order => {
 
                     list += `
-                        <div class="card mb-4">
+                        <div class="card my-4 me-2">
                             <div class="card-header">
                                 <h2 class="text-danger">Nome Farmaco: ${order.product.productName}</h2>
                             </div>
