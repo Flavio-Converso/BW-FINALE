@@ -14,7 +14,7 @@ namespace Team_5.Models.Clinic
         [StringLength(50)]
         public required string Name { get; set; }
 
-        [Required(ErrorMessage = "La data di registrazione è obbligatoria.")] 
+        [Required(ErrorMessage = "La data di registrazione è obbligatoria.")]
         public required DateTime RegistrationDate { get; set; }
 
         [Required(ErrorMessage = "La data di nascita è obbligatoria.")]
@@ -26,7 +26,7 @@ namespace Team_5.Models.Clinic
 
         public byte[]? Image { get; set; }
 
-        [Required(ErrorMessage ="Il colore dell'animale è obbligatorio.")]
+        [Required(ErrorMessage = "Il colore dell'animale è obbligatorio.")]
         [StringLength(20)]
         public required string Color { get; set; }
 

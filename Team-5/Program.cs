@@ -18,7 +18,7 @@ builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Auth/Register";
+        options.LoginPath = "/Auth/Login";
         options.AccessDeniedPath = "/Home/AccessDenied";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
         options.SlidingExpiration = true;
@@ -41,6 +41,18 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim(ClaimTypes.Role, "admin"); // [Authorize(Policy = "AdminPolicy")]
     });
 
+    //Farmacista Policy
+    options.AddPolicy("FarmacPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "farmacista"); // [Authorize(Policy = "FarmacPolicy")]
+    });
+
+    //Veterinario Policy
+    options.AddPolicy("VetPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "veterinario"); // [Authorize(Policy = "VetPolicy")]
+    });
+
 });
 
 
@@ -51,7 +63,7 @@ builder.Services
     .AddScoped<IAnimalsService, AnimalsService>()
     .AddScoped<IBreedsService, BreedsService>()
     .AddScoped<IExaminationService, ExaminationService>()
-    .AddScoped<IOwnerService, OwnerService>()
+    .AddScoped<IOwnersService, OwnersService>()
     .AddScoped<IOrdersService, OrdersService>()
     .AddScoped<IHospitalizationService, HospitalizationService>()
     .AddScoped<IProductService, ProductService>();

@@ -6,63 +6,79 @@
     var breeds = ViewBag.Breeds as List<Breeds>;
 }
 
-<h1>Crea Animale e Ricovero</h1>
 
-<form asp-action="CreateAnimalAndHospitalization" method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken()
-    @* Animal Details *@
-    <h3>Dettagli Animale</h3>
-    <div class="form-group">
-        <label asp-for="Animal.Name" class="control-label mt-2">Inserisci nome Animale:</label>
-        <input asp-for="Animal.Name" class="form-control" />
-        <span asp-validation-for="Animal.Name" class="text-danger"></span>
-    </div>
+<link rel="stylesheet" href="~/css/auth.css" />
 
-    <div class="form-group">
-        <label asp-for="Animal.NumMicrochip" class="control-label mt-2">Inserisci N.Microchip:</label>
-        <input asp-for="Animal.NumMicrochip" class="form-control" />
-        <span asp-validation-for="Animal.NumMicrochip" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Animal.Color" class="control-label mt-2">Inserisci colore animale:</label>
-        <select asp-for="Animal.Color" class="form-control">
-            <option value="" disabled selected>Seleziona un colore</option>
-            <option value="Black">Nero</option>
-            <option value="White">Bianco</option>
-            <option value="Brown">Marrone</option>
-            <option value="Gray">Grigio</option>
-            <option value="Orange">Arancione</option>
-            <option value="Spotted">Maculato</option>
-            <option value="Striped">Tigrato</option>
-        </select>
-        <span asp-validation-for="Animal.Color" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Animal.BirthDate" class="control-label mt-2">Inserisci data di nascita:</label>
-        <input asp-for="Animal.BirthDate" type="date" class="form-control" />
-        <span asp-validation-for="Animal.BirthDate" class="text-danger"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="IdBreed" class="mt-2">Inserisci razza animale:</label>
-        <select asp-for="IdBreed" class="form-control">
-            <option value="">Seleziona Razza</option>
-            @foreach (var breed in breeds)
-            {
-                <option value="@breed.IdBreed">@breed.Name</option>
-            }
-        </select>
-        <span asp-validation-for="IdBreed" class="text-danger"></span>
+<div class="row align-items-center justify-content-center">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7">
+        <div class="bg-custom rounded p-5 my-4 mx-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h3 class="text-red">REGISTRAZIONE RICOVERO E ANIMALE</h3>
+                <h3 class="text-light">Creazione <i class="fa-solid fa-hospital text-red"></i><i class="fa-solid fa-dog text-red ms-2"></i></h3>
+            </div>
+            <form asp-action="CreateAnimalAndHospitalization" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group  mt-2">
+                    <label asp-for="Animal.Name" class="control-label mb-1 text-light">Inserisci nome animale:</label>
+                    <input asp-for="Animal.Name" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Animal.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group  mt-2">
+                    <label asp-for="Animal.NumMicrochip" class="control-label mb-1 text-light">Inserisci num. microchip:</label>
+                    <input asp-for="Animal.NumMicrochip" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Animal.NumMicrochip" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Animal.Color" class="control-label mb-1 text-light">Inserisci colore animale:</label>
+                    <select asp-for="Animal.Color" class="form-control bg-secondary text-light">
+                        <option value="" disabled selected>Seleziona un colore</option>
+                        <option value="Black">Nero</option>
+                        <option value="White">Bianco</option>
+                        <option value="Brown">Marrone</option>
+                        <option value="Gray">Grigio</option>
+                        <option value="Orange">Arancione</option>
+                        <option value="Spotted">Maculato</option>
+                        <option value="Striped">Tigrato</option>
+                    </select>
+                    <span asp-validation-for="Animal.Color" class="text-danger"></span>
+                </div>
+                <div class="form-group  mt-2">
+                    <label asp-for="Animal.BirthDate" class="control-label mb-1 text-light">Inserisci data di nascita:</label>
+                    <input asp-for="Animal.BirthDate" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Animal.BirthDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdBreed" class="control-label mb-1 text-light">Inserisci razza animale:</label>
+                    <select asp-for="IdBreed" class="form-control bg-secondary text-light">
+                        <option value="" selected disabled>Seleziona Razza</option>
+                        @foreach (var breed in breeds)
+                        {
+                            <option value="@breed.IdBreed">@breed.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="IdBreed" class="text-danger"></span>
+                </div>
+
+                <div class="form-group my-3">
+                    <div class="d-flex align-items-center">
+                        <label asp-for="Image" class="control-label mb-1 text-light mt-2">Inserisci immagine:</label>
+                        <div class="custom-file-upload ms-3">
+                            <input asp-for="Image" type="file" id="fileInput" />
+                            <label for="fileInput" class="btn btn-primary">Scegli file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Crea" class="btn btn-red py-3 w-100 my-4 text-white" />
+
+            </form>
+        </div>
+        <a asp-action="ActiveHospitalizations" class="btn btn-blu mt-2">Torna Alla Lista</a>
     </div>
-
-    <div class="form-group mt-2">
-        <label for="Image">Inserisci immagine:</label>
-        <input type="file" id="Image" name="Image" class="form-control" />
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-2">Invia</button>
-</form>
-
+</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

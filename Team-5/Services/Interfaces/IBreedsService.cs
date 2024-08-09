@@ -8,6 +8,6 @@ namespace Team_5.Services.Interfaces
         public Task<List<Breeds>> GetAllBreedsAsync();
         public Task<Breeds> GetBreedByIdAsync(int id);
 
-      
+
     }
 }

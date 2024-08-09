@@ -6,49 +6,57 @@
     var animals = ViewBag.Animals as List<Animals>;
 }
 
-<h1>Aggiungi Visita</h1>
+<link rel="stylesheet" href="~/css/auth.css" />
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateExamination">
-            @Html.AntiForgeryToken()
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ExaminationDate" class="control-label">Inserisci data visita:</label>
-                <input asp-for="ExaminationDate" class="form-control" />
-                <span asp-validation-for="ExaminationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExaminationName" class="control-label mt-3">Inserisci informazioni visita:</label>
-                <input asp-for="ExaminationName" class="form-control" />
-                <span asp-validation-for="ExaminationName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Treatment" class="control-label mt-3">Inserisci informazioni trattamento:</label>
-                <input asp-for="Treatment" class="form-control" />
-                <span asp-validation-for="Treatment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AnimalId" class="control-label mt-3">Seleziona l'animale per il visita:</label>
-                <select id="pastVisits" asp-for="AnimalId" class="form-control">
-                    <option value="" disabled selected>Seleziona un opzione</option>
-                    @foreach(var a in animals)
-                    {
-                        <option value="@a.IdAnimal">@a.Name</option>
 
-                    }
-                </select>
-                <span asp-validation-for="AnimalId" class="text-danger"></span>
+<div class="row align-items-center justify-content-center">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7">
+        <div class="bg-custom rounded p-5 my-4 mx-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h3 class="text-red">REGISTRAZIONE VISITA</h3>
+                <h3 class="text-light">Creazione <i class="fa-solid fa-calendar-days text-red"></i></h3>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary mt-3" />
-            </div>
-        </form>
+            <form asp-action="CreateExamination" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group  mt-2">
+                    <label asp-for="ExaminationDate" class="control-label mb-1 text-light">Inserisci data visita:</label>
+                    <input asp-for="ExaminationDate" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="ExaminationDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group  mt-2">
+                    <label asp-for="ExaminationName" class="control-label mb-1 text-light">Inserisci informazioni visita:</label>
+                    <input asp-for="ExaminationName" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="ExaminationName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label asp-for="Treatment" class="control-label mb-1 text-light mt-2">Inserisci informazioni trattamento:</label>
+                    <input asp-for="Treatment" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="Treatment" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label asp-for="AnimalId" class="control-label  mb-1 text-light mt-2">Seleziona l'animale per il visita:</label>
+                    <select id="pastVisits" asp-for="AnimalId" class="form-control bg-secondary text-light">
+                        <option value="" disabled selected>Seleziona un opzione</option>
+                        @foreach (var a in animals)
+                        {
+                            <option value="@a.IdAnimal">@a.Name</option>
+
+                        }
+                    </select>
+                    <span asp-validation-for="AnimalId" class="text-danger"></span>
+                </div>
+
+                <input type="submit" value="Crea" class="btn btn-red py-3 w-100 my-4 text-white" />
+
+            </form>
+        </div>
+        <a asp-action="ExaminationList" class="btn btn-blu mt-2">Torna Alla Lista</a>
     </div>
-</div>
-<div id="examinationsList" class="mt-3">
-  
 </div>
 @section Scripts {
     @{

@@ -28,7 +28,7 @@ namespace Team_5.Models.Clinic
         //RIFERIMENTI EF
 
         [Required(ErrorMessage = "Lo user è obbligatorio.")]
-        public required Users User { get; set; }
+        public Users User { get; set; }
 
     }
 }

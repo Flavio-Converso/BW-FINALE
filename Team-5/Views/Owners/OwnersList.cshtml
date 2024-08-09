@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Team_5.Models.Clinic.Owners>
+
+@{
+    ViewData["Title"] = "Owners List";
+}
+
+
+<div class="row">
+    <div class="col">
+        <h1 class="text-light">Lista Proprietari</h1>
+        <hr />
+
+        <table class="table table-dark-personal">
+            <thead class="personla-tr">
+                <tr class="personla-tr">
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cognome</th>
+                    <th scope="col">Num. Telefono</th>
+                    <th scope="col">CF</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Azioni</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var owner in Model)
+                {
+                    <tr>
+                        <td>@owner.Name</td>
+                        <td>@owner.Surname</td>
+                        <td>@owner.PhoneNumber</td>
+                        <td>@owner.CF</td>
+                        <td>@owner.User.Username</td>
+                        <td>
+                            <form asp-action="DeleteOwner" method="post">
+                                <input type="hidden" value="@owner.IdOwner" name="id" />
+                                <button type="submit" class="btn btn-grey">Elimina</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

@@ -6,48 +6,51 @@
     var product = ViewBag.Products as List<Products>;
 }
 
-<h1>Aggiungi Ordine</h1>
+<link rel="stylesheet" href="~/css/auth.css" />
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateOrder">
-            @Html.AntiForgeryToken()
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="OrderQuantity" class="control-label">Inserisci quantità:</label>
-                <input asp-for="OrderQuantity" class="form-control" />
-                <span asp-validation-for="OrderQuantity" class="text-danger"></span>
+<div class="row align-items-center justify-content-center">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-8 col-xl-7">
+        <div class="bg-custom rounded p-5 my-4 mx-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h3 class="text-red">REGISTRAZIONE ORDINE</h3>
+                <h3 class="text-light">Creazione <i class="fa-solid fa-box text-red"></i></h3>
             </div>
-            <div class="form-group">
-                <label for="cf" class="control-label mt-2">Inserisci codice fiscale:</label>
-                <input name="cf" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderDate" class="control-label mt-2">Inserisci data ordine:</label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrescriptionNumber" class="control-label mt-2">Inserisci num. ricetta medica:</label>
-                <input asp-for="PrescriptionNumber" class="form-control" />
-                <span asp-validation-for="PrescriptionNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdProduct" class="mt-2">Inserisci prodotto:</label>
-                <select asp-for="IdProduct" class="form-control">
-                    <option value="">Seleziona il prodotto</option>
-                    @foreach (var pr in product)
-                    {
-                        <option value="@pr.IdProduct">@pr.ProductName</option>
-                    }
-                </select>
-                <span asp-validation-for="IdProduct" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Aggiungi" class="btn btn-primary mt-2" />
-            </div>
-        </form>
+            <form asp-action="CreateOrder" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label asp-for="OrderQuantity" class="control-label mb-1 text-light">Inserisci quantità:</label>
+                    <input asp-for="OrderQuantity" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="OrderQuantity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="cf" class="control-label mb-1 text-light">Inserisci codice fiscale:</label>
+                    <input name="cf" class="form-control bg-secondary text-light" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderDate" class="control-label mb-1 text-light">Inserisci data ordine:</label>
+                    <input asp-for="OrderDate" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="OrderDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PrescriptionNumber" class="control-label mb-1 text-light">Inserisci num. ricetta medica:</label>
+                    <input asp-for="PrescriptionNumber" class="form-control bg-secondary text-light" />
+                    <span asp-validation-for="PrescriptionNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdProduct" class="control-label mb-1 text-light">Inserisci prodotto:</label>
+                    <select asp-for="IdProduct" class="form-control bg-secondary text-light">
+                        <option value="" selected disabled>Seleziona il prodotto</option>
+                        @foreach (var pr in product)
+                        {
+                            <option value="@pr.IdProduct">@pr.ProductName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="IdProduct" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Crea" class="btn btn-red py-3 w-100 my-4 text-white" />
+            </form>
+        </div>
+        <a asp-action="OrderList" class="btn btn-blu mt-2">Torna Alla Lista</a>
     </div>
 </div>
-

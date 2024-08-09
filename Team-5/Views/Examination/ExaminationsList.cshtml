@@ -4,15 +4,19 @@
     ViewData["Title"] = "Lista delle Visite";
 }
 
-<h2>Lista delle Visite</h2>
+<div class="row">
+    <div class="col">
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Data della Visita</th>
-            <th>Nome della Visita</th>
-            <th>Trattamento</th>
-            <th>Animale</th>
+<h2 class="text-light">Lista delle Visite</h2>
+
+<table class="table table-dark-personal">
+            <thead class="personal-tr">
+                <tr class="personal-tr">
+            <th  scope="col">Data della Visita</th>
+            <th  scope="col">Nome della Visita</th>
+            <th  scope="col">Trattamento</th>
+            <th  scope="col">Animale</th>
+            <th  scope="col">Azioni</th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +31,7 @@
                     <form asp-action="DeleteExamination" asp-controller="Examination" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo esame?');">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@esame.IdExamination" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-grey">Elimina</button>
                     </form>
                 </td>
 
@@ -35,3 +39,5 @@
         }
     </tbody>
 </table>
+</div>
+</div>

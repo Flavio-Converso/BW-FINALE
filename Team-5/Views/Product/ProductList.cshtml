@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Product List";
 }
-
+<div class="row">
+    <div class="col">
 <h2>Lista Prodotti</h2>
 <div class="form-group">
     <label for="filter">Filtra per tipo:</label>
@@ -35,36 +36,36 @@
 <div id="cfDiv"></div>
 
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
+        <table class="table table-dark-personal">
+    <thead class="personal-tr">
+        <tr class="personal-tr p-2">
+                    <th scope="col">
                 Id. Prodotto
             </th>
-            <th>
+            <th scope="col">
                 Nome Prodotto
             </th>
-            <th>
+            <th scope="col">
                 Tipo Prodotto
             </th>
-            <th>
+            <th scope="col">
                 Uso
             </th>
-            <th>
+            <th scope="col">
                 Quantità
             </th>
-            <th>
+            <th scope="col">
                 Disponibilità
             </th>
-            <th>
+            <th scope="col">
                 Compagnia Farmaceutica
             </th>
-            <th>
+            <th scope="col">
                 Azioni
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="p-2">
         @foreach (var item in Model)
         {
             <tr class="prow" data-type="@item.Type" style="cursor:pointer">
@@ -83,8 +84,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
-                <td>
+                <td class="checkboxHelper">
                     @Html.DisplayFor(modelItem => item.Availability)
+                            <span></span>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Company.CompanyName)
@@ -93,7 +95,7 @@
                     <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto?')">
                         @Html.AntiForgeryToken()
                         <input type="hidden" value="@item.IdProduct" name="id" />
-                        <button type="submit" class="btn btn-danger">Elimina</button>
+                        <button type="submit" class="btn btn-grey">Elimina</button>
                     </form>
                 </td>
             </tr>
@@ -101,3 +103,5 @@
     </tbody>
 </table>
 <div id="printLocker"></div>
+</div>
+</div>

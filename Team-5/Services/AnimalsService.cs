@@ -10,9 +10,9 @@ namespace Team_5.Services
     {
         private readonly DataContext _ctx;
         private readonly IBreedsService _breedSvc;
-        private readonly IOwnerService _ownerSvc;
+        private readonly IOwnersService _ownerSvc;
 
-        public AnimalsService(DataContext dataContext, IBreedsService breedsService, IOwnerService ownerService)
+        public AnimalsService(DataContext dataContext, IBreedsService breedsService, IOwnersService ownerService)
         {
             _ctx = dataContext;
             _breedSvc = breedsService;
@@ -85,7 +85,7 @@ namespace Team_5.Services
         {
 
             return await _ctx.Animals
-                    .Include(a => a.Hospitalization) 
+                    .Include(a => a.Hospitalization)
                     .Where(a => a.NumMicrochip == microchipId)
                     .ToListAsync();
 
@@ -104,12 +104,12 @@ namespace Team_5.Services
             var animal = await _ctx.Animals.FindAsync(animalId);
             if (animal == null)
             {
-                return false; 
+                return false;
             }
 
             _ctx.Animals.Remove(animal);
             await _ctx.SaveChangesAsync();
-            return true; 
+            return true;
         }
     }
 }
