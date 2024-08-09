@@ -162,7 +162,7 @@ $(document).ready(function () {
 
         if (selectedValue === "Alimento") {
             drawerSelect.prop('disabled', true);
-            drawerSelect[0].selectedIndex = 0;
+            drawerSelect.hide();
             drawerSelect2.hide();
             drawerValidation.hide();
         } else {
