@@ -95,3 +95,51 @@ body {
     }
 /*DELETE BUTTON - TASTO ELIMINA*/
 
+.table-dark-personal {
+    background-color: #191C24;
+    border-left: 1px solid #818283 !important;
+    border-right: 1px solid #818283 !important;
+    border-top: 1px solid #818283 !important;
+    border-collapse: separate; /* Usa separate per mantenere la rotondità dei bordi */
+    border-radius: 12px; /* Arrotonda i bordi della tabella */
+    border-spacing: 0; /* Rimuove gli spazi tra i td */
+    padding: 15px 20px 20px 20px !important;
+}
+
+hr {
+    color: white !important;
+}
+
+/* Arrotonda il bordo superiore sinistro e destro del primo tr nel thead */
+.table-dark-personal thead tr:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+/* Arrotonda il bordo inferiore sinistro e destro dell'ultimo tr nel tbody */
+.table-dark-personal tbody tr:last-child {
+    border-radius: 0 0 12px 12px;
+}
+
+/* Applica il bordo solo al tbody */
+.table-dark-personal tbody tr {
+    border-bottom: 1px solid #818283 !important;
+}
+
+/* Rimuovi il bordo dal thead */
+.table-dark-personal thead tr, .table-dark-personal thead th {
+    border-bottom: none !important;
+}
+
+/* Rimuovi qualsiasi bordo dai tr specifici */
+.personal-tr {
+    border-style: none !important;
+}
+
+th, td, tr {
+    color: #C3C8DB !important;
+}
+
+tbody > tr:hover {
+    background-color: #4a4e63 !important;
+    transition: 0.5s;
+}

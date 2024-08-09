@@ -3,12 +3,14 @@
 @{
     ViewData["Title"] = "Lista Animali";
 }
+<div class="row">
+    <div class="col">
+<h2 class="text-light">Lista Animali</h2>
+<hr />
 
-<h2>Lista Animali</h2>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
+<table class="table table-dark-personal">
+    <thead class="personal-tr">
+        <tr class="personal-tr p-2">
             <th scope="col">Nome</th>
             <th scope="col">Data di Registrazione</th>
             <th scope="col">Data di Nascita</th>
@@ -20,7 +22,7 @@
             <th scope="col">Azioni</th> 
         </tr>
     </thead>
-    <tbody>
+    <tbody class="p-2">
         @foreach (var animal in Model)
         {
             <tr>
@@ -52,3 +54,5 @@
         }
     </tbody>
 </table>
+    </div>
+</div>
